@@ -21,8 +21,27 @@ const App = () => {
   Event Handlers
   ------------*/
 
-  const onSearchPress = () => {
-    // API call
+  const onSearchPress = async () => {
+    if (query) {
+      try {
+        const response = await fetch(
+          `https://mygene.info/v3/query?q=${query}&fields=symbol,alias,summary,name,ensembl.gene&species=human`
+        );
+        let data = await response.json();
+        data = data.hits[0];
+
+        const apiResult: QueryResult = {
+          geneName: data.name,
+          geneAlternateNames: data.alias,
+          geneEnsemblID: data.ensembl.gene,
+          geneSummary: data.summary,
+        };
+
+        setQueryResult(apiResult);
+      } catch (error) {
+        console.error("Error fetching gene data: ", error);
+      }
+    }
   };
 
   return (

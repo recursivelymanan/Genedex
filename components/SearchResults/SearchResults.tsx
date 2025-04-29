@@ -8,7 +8,7 @@ interface SearchResultsProps {
 
 const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
   const displayQueryResult = (): string => {
-    return "Sample Result";
+    return results.geneSummary;
   };
   return (
     <View>
