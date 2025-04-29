@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Button } from "react-native";
+import { StyleSheet, View, Button, Text } from "react-native";
 import { QueryResult } from "./types/QueryResult";
 import GeneSearch from "./components/GeneSearch/GeneSearch";
 import SearchResults from "./components/SearchResults/SearchResults";
@@ -16,6 +16,7 @@ const App = () => {
     geneEnsemblID: "",
     geneSummary: "Hello",
   });
+  const [error, setError] = useState<string | null>(null);
 
   /*------------
   Event Handlers
@@ -37,9 +38,11 @@ const App = () => {
           geneSummary: data.summary,
         };
 
+        setError(null);
         setQueryResult(apiResult);
       } catch (error) {
         console.error("Error fetching gene data: ", error);
+        setError("Invalid gene symbol, please try again.");
       }
     }
   };
@@ -49,7 +52,11 @@ const App = () => {
       <View style={styles.container}>
         <GeneSearch query={query} onChangeQuery={setQuery} />
         <Button onPress={onSearchPress} title="Search" />
-        <SearchResults results={queryResult} />
+        {error ? (
+          <Text>{error as string}</Text>
+        ) : (
+          <SearchResults results={queryResult} />
+        )}
       </View>
     </>
   );
