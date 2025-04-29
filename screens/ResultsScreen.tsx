@@ -11,7 +11,7 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
   /*----------------
   States & Constants
   ----------------*/
-  const { query } = route.params;
+  const { query, onValidResult } = route.params;
   const [queryResult, setQueryResult] = useState<QueryResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -47,6 +47,7 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
           geneSummary: data.summary,
         };
 
+        onValidResult(query);
         setError(null);
         setQueryResult(apiResult);
       } catch (error) {
