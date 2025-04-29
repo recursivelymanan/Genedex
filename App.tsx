@@ -1,6 +1,5 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import { StyleSheet, View, Button } from "react-native";
 import { QueryResult } from "./types/QueryResult";
 import GeneSearch from "./components/GeneSearch/GeneSearch";
 import SearchResults from "./components/SearchResults/SearchResults";
