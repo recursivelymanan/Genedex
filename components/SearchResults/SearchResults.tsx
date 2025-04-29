@@ -7,12 +7,23 @@ interface SearchResultsProps {
 }
 
 const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
-  const displayQueryResult = (): string => {
-    return results.geneSummary;
+  const displayQueryResult = (): string[][] => {
+    return [
+      [results.geneSymbol],
+      [results.geneName],
+      results.geneAlternateNames,
+      [results.geneSummary],
+    ];
   };
   return (
     <View>
-      <Text>{displayQueryResult()}</Text>
+      {displayQueryResult().map((field, i) =>
+        field.length > 1 ? (
+          field.map((alias, j) => <Text key={`${alias}-${j}`}>{alias}</Text>)
+        ) : (
+          <Text key={`${field}-${i}`}>{field}</Text>
+        )
+      )}
     </View>
   );
 };

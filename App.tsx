@@ -10,18 +10,16 @@ const App = () => {
   ----*/
 
   const [query, setQuery] = useState<string>("");
-  const [queryResult, setQueryResult] = useState<QueryResult>({
-    geneName: "",
-    geneAlternateNames: [],
-    geneEnsemblID: "",
-    geneSummary: "Hello",
-  });
+  const [queryResult, setQueryResult] = useState<QueryResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   /*------------
   Event Handlers
   ------------*/
 
+  /**
+   * Function for handling API queries. Throws error upon invalid query.
+   */
   const onSearchPress = async () => {
     if (query) {
       try {
@@ -32,6 +30,7 @@ const App = () => {
         data = data.hits[0];
 
         const apiResult: QueryResult = {
+          geneSymbol: data.symbol,
           geneName: data.name,
           geneAlternateNames: data.alias,
           geneEnsemblID: data.ensembl.gene,
@@ -48,17 +47,15 @@ const App = () => {
   };
 
   return (
-    <>
-      <View style={styles.container}>
-        <GeneSearch query={query} onChangeQuery={setQuery} />
-        <Button onPress={onSearchPress} title="Search" />
-        {error ? (
-          <Text>{error as string}</Text>
-        ) : (
-          <SearchResults results={queryResult} />
-        )}
-      </View>
-    </>
+    <View style={styles.container}>
+      <GeneSearch query={query} onChangeQuery={setQuery} />
+      <Button onPress={onSearchPress} title="Search" />
+      {error ? (
+        <Text>{error as string}</Text>
+      ) : queryResult ? (
+        <SearchResults results={queryResult} />
+      ) : null}
+    </View>
   );
 };
 
