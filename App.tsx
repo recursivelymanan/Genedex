@@ -22,10 +22,15 @@ const App = () => {
   Event Handlers
   ------------*/
 
+  const onSearchPress = () => {
+    // API call
+  };
+
   return (
     <>
       <View style={styles.container}>
         <GeneSearch query={query} onChangeQuery={setQuery} />
+        <Button onPress={onSearchPress} title="Search" />
         <SearchResults results={queryResult} />
       </View>
     </>
