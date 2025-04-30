@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 
-import { StyleSheet, View, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
 
@@ -36,25 +42,27 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <Text style={styles.title}>{"PocketGene"}</Text>
-        <GeneSearch
-          query={query}
-          onChangeQuery={setQuery}
-          onSearch={handleSearch}
-        />
-        {recentQueries
-          ? recentQueries.map((recentQuery, ind) => (
-              <Text
-                key={recentQuery}
-                onPress={() => onRecentQueryPress(recentQuery)}
-                style={styles.recents}
-              >
-                {recentQuery}
-              </Text>
-            ))
-          : null}
-      </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
+          <Text style={styles.title}>{"PocketGene"}</Text>
+          <GeneSearch
+            query={query}
+            onChangeQuery={setQuery}
+            onSearch={handleSearch}
+          />
+          {recentQueries
+            ? recentQueries.map((recentQuery, ind) => (
+                <Text
+                  key={recentQuery}
+                  onPress={() => onRecentQueryPress(recentQuery)}
+                  style={styles.recents}
+                >
+                  {recentQuery}
+                </Text>
+              ))
+            : null}
+        </View>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 };
