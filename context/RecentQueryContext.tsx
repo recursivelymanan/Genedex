@@ -1,6 +1,8 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const MAX_RECENT_QUERIES = 6;
+const STORAGE_KEY = "recentQueries";
 
 interface RecentQueriesContextType {
   recentQueries: string[];
@@ -23,7 +25,44 @@ export const useRecentQueries = () => {
 export const RecentQueriesProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  /*----
+  States
+  ----*/
+
   const [recentQueries, setRecentQueries] = useState<string[]>([]);
+
+  /*-----
+  Effects
+  -----*/
+
+  useEffect(() => {
+    const loadConfig = async () => {
+      try {
+        const stored = await AsyncStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          setRecentQueries(JSON.parse(stored));
+        }
+      } catch (error) {
+        console.error("Failed to load stored recent queries", error);
+      }
+    };
+    loadConfig();
+  }, []);
+
+  useEffect(() => {
+    const saveConfig = async () => {
+      try {
+        await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(recentQueries));
+      } catch (error) {
+        console.log("Failed to save stored recent queries", error);
+      }
+    };
+    saveConfig();
+  }, [recentQueries]);
+
+  /*-------
+  Functions
+  -------*/
 
   const addRecentQuery = (query: string) => {
     const safeQuery = query.toUpperCase();
