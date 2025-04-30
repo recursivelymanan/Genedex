@@ -4,6 +4,7 @@ import { RootStackParamList } from "../App";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { QueryResult } from "../types/QueryResult";
 import SearchResults from "../components/SearchResults/SearchResults";
+import { useRecentQueries } from "../context/RecentQueryContext";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Results">;
 
@@ -11,9 +12,11 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
   /*----------------
   States & Constants
   ----------------*/
-  const { query, onValidResult } = route.params;
+  const { query } = route.params;
   const [queryResult, setQueryResult] = useState<QueryResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  const { addRecentQuery } = useRecentQueries();
 
   /*-----
   Effects
@@ -33,6 +36,7 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
   const onSearchPress = async () => {
     if (query) {
       try {
+        console.log("Hello");
         const response = await fetch(
           `https://mygene.info/v3/query?q=${query}&fields=symbol,alias,summary,name,ensembl.gene&species=human`
         );
@@ -47,7 +51,7 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
           geneSummary: data.summary,
         };
 
-        onValidResult(query);
+        addRecentQuery(query);
         setError(null);
         setQueryResult(apiResult);
       } catch (error) {

@@ -17,15 +17,15 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
   };
   return (
     <View>
-      {displayQueryResult().map((field, i) =>
-        field.length > 1 ? (
-          field.map((alias, j) => <Text key={`${alias}-${j}`}>{alias}</Text>)
-        ) : (
-          <Text key={`${field}-${i}`}>{field}</Text>
-        )
-      )}
+      {displayQueryResult().map((field, i) => (
+        <Text key={`${field}-${i}`}>{field}</Text>
+      ))}
     </View>
   );
 };
 
 export default SearchResults;
+
+// field.length > 1 ? (
+//   field.map((alias, j) => <Text key={`${alias}-${j}`}>{alias}</Text>)
+// ) : (

@@ -7,10 +7,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import HomeScreen from "./screens/HomeScreen";
 import ResultsScreen from "./screens/ResultsScreen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { RecentQueriesProvider } from "./context/RecentQueryContext";
 
 export type RootStackParamList = {
   Home: undefined;
-  Results: { query: string; onValidResult: (validatedQuery: string) => void };
+  Results: { query: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -19,16 +20,18 @@ const App = () => {
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <Stack.Screen name="Results" component={ResultsScreen} />
-        </Stack.Navigator>
+        <RecentQueriesProvider>
+          <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen name="Results" component={ResultsScreen} />
+          </Stack.Navigator>
+        </RecentQueriesProvider>
       </NavigationContainer>
     </SafeAreaProvider>
   );
