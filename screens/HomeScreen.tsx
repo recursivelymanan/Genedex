@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import {
   StyleSheet,
   View,
@@ -7,20 +6,33 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../App";
-
-import GeneSearch from "../components/GeneSearch";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+import { RootStackParamList } from "../App";
+import GeneSearch from "../components/GeneSearch";
 import { useRecentQueries } from "../context/RecentQueryContext";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
+  /*----------------
+  States & Constants
+  ----------------*/
+
   const [query, setQuery] = useState<string>("");
   const { recentQueries } = useRecentQueries();
 
+  /*------------
+  Event Handlers
+  ------------*/
+
+  /**
+   * Upon search, navigate to ResultsScreen and provide the query.
+   * @param searchQuery Optional parameter, when it is passed, pass this value
+   *                    to ResultsScreen instead of the query state.
+   * @returns
+   */
   const handleSearch = (searchQuery?: string) => {
     if (searchQuery) {
       navigation.navigate("Results", {
@@ -35,6 +47,9 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
     }
   };
 
+  /*----
+  Render
+  ----*/
   return (
     <View style={{ flex: 1, backgroundColor: "#b1c9f0" }}>
       <SafeAreaView style={{ flex: 1 }}>
@@ -69,6 +84,10 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
 export default HomeScreen;
 
+/*----
+Styles
+----*/
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -78,7 +97,7 @@ const styles = StyleSheet.create({
   title: {
     color: "#0c3b87",
     fontWeight: "bold",
-    fontFamily: "AmericanTypewriter-Bold", // try "Cochin", "Courier New", "Avenir", etc.
+    fontFamily: "AmericanTypewriter-Bold",
     fontSize: 50,
     marginTop: 20,
   },
@@ -88,8 +107,8 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     backgroundColor: "#ffffff",
     borderRadius: 20,
-    elevation: 2, // Android shadow
-    shadowColor: "#000", // iOS shadow
+    elevation: 2,
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
@@ -108,6 +127,3 @@ const styles = StyleSheet.create({
     fontFamily: "Inter",
   },
 });
-
-{
-}

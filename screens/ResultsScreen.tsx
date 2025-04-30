@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Text } from "react-native";
-import { RootStackParamList } from "../App";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+
+import { RootStackParamList } from "../App";
+
 import { QueryResult } from "../types/QueryResult";
 import SearchResults from "../components/SearchResults";
-import { useRecentQueries } from "../context/RecentQueryContext";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { useRecentQueries } from "../context/RecentQueryContext";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Results">;
 
@@ -68,6 +70,9 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
     }
   };
 
+  /*----
+  Render
+  ----*/
   return loading ? (
     <LoadingSpinner />
   ) : error ? (
