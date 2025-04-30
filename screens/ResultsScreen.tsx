@@ -3,8 +3,9 @@ import { Text } from "react-native";
 import { RootStackParamList } from "../App";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { QueryResult } from "../types/QueryResult";
-import SearchResults from "../components/SearchResults/SearchResults";
+import SearchResults from "../components/SearchResults";
 import { useRecentQueries } from "../context/RecentQueryContext";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Results">;
 
@@ -15,6 +16,7 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
   const { query } = route.params;
   const [queryResult, setQueryResult] = useState<QueryResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { addRecentQuery } = useRecentQueries();
 
@@ -35,33 +37,40 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
    */
   const onSearchPress = async () => {
     if (query) {
-      try {
-        console.log("Hello");
-        const response = await fetch(
-          `https://mygene.info/v3/query?q=${query}&fields=symbol,alias,summary,name,ensembl.gene&species=human`
-        );
-        let data = await response.json();
-        data = data.hits[0];
+      setLoading(true);
+      setTimeout(async () => {
+        try {
+          console.log("Hello");
+          const response = await fetch(
+            `https://mygene.info/v3/query?q=${query}&fields=symbol,alias,summary,name,ensembl.gene&species=human`
+          );
+          let data = await response.json();
+          data = data.hits[0];
 
-        const apiResult: QueryResult = {
-          geneSymbol: data.symbol,
-          geneName: data.name,
-          geneAlternateNames: data.alias,
-          geneEnsemblID: data.ensembl.gene,
-          geneSummary: data.summary,
-        };
+          const apiResult: QueryResult = {
+            geneSymbol: data.symbol,
+            geneName: data.name,
+            geneAlternateNames: data.alias,
+            geneEnsemblID: data.ensembl.gene,
+            geneSummary: data.summary,
+          };
 
-        addRecentQuery(query);
-        setError(null);
-        setQueryResult(apiResult);
-      } catch (error) {
-        console.error("Error fetching gene data: ", error);
-        setError("Invalid gene symbol, please try again.");
-      }
+          addRecentQuery(query);
+          setError(null);
+          setQueryResult(apiResult);
+        } catch (error) {
+          console.error("Error fetching gene data: ", error);
+          setError("Invalid gene symbol, please try again.");
+        } finally {
+          setLoading(false);
+        }
+      }, 1000);
     }
   };
 
-  return error ? (
+  return loading ? (
+    <LoadingSpinner />
+  ) : error ? (
     <Text>{error as string}</Text>
   ) : queryResult ? (
     <SearchResults results={queryResult} />

@@ -11,7 +11,7 @@ import {
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
 
-import GeneSearch from "../components/GeneSearch/GeneSearch";
+import GeneSearch from "../components/GeneSearch";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRecentQueries } from "../context/RecentQueryContext";
 
@@ -21,18 +21,14 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const [query, setQuery] = useState<string>("");
   const { recentQueries } = useRecentQueries();
 
-  const MAX_RECENT_QUERIES: number = 8;
-
   const handleSearch = (searchQuery?: string) => {
     if (searchQuery) {
-      console.log("Navigating with xquery: ", searchQuery);
       navigation.navigate("Results", {
         query: searchQuery,
       });
       return;
     }
     if (query) {
-      console.log("Navigating with yquery: ", query);
       navigation.navigate("Results", {
         query,
       });
@@ -98,6 +94,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     fontSize: 16,
+    fontFamily: "Inter",
     color: "#0c3b87",
     fontWeight: "500",
     textAlign: "center",
@@ -108,6 +105,7 @@ const styles = StyleSheet.create({
   recentsTitle: {
     paddingBottom: 20,
     fontSize: 25,
+    fontFamily: "Inter",
   },
 });
 

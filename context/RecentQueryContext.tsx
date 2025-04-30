@@ -30,7 +30,7 @@ export const RecentQueriesProvider: React.FC<{ children: React.ReactNode }> = ({
     const index: number = arr.indexOf(query);
     index !== -1 ? arr.splice(index, 1) : null;
     arr.length === MAX_RECENT_QUERIES ? arr.pop() : null;
-    arr.unshift(query);
+    arr.unshift(query.toUpperCase());
     setRecentQueries(arr);
   };
 
