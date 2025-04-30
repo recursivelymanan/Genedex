@@ -1,31 +1,21 @@
 import React from "react";
 import { View, Text } from "react-native";
-import { QueryResult } from "../../types/QueryResult";
+import { QueryResult } from "../types/types";
 
 interface SearchResultsProps {
   results: QueryResult;
 }
 
 const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
-  const displayQueryResult = (): string[][] => {
-    return [
-      [results.geneSymbol],
-      [results.geneName],
-      results.geneAlternateNames,
-      [results.geneSummary],
-    ];
-  };
   return (
     <View>
-      {displayQueryResult().map((field, i) => (
-        <Text key={`${field}-${i}`}>{field}</Text>
+      {Object.entries(results).map(([key, value], ind) => (
+        <Text key={`${key}-${ind}`}>
+          {key}: {Array.isArray(value) ? value.join(", ") : String(value)}
+        </Text>
       ))}
     </View>
   );
 };
 
 export default SearchResults;
-
-// field.length > 1 ? (
-//   field.map((alias, j) => <Text key={`${alias}-${j}`}>{alias}</Text>)
-// ) : (

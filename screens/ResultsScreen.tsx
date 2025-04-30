@@ -8,8 +8,11 @@ import { QueryResult } from "../types/types";
 import SearchResults from "../components/SearchResults";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useRecentQueries } from "../context/RecentQueryContext";
+import { useResultsConfiguration } from "../context/ResultsConfigurationContext";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Results">;
+
+const GENE_CARDS_URL = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=";
 
 const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
   /*----------------
@@ -21,6 +24,7 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const { addRecentQuery } = useRecentQueries();
+  const { configChoices } = useResultsConfiguration();
 
   /*-----
   Effects
@@ -42,20 +46,35 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
       setLoading(true);
       setTimeout(async () => {
         try {
-          console.log("Hello");
+          const fields = createQueryFields();
+          console.log(fields);
           const response = await fetch(
-            `https://mygene.info/v3/query?q=${query}&fields=symbol,alias,summary,name,ensembl.gene&species=human`
+            `https://mygene.info/v3/query?q=${query}&fields=${fields}&species=human`
           );
           let data = await response.json();
           data = data.hits[0];
 
-          const apiResult: QueryResult = {
-            geneSymbol: data.symbol,
-            geneName: data.name,
-            geneAlternateNames: data.alias,
-            geneEnsemblID: data.ensembl.gene,
-            geneSummary: data.summary,
+          let apiResult: QueryResult = {
+            symbol: data.symbol,
           };
+
+          Object.entries(configChoices).forEach(([key, value]) => {
+            if (value) {
+              if (key === "geneCard") {
+                apiResult.geneCard = `${GENE_CARDS_URL}${query}`;
+              } else {
+                apiResult[key] = data[fieldsForURL[key]];
+              }
+            }
+          });
+
+          // {
+          //   symbol: data.symbol,
+          //   name: data.name,
+          //   alternateNames: data.alias,
+          //   ensemblID: data.ensembl.gene,
+          //   summary: data.summary,
+          // };
 
           addRecentQuery(query);
           setError(null);
@@ -70,6 +89,21 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
     }
   };
 
+  /*-------------
+  Other Functions
+  -------------*/
+
+  function createQueryFields(): string {
+    let fields = "symbol,";
+    Object.entries(configChoices).forEach(([key, value]) => {
+      if (value && key !== "geneCard") {
+        fields += `${fieldsForURL[key]},`;
+      }
+    });
+    fields = fields.slice(0, -1);
+    return fields;
+  }
+
   /*----
   Render
   ----*/
@@ -83,3 +117,17 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
 };
 
 export default ResultsScreen;
+
+const fieldsForURL: { [key: string]: string } = {
+  name: "name",
+  type: "type_of_gene",
+  alternateNames: "alias",
+  ensemblID: "ensembl.gene",
+  summary: "summary",
+  refseqGenomic: "refseq.genomic",
+  refseqProtein: "refseq.protein",
+  refseqRNA: "refseq.rna",
+  goBP: "go.BP",
+  goMF: "go.MF",
+  goCC: "go.CC",
+};

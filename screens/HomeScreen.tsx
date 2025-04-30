@@ -12,6 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { RootStackParamList } from "../App";
 import GeneSearch from "../components/GeneSearch";
 import { useRecentQueries } from "../context/RecentQueryContext";
+import ConfigButton from "../components/ConfigButton";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -47,6 +48,10 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
     }
   };
 
+  const onPressWrench = () => {
+    navigation.navigate("Config");
+  };
+
   /*----
   Render
   ----*/
@@ -56,6 +61,9 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.container}>
             <Text style={styles.title}>{"PocketGene"}</Text>
+            <View style={styles.buttons}>
+              <ConfigButton onPress={onPressWrench} />
+            </View>
             <GeneSearch
               query={query}
               onChangeQuery={setQuery}
@@ -125,5 +133,8 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     fontSize: 25,
     fontFamily: "Inter",
+  },
+  buttons: {
+    paddingTop: 20,
   },
 });

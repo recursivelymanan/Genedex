@@ -15,15 +15,25 @@ export type QueryResult = {
   goBP?: goResult[];
   goMF?: goResult[];
   goCC?: goResult[];
+  [key: string]: any;
 };
 
 /*
 Type for configuring API call results
 */
 export type ConfigResults = {
-  geneName: boolean;
-  geneAlternateNames: boolean;
-  geneSummary: boolean;
+  name: boolean;
+  type: boolean;
+  alternateNames: boolean;
+  ensemblID: boolean;
+  summary: boolean;
+  refseqGenomic: boolean;
+  refseqProtein: boolean;
+  refseqRNA: boolean;
+  geneCard: boolean;
+  goBP: boolean;
+  goMF: boolean;
+  goCC: boolean;
 };
 
 export type goResult = {
