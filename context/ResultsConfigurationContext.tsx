@@ -1,7 +1,89 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const defaultFields = {
-  geneName: true,
-  geneAlternateNames: true,
-  geneSummary: true,
+import { ConfigResults } from "../types/types";
+
+const STORAGE_KEY = "configChoices";
+
+const defaultFields: ConfigResults = {
+  name: true,
+  type: true,
+  alternateNames: true,
+  ensemblID: true,
+  summary: true,
+  refseqGenomic: true,
+  refseqProtein: true,
+  refseqRNA: true,
+  geneCard: true,
+  goBP: true,
+  goMF: true,
+  goCC: true,
+};
+
+interface ResultsConfigurationContextType {
+  configChoices: ConfigResults;
+  setConfigChoices: React.Dispatch<React.SetStateAction<ConfigResults>>;
+}
+
+const ResultsConfigurationContext = createContext<
+  ResultsConfigurationContextType | undefined
+>(undefined);
+
+export const useResultsConfiguration = () => {
+  const context = useContext(ResultsConfigurationContext);
+  if (!context)
+    throw new Error(
+      "useResultsConfiguration must be used within ResultsConfigurationProvider"
+    );
+  return context;
+};
+
+export const ResultsConfigurationProvider: React.FC<{
+  children: React.ReactNode;
+}> = ({ children }) => {
+  /*----
+  States
+  ----*/
+  const [configChoices, setConfigChoices] =
+    useState<ConfigResults>(defaultFields);
+
+  /*-----
+  Effects
+  -----*/
+
+  useEffect(() => {
+    const loadConfig = async () => {
+      try {
+        console.log("Loading config");
+        const stored = await AsyncStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          console.log("Config found");
+          setConfigChoices(JSON.parse(stored));
+        }
+      } catch (error) {
+        console.error("Failed to load stored config choices", error);
+      }
+    };
+    loadConfig();
+  }, []);
+
+  useEffect(() => {
+    const saveConfig = async () => {
+      try {
+        console.log("Saving config");
+        await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(configChoices));
+      } catch (error) {
+        console.log("Failed to save config choices", error);
+      }
+    };
+    saveConfig();
+  }, [configChoices]);
+
+  return (
+    <ResultsConfigurationContext.Provider
+      value={{ configChoices, setConfigChoices }}
+    >
+      {children}
+    </ResultsConfigurationContext.Provider>
+  );
 };
