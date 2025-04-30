@@ -19,6 +19,8 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const [query, setQuery] = useState<string>("");
   const [recentQueries, setRecentQueries] = useState<string[]>([]);
 
+  const MAX_RECENT_QUERIES: number = 8;
+
   const handleSearch = (searchQuery?: string) => {
     if (query) {
       navigation.navigate("Results", {
@@ -27,6 +29,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
           let arr = [...recentQueries];
           const index: number = arr.indexOf(validatedQuery);
           index !== -1 ? arr.splice(index, 1) : null;
+          arr.length === MAX_RECENT_QUERIES ? arr.pop() : null;
           arr.unshift(validatedQuery);
           setRecentQueries(arr);
         },
@@ -41,29 +44,34 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.container}>
-          <Text style={styles.title}>{"PocketGene"}</Text>
-          <GeneSearch
-            query={query}
-            onChangeQuery={setQuery}
-            onSearch={handleSearch}
-          />
-          {recentQueries
-            ? recentQueries.map((recentQuery, ind) => (
-                <Text
-                  key={recentQuery}
-                  onPress={() => onRecentQueryPress(recentQuery)}
-                  style={styles.recents}
-                >
-                  {recentQuery}
-                </Text>
-              ))
-            : null}
-        </View>
-      </TouchableWithoutFeedback>
-    </SafeAreaView>
+    <View style={{ flex: 1, backgroundColor: "#b1c9f0" }}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.container}>
+            <Text style={styles.title}>{"PocketGene"}</Text>
+            <GeneSearch
+              query={query}
+              onChangeQuery={setQuery}
+              onSearch={handleSearch}
+            />
+            {recentQueries.length > 0 && (
+              <View style={styles.recentsContainer}>
+                <Text style={styles.recentsTitle}>{"Recent queries"}</Text>
+                {recentQueries.map((recentQuery, ind) => (
+                  <Text
+                    key={recentQuery}
+                    onPress={() => onRecentQueryPress(recentQuery)}
+                    style={styles.recents}
+                  >
+                    {recentQuery}
+                  </Text>
+                ))}
+              </View>
+            )}
+          </View>
+        </TouchableWithoutFeedback>
+      </SafeAreaView>
+    </View>
   );
 };
 
@@ -83,7 +91,27 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   recents: {
-    padding: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    marginVertical: 5,
+    backgroundColor: "#ffffff",
+    borderRadius: 20,
+    elevation: 2, // Android shadow
+    shadowColor: "#000", // iOS shadow
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    fontSize: 16,
+    color: "#0c3b87",
+    fontWeight: "500",
+    textAlign: "center",
+  },
+  recentsContainer: {
+    padding: 20,
+  },
+  recentsTitle: {
+    paddingBottom: 20,
+    fontSize: 25,
   },
 });
 
