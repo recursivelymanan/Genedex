@@ -4,7 +4,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "../App";
 
-import { QueryResult } from "../types/QueryResult";
+import { QueryResult } from "../types/types";
 import SearchResults from "../components/SearchResults";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useRecentQueries } from "../context/RecentQueryContext";
@@ -66,7 +66,7 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
         } finally {
           setLoading(false);
         }
-      }, 1000);
+      }, 2000);
     }
   };
 
