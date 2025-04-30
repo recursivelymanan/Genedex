@@ -7,40 +7,36 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../App";
 
 import GeneSearch from "../components/GeneSearch/GeneSearch";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useRecentQueries } from "../context/RecentQueryContext";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const [query, setQuery] = useState<string>("");
-  const [recentQueries, setRecentQueries] = useState<string[]>([]);
+  const { recentQueries } = useRecentQueries();
 
   const MAX_RECENT_QUERIES: number = 8;
 
   const handleSearch = (searchQuery?: string) => {
+    if (searchQuery) {
+      console.log("Navigating with xquery: ", searchQuery);
+      navigation.navigate("Results", {
+        query: searchQuery,
+      });
+      return;
+    }
     if (query) {
+      console.log("Navigating with yquery: ", query);
       navigation.navigate("Results", {
         query,
-        onValidResult: (validatedQuery: string) => {
-          let arr = [...recentQueries];
-          const index: number = arr.indexOf(validatedQuery);
-          index !== -1 ? arr.splice(index, 1) : null;
-          arr.length === MAX_RECENT_QUERIES ? arr.pop() : null;
-          arr.unshift(validatedQuery);
-          setRecentQueries(arr);
-        },
       });
     }
-  };
-
-  const onRecentQueryPress = (recentQuery: string) => {
-    setQuery(recentQuery);
-    console.log(recentQuery);
-    handleSearch(recentQuery);
   };
 
   return (
@@ -52,7 +48,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
             <GeneSearch
               query={query}
               onChangeQuery={setQuery}
-              onSearch={handleSearch}
+              onSearch={() => handleSearch()}
             />
             {recentQueries.length > 0 && (
               <View style={styles.recentsContainer}>
@@ -60,7 +56,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                 {recentQueries.map((recentQuery, ind) => (
                   <Text
                     key={recentQuery}
-                    onPress={() => onRecentQueryPress(recentQuery)}
+                    onPress={() => handleSearch(recentQuery)}
                     style={styles.recents}
                   >
                     {recentQuery}
