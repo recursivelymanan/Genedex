@@ -54,10 +54,8 @@ export const ResultsConfigurationProvider: React.FC<{
   useEffect(() => {
     const loadConfig = async () => {
       try {
-        console.log("Loading config");
         const stored = await AsyncStorage.getItem(STORAGE_KEY);
         if (stored) {
-          console.log("Config found");
           setConfigChoices(JSON.parse(stored));
         }
       } catch (error) {
@@ -70,7 +68,6 @@ export const ResultsConfigurationProvider: React.FC<{
   useEffect(() => {
     const saveConfig = async () => {
       try {
-        console.log("Saving config");
         await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(configChoices));
       } catch (error) {
         console.log("Failed to save config choices", error);

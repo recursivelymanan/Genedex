@@ -12,7 +12,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { RootStackParamList } from "../App";
 import GeneSearch from "../components/GeneSearch";
 import { useRecentQueries } from "../context/RecentQueryContext";
-import ConfigButton from "../components/ConfigButton";
+import ConfigButton from "../components/buttons/ConfigButton";
+import FavoritesButton from "../components/buttons/FavoritesButton";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -48,8 +49,12 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
     }
   };
 
-  const onPressWrench = () => {
+  const onPressConfig = () => {
     navigation.navigate("Config");
+  };
+
+  const onPressFavorites = () => {
+    navigation.navigate("Favorites");
   };
 
   /*----
@@ -61,8 +66,9 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.container}>
             <Text style={styles.title}>{"PocketGene"}</Text>
-            <View style={styles.buttons}>
-              <ConfigButton onPress={onPressWrench} />
+            <View style={styles.buttonContainer}>
+              <ConfigButton onPress={onPressConfig} />
+              <FavoritesButton onPress={onPressFavorites} />
             </View>
             <GeneSearch
               query={query}
@@ -107,7 +113,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontFamily: "AmericanTypewriter-Bold",
     fontSize: 50,
-    marginTop: 20,
+    marginTop: 10,
   },
   recents: {
     paddingVertical: 8,
@@ -134,7 +140,12 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontFamily: "Inter",
   },
-  buttons: {
-    paddingTop: 20,
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    paddingTop: 40,
+    paddingBottom: 50,
+    alignItems: "center",
+    width: "100%",
   },
 });

@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     marginBottom: 10,
-    marginTop: screenHeight * 0.1,
     fontSize: 20,
     borderRadius: 20,
     textAlign: "center",

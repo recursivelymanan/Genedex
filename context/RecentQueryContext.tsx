@@ -54,7 +54,7 @@ export const RecentQueriesProvider: React.FC<{ children: React.ReactNode }> = ({
       try {
         await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(recentQueries));
       } catch (error) {
-        console.log("Failed to save stored recent queries", error);
+        console.log("Failed to save recent queries", error);
       }
     };
     saveConfig();

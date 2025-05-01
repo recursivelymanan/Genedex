@@ -5,15 +5,18 @@ import { Provider as PaperProvider } from "react-native-paper";
 
 import HomeScreen from "./screens/HomeScreen";
 import ResultsScreen from "./screens/ResultsScreen";
+import FavoritesScreen from "./screens/FavoritesScreen";
+import ConfigureResultsScreen from "./screens/ConfigureResultsScreen";
+
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { RecentQueriesProvider } from "./context/RecentQueryContext";
 import { ResultsConfigurationProvider } from "./context/ResultsConfigurationContext";
-import ConfigureResultsScreen from "./screens/ConfigureResultsScreen";
 
 export type RootStackParamList = {
   Home: undefined;
   Results: { query: string };
   Config: undefined;
+  Favorites: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -38,6 +41,7 @@ const App = () => {
                   name="Config"
                   component={ConfigureResultsScreen}
                 />
+                <Stack.Screen name="Favorites" component={FavoritesScreen} />
               </Stack.Navigator>
             </NavigationContainer>
           </ResultsConfigurationProvider>
