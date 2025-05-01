@@ -11,9 +11,17 @@ interface FavoriteIndicatorButtonProps {
 const FavoriteIndicatorButton: React.FC<FavoriteIndicatorButtonProps> = ({
   query,
 }) => {
+  /*----------------
+  States & Constants
+  ----------------*/
   const safeQuery = query.toUpperCase();
   const { favorites, setFavorites } = useFavoritesContext();
+
   const [fill, setFill] = useState<boolean>(favorites.includes(safeQuery));
+
+  /*-----
+  Effects
+  -----*/
 
   useEffect(() => {
     handleFavoriteTrigger();
@@ -23,6 +31,13 @@ const FavoriteIndicatorButton: React.FC<FavoriteIndicatorButtonProps> = ({
     setFill(!fill);
   };
 
+  /*-------
+  Functions
+  -------*/
+
+  /**
+   * Handle when user taps the favorite button on a result.
+   */
   function handleFavoriteTrigger() {
     if (favorites.includes(query)) {
       fill

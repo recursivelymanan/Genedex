@@ -47,48 +47,38 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
   const onSearchPress = async () => {
     if (query) {
       setLoading(true);
-      setTimeout(async () => {
-        try {
-          const fields = createQueryFields();
-          console.log(fields);
-          const response = await fetch(
-            `https://mygene.info/v3/query?q=${query}&fields=${fields}&species=human`
-          );
-          let data = await response.json();
-          data = data.hits[0];
+      try {
+        const fields = createQueryFields();
+        console.log(fields);
+        const response = await fetch(
+          `https://mygene.info/v3/query?q=${query}&fields=${fields}&species=human`
+        );
+        let data = await response.json();
+        data = data.hits[0];
 
-          let apiResult: QueryResult = {
-            symbol: data.symbol,
-          };
+        let apiResult: QueryResult = {
+          symbol: data.symbol,
+        };
 
-          Object.entries(configChoices).forEach(([key, value]) => {
-            if (value) {
-              if (key === "geneCard") {
-                apiResult.geneCard = `${GENE_CARDS_URL}${query}`;
-              } else {
-                apiResult[key] = data[fieldsForURL[key]];
-              }
+        Object.entries(configChoices).forEach(([key, value]) => {
+          if (value) {
+            if (key === "geneCard") {
+              apiResult.geneCard = `${GENE_CARDS_URL}${query}`;
+            } else {
+              apiResult[key] = data[fieldsForURL[key]];
             }
-          });
+          }
+        });
 
-          // {
-          //   symbol: data.symbol,
-          //   name: data.name,
-          //   alternateNames: data.alias,
-          //   ensemblID: data.ensembl.gene,
-          //   summary: data.summary,
-          // };
-
-          addRecentQuery(query);
-          setError(null);
-          setQueryResult(apiResult);
-        } catch (error) {
-          console.error("Error fetching gene data: ", error);
-          setError("Invalid gene symbol, please try again.");
-        } finally {
-          setLoading(false);
-        }
-      }, 2000);
+        addRecentQuery(query);
+        setError(null);
+        setQueryResult(apiResult);
+      } catch (error) {
+        console.error("Error fetching gene data: ", error);
+        setError("Invalid gene symbol, please try again.");
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -96,6 +86,11 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
   Other Functions
   -------------*/
 
+  /**
+   * Helper function used by API search to generate the fields
+   * portion of the query by reading configChoices
+   * @returns String for the fields portion of the URL
+   */
   function createQueryFields(): string {
     let fields = "symbol,";
     Object.entries(configChoices).forEach(([key, value]) => {

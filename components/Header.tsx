@@ -4,7 +4,7 @@ import BackToHomeButton from "./buttons/BackToHomeButton";
 import { useNavigation } from "@react-navigation/native";
 
 interface HeaderProps {
-  rightButton: React.ComponentType<any>;
+  rightButton?: React.ComponentType<any>;
   rightButtonProps?: any;
   title: string;
 }
@@ -19,9 +19,11 @@ const Header: React.FC<HeaderProps> = ({
   return (
     <SafeAreaView>
       <View style={styles.header}>
-        <BackToHomeButton onPress={() => nav.goBack()} />
-        <Text>{title}</Text>
-        <RightButton {...rightButtonProps} />
+        <BackToHomeButton size={30} onPress={() => nav.goBack()} />
+        <Text style={styles.title}>{title}</Text>
+        {RightButton ? (
+          <RightButton style={styles.rightButton} {...rightButtonProps} />
+        ) : null}
       </View>
     </SafeAreaView>
   );
@@ -32,6 +34,15 @@ export default Header;
 const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+    height: 60,
   },
+  title: {
+    fontSize: 32,
+    fontWeight: "bold",
+    top: -10,
+  },
+  rightButton: {},
 });
