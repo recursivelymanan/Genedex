@@ -12,6 +12,7 @@ import InfoScreen from "./screens/InfoScreen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { RecentQueriesProvider } from "./context/RecentQueryContext";
 import { ResultsConfigurationProvider } from "./context/ResultsConfigurationContext";
+import { FavoritesProvider } from "./context/FavoritesContext";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -29,24 +30,47 @@ const App = () => {
       <PaperProvider>
         <RecentQueriesProvider>
           <ResultsConfigurationProvider>
-            <NavigationContainer>
-              <Stack.Navigator initialRouteName="Home">
-                <Stack.Screen
-                  name="Home"
-                  component={HomeScreen}
-                  options={{
-                    headerShown: false,
-                  }}
-                />
-                <Stack.Screen name="Results" component={ResultsScreen} />
-                <Stack.Screen
-                  name="Config"
-                  component={ConfigureResultsScreen}
-                />
-                <Stack.Screen name="Favorites" component={FavoritesScreen} />
-                <Stack.Screen name="Info" component={InfoScreen} />
-              </Stack.Navigator>
-            </NavigationContainer>
+            <FavoritesProvider>
+              <NavigationContainer>
+                <Stack.Navigator initialRouteName="Home">
+                  <Stack.Screen
+                    name="Home"
+                    component={HomeScreen}
+                    options={{
+                      headerShown: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name="Results"
+                    component={ResultsScreen}
+                    options={{
+                      headerShown: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name="Config"
+                    component={ConfigureResultsScreen}
+                    options={{
+                      headerShown: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name="Favorites"
+                    component={FavoritesScreen}
+                    options={{
+                      headerShown: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name="Info"
+                    component={InfoScreen}
+                    options={{
+                      headerShown: false,
+                    }}
+                  />
+                </Stack.Navigator>
+              </NavigationContainer>
+            </FavoritesProvider>
           </ResultsConfigurationProvider>
         </RecentQueriesProvider>
       </PaperProvider>

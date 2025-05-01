@@ -1,4 +1,6 @@
 import React from "react";
+import { TouchableOpacity } from "react-native";
+
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 interface FavoritesButtonProps {
@@ -6,7 +8,11 @@ interface FavoritesButtonProps {
 }
 
 const FavoritesButton: React.FC<FavoritesButtonProps> = ({ onPress }) => {
-  return <FontAwesome name="star" size={40} color="black" onPress={onPress} />;
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <FontAwesome name="star" size={40} color="black" />
+    </TouchableOpacity>
+  );
 };
 
 export default FavoritesButton;

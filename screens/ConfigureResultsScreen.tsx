@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import ConfigureResults from "../components/ConfigureResults";
 
 const CONFIG_SCREEN_MSG =
@@ -7,10 +7,12 @@ const CONFIG_SCREEN_MSG =
 
 const ConfigureResultsScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.helpText}>{CONFIG_SCREEN_MSG}</Text>
-      <ConfigureResults />
-    </View>
+    <SafeAreaView>
+      <View style={styles.container}>
+        <Text style={styles.helpText}>{CONFIG_SCREEN_MSG}</Text>
+        <ConfigureResults />
+      </View>
+    </SafeAreaView>
   );
 };
 

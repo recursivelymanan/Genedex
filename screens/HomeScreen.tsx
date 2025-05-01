@@ -38,6 +38,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
    */
   const handleSearch = (searchQuery?: string) => {
     if (searchQuery) {
+      setQuery(searchQuery);
       navigation.navigate("Results", {
         query: searchQuery,
       });

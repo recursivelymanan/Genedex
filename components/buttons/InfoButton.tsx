@@ -1,5 +1,6 @@
 import React from "react";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { TouchableOpacity } from "react-native";
 
 interface InfoButtonProps {
   onPress: () => void;
@@ -7,12 +8,9 @@ interface InfoButtonProps {
 
 const InfoButton: React.FC<InfoButtonProps> = ({ onPress }) => {
   return (
-    <FontAwesome6
-      name="circle-info"
-      size={40}
-      color="black"
-      onPress={onPress}
-    />
+    <TouchableOpacity onPress={onPress}>
+      <FontAwesome6 name="circle-info" size={40} color="black" />
+    </TouchableOpacity>
   );
 };
 

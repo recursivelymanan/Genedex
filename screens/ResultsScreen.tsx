@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text } from "react-native";
+import { SafeAreaView, Text } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "../App";
@@ -7,8 +7,11 @@ import { RootStackParamList } from "../App";
 import { QueryResult } from "../types/types";
 import SearchResults from "../components/SearchResults";
 import LoadingSpinner from "../components/LoadingSpinner";
+import Header from "../components/Header";
 import { useRecentQueries } from "../context/RecentQueryContext";
 import { useResultsConfiguration } from "../context/ResultsConfigurationContext";
+import BackToHomeButton from "../components/buttons/BackToHomeButton";
+import FavoriteIndicatorButton from "../components/buttons/FavoriteIndicatorButton";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Results">;
 
@@ -107,13 +110,23 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
   /*----
   Render
   ----*/
-  return loading ? (
-    <LoadingSpinner />
-  ) : error ? (
-    <Text>{error as string}</Text>
-  ) : queryResult ? (
-    <SearchResults results={queryResult} />
-  ) : null;
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <Header
+        leftButton={BackToHomeButton}
+        rightButton={FavoriteIndicatorButton}
+        rightButtonProps={{ query }}
+        title="Results"
+      />
+      {loading ? (
+        <LoadingSpinner />
+      ) : error ? (
+        <Text>{error as string}</Text>
+      ) : queryResult ? (
+        <SearchResults results={queryResult} />
+      ) : null}
+    </SafeAreaView>
+  );
 };
 
 export default ResultsScreen;
