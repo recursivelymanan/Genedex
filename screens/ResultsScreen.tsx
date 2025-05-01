@@ -113,7 +113,6 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <Header
-        leftButton={BackToHomeButton}
         rightButton={FavoriteIndicatorButton}
         rightButtonProps={{ query }}
         title="Results"

@@ -16,21 +16,29 @@ const FavoriteIndicatorButton: React.FC<FavoriteIndicatorButtonProps> = ({
   const [fill, setFill] = useState<boolean>(favorites.includes(safeQuery));
 
   useEffect(() => {
-    fill
-      ? setFavorites((prev) => [...prev, safeQuery])
-      : setFavorites((prev) => prev.filter((item) => item !== safeQuery));
+    handleFavoriteTrigger();
   }, [fill]);
 
   const onPress = () => {
     setFill(!fill);
   };
 
+  function handleFavoriteTrigger() {
+    if (favorites.includes(query)) {
+      fill
+        ? null
+        : setFavorites((prev) => prev.filter((item) => item !== safeQuery));
+    } else {
+      fill ? setFavorites((prev) => [...prev, safeQuery]) : null;
+    }
+  }
+
   return (
     <TouchableOpacity onPress={onPress}>
       {fill ? (
-        <FontAwesome name="star" size={40} color="black" />
+        <FontAwesome name="star" size={40} color="yellow" />
       ) : (
-        <FontAwesome name="star-o" size={40} color="yellow" />
+        <FontAwesome name="star-o" size={40} color="black" />
       )}
     </TouchableOpacity>
   );
