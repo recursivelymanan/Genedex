@@ -21,9 +21,7 @@ const Header: React.FC<HeaderProps> = ({
       <View style={styles.header}>
         <BackToHomeButton size={30} onPress={() => nav.goBack()} />
         <Text style={styles.title}>{title}</Text>
-        {RightButton ? (
-          <RightButton style={styles.rightButton} {...rightButtonProps} />
-        ) : null}
+        {RightButton ? <RightButton {...rightButtonProps} /> : null}
       </View>
     </SafeAreaView>
   );
@@ -44,5 +42,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     top: -10,
   },
-  rightButton: {},
 });

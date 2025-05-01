@@ -18,11 +18,7 @@ const ConfigureResultsScreen = () => {
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Header
-          title="Results Settings"
-          rightButton={InfoButton}
-          rightButtonProps={{ onPress }}
-        />
+        <Header title="Results Settings" />
         <ConfigureResults />
       </View>
     </SafeAreaView>
