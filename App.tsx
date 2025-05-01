@@ -18,7 +18,7 @@ export type RootStackParamList = {
   Home: undefined;
   Results: { query: string };
   Config: undefined;
-  Favorites: undefined;
+  Favorites: { handleSearch: (query: string) => void };
   Info: undefined;
 };
 
