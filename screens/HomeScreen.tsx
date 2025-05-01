@@ -14,6 +14,7 @@ import GeneSearch from "../components/GeneSearch";
 import { useRecentQueries } from "../context/RecentQueryContext";
 import ConfigButton from "../components/buttons/ConfigButton";
 import FavoritesButton from "../components/buttons/FavoritesButton";
+import InfoButton from "../components/buttons/InfoButton";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -57,6 +58,10 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
     navigation.navigate("Favorites");
   };
 
+  const onPressInfo = () => {
+    navigation.navigate("Info");
+  };
+
   /*----
   Render
   ----*/
@@ -69,6 +74,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
             <View style={styles.buttonContainer}>
               <ConfigButton onPress={onPressConfig} />
               <FavoritesButton onPress={onPressFavorites} />
+              <InfoButton onPress={onPressInfo} />
             </View>
             <GeneSearch
               query={query}

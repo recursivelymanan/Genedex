@@ -7,6 +7,7 @@ import HomeScreen from "./screens/HomeScreen";
 import ResultsScreen from "./screens/ResultsScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
 import ConfigureResultsScreen from "./screens/ConfigureResultsScreen";
+import InfoScreen from "./screens/InfoScreen";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { RecentQueriesProvider } from "./context/RecentQueryContext";
@@ -17,6 +18,7 @@ export type RootStackParamList = {
   Results: { query: string };
   Config: undefined;
   Favorites: undefined;
+  Info: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -42,6 +44,7 @@ const App = () => {
                   component={ConfigureResultsScreen}
                 />
                 <Stack.Screen name="Favorites" component={FavoritesScreen} />
+                <Stack.Screen name="Info" component={InfoScreen} />
               </Stack.Navigator>
             </NavigationContainer>
           </ResultsConfigurationProvider>
