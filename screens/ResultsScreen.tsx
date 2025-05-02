@@ -59,11 +59,12 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
         let apiResult: QueryResult = {
           symbol: data.symbol,
         };
-
         Object.entries(configChoices).forEach(([key, value]) => {
           if (value) {
             if (key === "geneCard") {
               apiResult.geneCard = `${GENE_CARDS_URL}${query}`;
+            } else if (["goBP", "goCC", "goMF"].includes(key)) {
+              apiResult[key] = data.go[fieldsForURL[key]];
             } else {
               apiResult[key] = data[fieldsForURL[key]];
             }
@@ -93,9 +94,15 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
    */
   function createQueryFields(): string {
     let fields = "symbol,";
+    let flag = true;
     Object.entries(configChoices).forEach(([key, value]) => {
       if (value && key !== "geneCard") {
-        fields += `${fieldsForURL[key]},`;
+        if (["goBP", "goCC", "goMF"].includes(key) && flag) {
+          fields += "go,";
+          flag = false;
+        } else {
+          fields += `${fieldsForURL[key]},`;
+        }
       }
     });
     fields = fields.slice(0, -1);
@@ -134,7 +141,7 @@ const fieldsForURL: { [key: string]: string } = {
   refseqGenomic: "refseq.genomic",
   refseqProtein: "refseq.protein",
   refseqRNA: "refseq.rna",
-  goBP: "go.BP",
-  goMF: "go.MF",
-  goCC: "go.CC",
+  goBP: "BP",
+  goMF: "MF",
+  goCC: "CC",
 };

@@ -12,9 +12,9 @@ export type QueryResult = {
   refseqProtein?: string;
   refseqRNA?: string;
   geneCard?: string;
-  goBP?: goResult[];
-  goMF?: goResult[];
-  goCC?: goResult[];
+  goBP?: any;
+  goMF?: any;
+  goCC?: any;
   [key: string]: any;
 };
 
