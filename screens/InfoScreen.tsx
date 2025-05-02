@@ -16,7 +16,7 @@ const InfoScreen = () => {
         <View style={styles.hContainer}>
           <Text style={styles.hText}>Welcome to PocketGene!</Text>
         </View>
-        <View style={styles.bContainer}>
+        <View style={{ ...styles.bContainer, marginBottom: 30 }}>
           <Text style={styles.bText}>
             To get started, head back to the home screen and type in a valid
             HGNC gene symbol. When you hit search, you'll see the results for
@@ -28,7 +28,7 @@ const InfoScreen = () => {
         <View style={styles.hContainer}>
           <Text style={styles.hText}>Managing favorites</Text>
         </View>
-        <View style={styles.bContainer}>
+        <View style={{ ...styles.bContainer, marginBottom: 30 }}>
           <Text style={styles.bText}>
             Save your favorite genes by tapping the star above the search
             results. Favorited genes can be accessed from the home page to make
@@ -38,7 +38,7 @@ const InfoScreen = () => {
         <View style={styles.hContainer}>
           <Text style={styles.hText}>About PocketGene</Text>
         </View>
-        <View style={styles.bContainer}>
+        <View style={{ ...styles.bContainer, marginBottom: 30 }}>
           <Text style={styles.bText}>
             PocketGene was developed by Manan Chopra to make gene searches
             easier! It is powered by the mygene.info API and written entirely in

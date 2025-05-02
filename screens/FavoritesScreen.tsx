@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, Text, View } from "react-native";
+import { SafeAreaView, Text, View, ScrollView } from "react-native";
 
 import { useFavoritesContext } from "../context/FavoritesContext";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -28,19 +28,26 @@ const FavoritesScreen: React.FC<Props> = ({ route }) => {
           <Text style={{ ...styles.bText, fontSize: 25 }}>No favorites</Text>
         </View>
       ) : (
-        <View style={{ justifyContent: "center", alignSelf: "center" }}>
-          {favorites.map((string) => (
-            <View style={styles.bContainer}>
-              <Text
-                key={string}
-                style={{ ...styles.bText, fontSize: 25 }}
-                onPress={() => handleSearch(string)}
+        <ScrollView contentContainerStyle={{ height: "100%" }}>
+          <View style={{ justifyContent: "center", alignSelf: "center" }}>
+            {favorites.map((string) => (
+              <View
+                key={`${string}-view0`}
+                style={{ justifyContent: "center", alignSelf: "center" }}
               >
-                {string}
-              </Text>
-            </View>
-          ))}
-        </View>
+                <View key={`${string}-view1`} style={styles.bContainer}>
+                  <Text
+                    key={string}
+                    style={{ ...styles.bText, fontSize: 25 }}
+                    onPress={() => handleSearch(string)}
+                  >
+                    {string}
+                  </Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        </ScrollView>
       )}
     </SafeAreaView>
   );
