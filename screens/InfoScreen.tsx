@@ -40,9 +40,9 @@ const InfoScreen = () => {
         </View>
         <View style={{ ...styles.bContainer, marginBottom: 30 }}>
           <Text style={styles.bText}>
-            PocketGene was developed by Manan Chopra to make gene searches
-            easier! It is powered by the mygene.info API and written entirely in
-            TypeScript with React-Native.
+            PocketGene was developed to make gene searches easier! It is powered
+            by the mygene.info API and written entirely in TypeScript with
+            React-Native.
           </Text>
         </View>
       </View>
