@@ -66,7 +66,10 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
               ["refseqGenomic", "refseqProtein", "refseqRNA"].includes(key)
             ) {
               const safeKey = key.slice(6).toLowerCase();
-              apiResult[key] = data.refseq[safeKey];
+              let ids = data.refseq[safeKey];
+              Array.isArray(ids)
+                ? (apiResult[key] = ids)
+                : (apiResult[key] = [ids]);
             } else {
               apiResult[key] = data[fieldsForURL[key]];
             }

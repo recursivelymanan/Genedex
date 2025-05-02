@@ -11,9 +11,9 @@ export type QueryResult = {
   refseqGenomic?: string[];
   refseqProtein?: string[];
   refseqRNA?: string[];
-  goBP?: any;
-  goMF?: any;
-  goCC?: any;
+  goBP?: goResult[];
+  goMF?: goResult[];
+  goCC?: goResult[];
   [key: string]: any;
 };
 

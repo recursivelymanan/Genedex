@@ -34,7 +34,10 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
   };
 
   const onPressRSR = () => {
-    nav.navigate("MoreData", { data: "rsR", refseqIDs: results.refseqRNA });
+    nav.navigate("MoreData", {
+      data: "rsR",
+      refseqIDs: results.refseqRNA,
+    });
   };
 
   const onPressRSP = () => {
@@ -131,7 +134,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
               <View style={{ ...styles.hContainer, marginTop: 25 }}>
                 <Text
                   style={styles.hText}
-                >{`${results.refseqGenomic.length} Refseq genomic IDs were found`}</Text>
+                >{`Tap to see ${results.refseqGenomic.length} Refseq genomic IDs`}</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -142,10 +145,15 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
         {results.refseqRNA ? (
           <TouchableOpacity onPress={onPressRSR}>
             <View style={{ justifyContent: "center", alignSelf: "center" }}>
-              <View style={{ ...styles.hContainer, marginTop: 25 }}>
+              <View
+                style={{
+                  ...styles.hContainer,
+                  marginTop: 25,
+                }}
+              >
                 <Text
                   style={styles.hText}
-                >{`${results.refseqRNA.length} Refseq RNA IDs were found`}</Text>
+                >{`Tap to see ${results.refseqRNA.length} Refseq\u2002\u2002 RNA IDs`}</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -159,7 +167,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
               <View style={{ ...styles.hContainer, marginTop: 25 }}>
                 <Text
                   style={styles.hText}
-                >{`${results.refseqProtein.length} Refseq protein IDs were found`}</Text>
+                >{`Tap to see ${results.refseqProtein.length} Refseq protein IDs`}</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -172,7 +180,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
             <View style={{ ...styles.hContainer, marginTop: 25 }}>
               <Text
                 style={styles.hText}
-              >{`${results.goBP.length} GO BP hits were found`}</Text>
+              >{`Tap to see ${results.goBP.length} GO BPs`}</Text>
             </View>
           </View>
         ) : null}
@@ -184,7 +192,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
             <View style={{ ...styles.hContainer, marginTop: 25 }}>
               <Text
                 style={styles.hText}
-              >{`${results.goCC.length} GO CC hits were found`}</Text>
+              >{`Tap to see ${results.goCC.length} GO CCs`}</Text>
             </View>
           </View>
         ) : null}
@@ -196,7 +204,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
             <View style={{ ...styles.hContainer, marginTop: 25 }}>
               <Text
                 style={styles.hText}
-              >{`${results.goMF.length} GO MF hits were found`}</Text>
+              >{`Tap to see ${results.goMF.length} GO MFs`}</Text>
             </View>
           </View>
         ) : null}

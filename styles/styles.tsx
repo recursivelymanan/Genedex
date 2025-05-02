@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 15,
     marginBottom: 10,
-    width: "70%",
+    maxWidth: "70%",
     alignSelf: "center",
   },
   hText: { textAlign: "center", fontSize: 20, fontWeight: "bold" },
