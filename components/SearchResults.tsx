@@ -10,6 +10,9 @@ import {
 import { QueryResult } from "../types/types";
 import { styles } from "../styles/styles";
 import { useResultsConfiguration } from "../context/ResultsConfigurationContext";
+import { useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../App";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 interface SearchResultsProps {
   results: QueryResult;
@@ -17,18 +20,31 @@ interface SearchResultsProps {
 
 const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
   const { configChoices } = useResultsConfiguration();
+  const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const onPress = () => {
+  const onPressSymbol = () => {
     const url = `https://www.genecards.org/cgi-bin/carddisp.pl?gene=${results.symbol}`;
     Linking.openURL(url).catch((err) =>
       console.error("Failed to open URL:", err)
     );
   };
 
+  const onPressRSG = () => {
+    nav.navigate("MoreData", { data: "rsG", refseqIDs: results.refseqGenomic });
+  };
+
+  const onPressRSR = () => {
+    nav.navigate("MoreData", { data: "rsR", refseqIDs: results.refseqRNA });
+  };
+
+  const onPressRSP = () => {
+    nav.navigate("MoreData", { data: "rsP", refseqIDs: results.refseqProtein });
+  };
+
   return (
     <ScrollView>
       <View style={{ justifyContent: "center", alignSelf: "center" }}>
-        <TouchableOpacity onPress={() => onPress()}>
+        <TouchableOpacity onPress={() => onPressSymbol()}>
           <View style={{ justifyContent: "center", alignSelf: "center" }}>
             <View style={styles.hhContainer}>
               <Text style={styles.hhText} selectable>
@@ -110,37 +126,43 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
         {/* REFSEQ GENOMIC */}
 
         {results.refseqGenomic ? (
-          <View style={{ justifyContent: "center", alignSelf: "center" }}>
-            <View style={{ ...styles.hContainer, marginTop: 25 }}>
-              <Text
-                style={styles.hText}
-              >{`${results.refseqGenomic.length} RSG hits were found`}</Text>
+          <TouchableOpacity onPress={onPressRSG}>
+            <View style={{ justifyContent: "center", alignSelf: "center" }}>
+              <View style={{ ...styles.hContainer, marginTop: 25 }}>
+                <Text
+                  style={styles.hText}
+                >{`${results.refseqGenomic.length} Refseq genomic IDs were found`}</Text>
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
         ) : null}
 
         {/* REFSEQ RNA */}
 
         {results.refseqRNA ? (
-          <View style={{ justifyContent: "center", alignSelf: "center" }}>
-            <View style={{ ...styles.hContainer, marginTop: 25 }}>
-              <Text
-                style={styles.hText}
-              >{`${results.refseqRNA.length} RSR hits were found`}</Text>
+          <TouchableOpacity onPress={onPressRSR}>
+            <View style={{ justifyContent: "center", alignSelf: "center" }}>
+              <View style={{ ...styles.hContainer, marginTop: 25 }}>
+                <Text
+                  style={styles.hText}
+                >{`${results.refseqRNA.length} Refseq RNA IDs were found`}</Text>
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
         ) : null}
 
         {/* REFSEQ PROT */}
 
         {results.refseqProtein ? (
-          <View style={{ justifyContent: "center", alignSelf: "center" }}>
-            <View style={{ ...styles.hContainer, marginTop: 25 }}>
-              <Text
-                style={styles.hText}
-              >{`${results.refseqProtein.length} RSP hits were found`}</Text>
+          <TouchableOpacity onPress={onPressRSP}>
+            <View style={{ justifyContent: "center", alignSelf: "center" }}>
+              <View style={{ ...styles.hContainer, marginTop: 25 }}>
+                <Text
+                  style={styles.hText}
+                >{`${results.refseqProtein.length} Refseq protein IDs were found`}</Text>
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
         ) : null}
 
         {/* GO BP  */}

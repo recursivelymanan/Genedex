@@ -8,11 +8,13 @@ import ResultsScreen from "./screens/ResultsScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
 import ConfigureResultsScreen from "./screens/ConfigureResultsScreen";
 import InfoScreen from "./screens/InfoScreen";
+import DisplayMoreDataScreen from "./screens/DisplayMoreDataScreen";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { RecentQueriesProvider } from "./context/RecentQueryContext";
 import { ResultsConfigurationProvider } from "./context/ResultsConfigurationContext";
 import { FavoritesProvider } from "./context/FavoritesContext";
+import { QueryResult } from "./types/types";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -20,6 +22,10 @@ export type RootStackParamList = {
   Config: undefined;
   Favorites: { handleSearch: (query: string) => void };
   Info: undefined;
+  MoreData: {
+    data: "rsG" | "rsR" | "rsP" | "goBP" | "goCC" | "goMF";
+    refseqIDs?: string[];
+  };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -64,6 +70,13 @@ const App = () => {
                   <Stack.Screen
                     name="Info"
                     component={InfoScreen}
+                    options={{
+                      headerShown: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name="MoreData"
+                    component={DisplayMoreDataScreen}
                     options={{
                       headerShown: false,
                     }}

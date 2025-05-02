@@ -14,7 +14,7 @@ import FavoriteIndicatorButton from "../components/buttons/FavoriteIndicatorButt
 
 type Props = NativeStackScreenProps<RootStackParamList, "Results">;
 
-const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
+const ResultsScreen: React.FC<Props> = ({ route }) => {
   /*----------------
   States & Constants
   ----------------*/
