@@ -8,10 +8,9 @@ export type QueryResult = {
   alternateNames?: string[];
   ensemblID?: string;
   summary?: string;
-  refseqGenomic?: string;
-  refseqProtein?: string;
-  refseqRNA?: string;
-  geneCard?: string;
+  refseqGenomic?: string[];
+  refseqProtein?: string[];
+  refseqRNA?: string[];
   goBP?: any;
   goMF?: any;
   goCC?: any;
@@ -30,7 +29,6 @@ export type ConfigResults = {
   refseqGenomic: boolean;
   refseqProtein: boolean;
   refseqRNA: boolean;
-  geneCard: boolean;
   goBP: boolean;
   goMF: boolean;
   goCC: boolean;

@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Linking,
+} from "react-native";
 
 import { QueryResult } from "../types/types";
 import { styles } from "../styles/styles";
@@ -11,19 +17,35 @@ interface SearchResultsProps {
 
 const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
   const { configChoices } = useResultsConfiguration();
+
+  const onPress = () => {
+    const url = `https://www.genecards.org/cgi-bin/carddisp.pl?gene=${results.symbol}`;
+    Linking.openURL(url).catch((err) =>
+      console.error("Failed to open URL:", err)
+    );
+  };
+
   return (
     <ScrollView>
       <View style={{ justifyContent: "center", alignSelf: "center" }}>
-        <View style={styles.hhContainer}>
-          <Text style={styles.hhText}>{results.symbol}</Text>
-        </View>
+        <TouchableOpacity onPress={() => onPress()}>
+          <View style={{ justifyContent: "center", alignSelf: "center" }}>
+            <View style={styles.hhContainer}>
+              <Text style={styles.hhText} selectable>
+                {results.symbol}
+              </Text>
+            </View>
+          </View>
+        </TouchableOpacity>
 
         {/* NAME FIELD */}
 
         {results.name ? (
           <View style={{ justifyContent: "center", alignSelf: "center" }}>
             <View style={{ ...styles.bContainer, padding: 11 }}>
-              <Text style={styles.bText}>{results.name}</Text>
+              <Text style={styles.bText} selectable>
+                {results.name}
+              </Text>
             </View>
           </View>
         ) : null}
@@ -33,7 +55,9 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
         {results.ensemblID ? (
           <View style={{ justifyContent: "center", alignSelf: "center" }}>
             <View style={{ ...styles.bContainer, padding: 11 }}>
-              <Text style={styles.bText}>{results.ensemblID}</Text>
+              <Text style={styles.bText} selectable>
+                {results.ensemblID}
+              </Text>
             </View>
           </View>
         ) : null}
@@ -43,7 +67,9 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
         {results.type ? (
           <View style={{ justifyContent: "center", alignSelf: "center" }}>
             <View style={{ ...styles.bContainer, padding: 11 }}>
-              <Text style={styles.bText}>{results.type}</Text>
+              <Text style={styles.bText} selectable>
+                {results.type}
+              </Text>
             </View>
           </View>
         ) : null}
@@ -56,7 +82,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
               <Text style={styles.hText}>Aliases</Text>
             </View>
             <View style={styles.bContainer}>
-              <Text style={styles.bText}>
+              <Text style={styles.bText} selectable>
                 {results.alternateNames.join(", ")}
               </Text>
             </View>
@@ -67,8 +93,52 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {results.summary ? (
           <View style={{ justifyContent: "center", alignSelf: "center" }}>
-            <View style={{ ...styles.bContainer, marginTop: 25 }}>
-              <Text style={styles.bText}>{results.summary}</Text>
+            <View
+              style={{
+                ...styles.bContainer,
+                marginTop: 25,
+                backgroundColor: "#b1c9f0",
+              }}
+            >
+              <Text style={styles.bText} selectable>
+                {results.summary}
+              </Text>
+            </View>
+          </View>
+        ) : null}
+
+        {/* REFSEQ GENOMIC */}
+
+        {results.refseqGenomic ? (
+          <View style={{ justifyContent: "center", alignSelf: "center" }}>
+            <View style={{ ...styles.hContainer, marginTop: 25 }}>
+              <Text
+                style={styles.hText}
+              >{`${results.refseqGenomic.length} RSG hits were found`}</Text>
+            </View>
+          </View>
+        ) : null}
+
+        {/* REFSEQ RNA */}
+
+        {results.refseqRNA ? (
+          <View style={{ justifyContent: "center", alignSelf: "center" }}>
+            <View style={{ ...styles.hContainer, marginTop: 25 }}>
+              <Text
+                style={styles.hText}
+              >{`${results.refseqRNA.length} RSR hits were found`}</Text>
+            </View>
+          </View>
+        ) : null}
+
+        {/* REFSEQ PROT */}
+
+        {results.refseqProtein ? (
+          <View style={{ justifyContent: "center", alignSelf: "center" }}>
+            <View style={{ ...styles.hContainer, marginTop: 25 }}>
+              <Text
+                style={styles.hText}
+              >{`${results.refseqProtein.length} RSP hits were found`}</Text>
             </View>
           </View>
         ) : null}
@@ -108,12 +178,6 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
             </View>
           </View>
         ) : null}
-
-        {Object.entries(results).map(([key, value], ind) => (
-          <Text key={`${key}-${ind}`}>
-            {key}: {Array.isArray(value) ? value.join(", ") : String(value)}
-          </Text>
-        ))}
       </View>
     </ScrollView>
   );

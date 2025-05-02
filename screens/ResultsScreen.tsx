@@ -10,12 +10,9 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import Header from "../components/Header";
 import { useRecentQueries } from "../context/RecentQueryContext";
 import { useResultsConfiguration } from "../context/ResultsConfigurationContext";
-import BackToHomeButton from "../components/buttons/BackToHomeButton";
 import FavoriteIndicatorButton from "../components/buttons/FavoriteIndicatorButton";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Results">;
-
-const GENE_CARDS_URL = "https://www.genecards.org/cgi-bin/carddisp.pl?gene=";
 
 const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
   /*----------------
@@ -61,10 +58,15 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
         };
         Object.entries(configChoices).forEach(([key, value]) => {
           if (value) {
-            if (key === "geneCard") {
-              apiResult.geneCard = `${GENE_CARDS_URL}${query}`;
-            } else if (["goBP", "goCC", "goMF"].includes(key)) {
+            if (["goBP", "goCC", "goMF"].includes(key)) {
               apiResult[key] = data.go[fieldsForURL[key]];
+            } else if (key === "ensemblID") {
+              apiResult[key] = data.ensembl.gene;
+            } else if (
+              ["refseqGenomic", "refseqProtein", "refseqRNA"].includes(key)
+            ) {
+              const safeKey = key.slice(6).toLowerCase();
+              apiResult[key] = data.refseq[safeKey];
             } else {
               apiResult[key] = data[fieldsForURL[key]];
             }
@@ -96,7 +98,7 @@ const ResultsScreen: React.FC<Props> = ({ route, navigation }) => {
     let fields = "symbol,";
     let flag = true;
     Object.entries(configChoices).forEach(([key, value]) => {
-      if (value && key !== "geneCard") {
+      if (value) {
         if (["goBP", "goCC", "goMF"].includes(key) && flag) {
           fields += "go,";
           flag = false;
@@ -136,7 +138,7 @@ const fieldsForURL: { [key: string]: string } = {
   name: "name",
   type: "type_of_gene",
   alternateNames: "alias",
-  ensemblID: "ensembl.gene",
+  ensemblID: "ensembl",
   summary: "summary",
   refseqGenomic: "refseq.genomic",
   refseqProtein: "refseq.protein",
