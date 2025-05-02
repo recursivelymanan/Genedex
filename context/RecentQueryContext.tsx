@@ -7,6 +7,7 @@ const STORAGE_KEY = "recentQueries";
 interface RecentQueriesContextType {
   recentQueries: string[];
   addRecentQuery: (query: string) => void;
+  setRecentQueries: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 const RecentQueriesContext = createContext<
@@ -75,7 +76,9 @@ export const RecentQueriesProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   return (
-    <RecentQueriesContext.Provider value={{ recentQueries, addRecentQuery }}>
+    <RecentQueriesContext.Provider
+      value={{ recentQueries, addRecentQuery, setRecentQueries }}
+    >
       {children}
     </RecentQueriesContext.Provider>
   );

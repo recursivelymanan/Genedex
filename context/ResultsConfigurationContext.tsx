@@ -5,19 +5,18 @@ import { ConfigResults } from "../types/types";
 
 const STORAGE_KEY = "configChoices";
 
-const defaultFields: ConfigResults = {
+export const defaultFields: ConfigResults = {
   name: true,
   type: true,
   alternateNames: true,
-  ensemblID: true,
+  ensemblID: false,
   summary: true,
-  refseqGenomic: true,
-  refseqProtein: true,
-  refseqRNA: true,
-  geneCard: true,
-  goBP: true,
-  goMF: true,
-  goCC: true,
+  refseqGenomic: false,
+  refseqProtein: false,
+  refseqRNA: false,
+  goBP: false,
+  goMF: false,
+  goCC: false,
 };
 
 interface ResultsConfigurationContextType {

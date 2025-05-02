@@ -1,8 +1,18 @@
 import React from "react";
-import { View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Button,
+} from "react-native";
 import { Checkbox } from "react-native-paper";
 
-import { useResultsConfiguration } from "../context/ResultsConfigurationContext";
+import {
+  defaultFields,
+  useResultsConfiguration,
+} from "../context/ResultsConfigurationContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ConfigureResults = () => {
   const { configChoices, setConfigChoices } = useResultsConfiguration();
@@ -34,6 +44,14 @@ const ConfigureResults = () => {
           </TouchableOpacity>
         </View>
       ))}
+      <View>
+        <Button
+          onPress={() => {
+            setConfigChoices(defaultFields);
+          }}
+          title="Reset to default"
+        />
+      </View>
     </ScrollView>
   );
 };
@@ -49,7 +67,6 @@ const prettyNames: { [key: string]: string } = {
   refseqGenomic: "NCBI Genomic RefSeq ID",
   refseqProtein: "NCBI Protein RefSeq ID",
   refseqRNA: "NCBI RNA RefSeq ID",
-  geneCard: "Genecard link",
   goBP: "Gene Ontology (BP)",
   goMF: "Gene Ontology (MF)",
   goCC: "Gene Ontology (CC",

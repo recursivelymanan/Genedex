@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, Text, View, ScrollView } from "react-native";
+import { SafeAreaView, Text, View, ScrollView, Button } from "react-native";
 
 import { useFavoritesContext } from "../context/FavoritesContext";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -11,7 +11,7 @@ import { styles } from "./../styles/styles";
 type Props = NativeStackScreenProps<RootStackParamList, "Favorites">;
 
 const FavoritesScreen: React.FC<Props> = ({ route }) => {
-  const { favorites } = useFavoritesContext();
+  const { favorites, setFavorites } = useFavoritesContext();
   const { handleSearch } = route.params;
 
   return (
@@ -44,6 +44,12 @@ const FavoritesScreen: React.FC<Props> = ({ route }) => {
                     {string}
                   </Text>
                 </View>
+                <Button
+                  onPress={() => {
+                    setFavorites([]);
+                  }}
+                  title="Clear favorites"
+                />
               </View>
             ))}
           </View>

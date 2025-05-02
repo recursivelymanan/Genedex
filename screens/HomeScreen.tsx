@@ -5,6 +5,7 @@ import {
   Text,
   TouchableWithoutFeedback,
   Keyboard,
+  Button,
 } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -15,6 +16,7 @@ import { useRecentQueries } from "../context/RecentQueryContext";
 import ConfigButton from "../components/buttons/ConfigButton";
 import FavoritesButton from "../components/buttons/FavoritesButton";
 import InfoButton from "../components/buttons/InfoButton";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -24,7 +26,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   ----------------*/
 
   const [query, setQuery] = useState<string>("");
-  const { recentQueries } = useRecentQueries();
+  const { recentQueries, setRecentQueries } = useRecentQueries();
 
   /*------------
   Event Handlers
@@ -96,6 +98,12 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                     {recentQuery}
                   </Text>
                 ))}
+                <Button
+                  onPress={() => {
+                    setRecentQueries([]);
+                  }}
+                  title="Clear recents"
+                />
               </View>
             )}
           </View>
