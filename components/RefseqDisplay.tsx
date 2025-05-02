@@ -89,11 +89,16 @@ const RefseqDisplay: React.FC<RefseqDisplayProps> = ({ ids, dtype }) => {
         Tap on an accession to open its NCBI page.
       </Text>
       {types.map((type) => (
-        <View style={styles.resultsEntryContainer}>
-          <View style={styles.resultsEntryLabelContainer}>
-            <Text style={styles.resultsEntryLabelText}>{type[0]}</Text>
+        <View key={`v0-${type}`} style={styles.resultsEntryContainer}>
+          <View key={`v1-${type}`} style={styles.resultsEntryLabelContainer}>
+            <Text key={`t1-${type}`} style={styles.resultsEntryLabelText}>
+              {type[0]}
+            </Text>
           </View>
-          <View style={{ ...styles.resultsEntryDataContainer, width: 20 }}>
+          <View
+            key={`v2-${type}`}
+            style={{ ...styles.resultsEntryDataContainer, width: 20 }}
+          >
             {type.slice(1).map((id) => (
               <TouchableOpacity
                 key={`to-${id}`}
