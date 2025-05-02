@@ -85,6 +85,9 @@ const RefseqDisplay: React.FC<RefseqDisplayProps> = ({ ids, dtype }) => {
   };
   return (
     <ScrollView contentContainerStyle={{ paddingBottom: 200 }}>
+      <Text style={{ ...styles.bText, paddingBottom: 10 }}>
+        Tap on an accession to open its NCBI page.
+      </Text>
       {types.map((type) => (
         <View style={styles.resultsEntryContainer}>
           <View style={styles.resultsEntryLabelContainer}>

@@ -35,7 +35,7 @@ export type ConfigResults = {
 };
 
 export type goResult = {
-  evidence: string;
+  evidence: string | string[];
   gocategory: string;
   id: string;
   pubmed: number;
