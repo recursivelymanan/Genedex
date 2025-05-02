@@ -257,13 +257,15 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
             <View style={styles.resultsEntryContainer}>
               <View style={styles.resultsEntryLabelContainer}>
                 <Text style={styles.resultsEntryLabelText}>
-                  GO Biological Processes
+                  {`GO Biological Process${
+                    results.goBP.length > 1 ? "es" : ""
+                  }`}
                 </Text>
               </View>
               <View style={styles.resultsEntryDataContainer}>
-                <Text
-                  style={styles.resultsEntryDataText}
-                >{`Tap to see ${results.goBP.length} GO BPs`}</Text>
+                <Text style={styles.resultsEntryDataText}>{`Tap to see ${
+                  results.goBP.length
+                } GO BP${results.goBP.length > 1 ? "s" : ""}`}</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -276,13 +278,13 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
             <View style={styles.resultsEntryContainer}>
               <View style={styles.resultsEntryLabelContainer}>
                 <Text style={styles.resultsEntryLabelText}>
-                  GO Cellular Components
+                  {`GO Cellular Component${results.goCC.length > 1 ? "s" : ""}`}
                 </Text>
               </View>
               <View style={styles.resultsEntryDataContainer}>
-                <Text
-                  style={styles.resultsEntryDataText}
-                >{`Tap to see ${results.goCC.length} GO CCs`}</Text>
+                <Text style={styles.resultsEntryDataText}>{`Tap to see ${
+                  results.goCC.length
+                } GO CC${results.goCC.length > 1 ? "s" : ""}`}</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -295,13 +297,13 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
             <View style={styles.resultsEntryContainer}>
               <View style={styles.resultsEntryLabelContainer}>
                 <Text style={styles.resultsEntryLabelText}>
-                  GO Molecular Functions
+                  {`GO Molecular Function${results.goMF.length > 1 ? "s" : ""}`}
                 </Text>
               </View>
               <View style={styles.resultsEntryDataContainer}>
-                <Text
-                  style={styles.resultsEntryDataText}
-                >{`Tap to see ${results.goMF.length} GO MFs`}</Text>
+                <Text style={styles.resultsEntryDataText}>{`Tap to see ${
+                  results.goMF.length
+                } GO MF${results.goMF.length > 1 ? "s" : ""}`}</Text>
               </View>
             </View>
           </TouchableOpacity>

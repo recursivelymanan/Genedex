@@ -29,7 +29,7 @@ const DisplayMoreDataScreen: React.FC<Props> = ({ route }) => {
     <SafeAreaView>
       <Header title={title} />
       {refseqIDs ? (
-        <RefseqDisplay ids={refseqIDs} />
+        <RefseqDisplay ids={refseqIDs} dtype={data} />
       ) : goResults ? (
         <GOResultDisplay goResults={goResults} />
       ) : null}
