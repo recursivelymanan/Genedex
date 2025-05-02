@@ -14,7 +14,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { RecentQueriesProvider } from "./context/RecentQueryContext";
 import { ResultsConfigurationProvider } from "./context/ResultsConfigurationContext";
 import { FavoritesProvider } from "./context/FavoritesContext";
-import { QueryResult } from "./types/types";
+import { goResult, QueryResult } from "./types/types";
 
 export type RootStackParamList = {
   Home: undefined;
@@ -25,6 +25,7 @@ export type RootStackParamList = {
   MoreData: {
     data: "rsG" | "rsR" | "rsP" | "goBP" | "goCC" | "goMF";
     refseqIDs?: string[];
+    goResults?: goResult[];
   };
 };
 

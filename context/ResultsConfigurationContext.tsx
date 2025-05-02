@@ -19,6 +19,20 @@ export const defaultFields: ConfigResults = {
   goCC: false,
 };
 
+export const allTrueFields: ConfigResults = {
+  name: true,
+  type: true,
+  alternateNames: true,
+  ensemblID: true,
+  summary: true,
+  refseqGenomic: true,
+  refseqProtein: true,
+  refseqRNA: true,
+  goBP: true,
+  goMF: true,
+  goCC: true,
+};
+
 interface ResultsConfigurationContextType {
   configChoices: ConfigResults;
   setConfigChoices: React.Dispatch<React.SetStateAction<ConfigResults>>;

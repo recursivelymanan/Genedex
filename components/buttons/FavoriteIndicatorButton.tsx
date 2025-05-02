@@ -51,7 +51,7 @@ const FavoriteIndicatorButton: React.FC<FavoriteIndicatorButtonProps> = ({
   return (
     <TouchableOpacity onPress={onPress} style={styles.button}>
       {fill ? (
-        <FontAwesome name="star" size={35} color="#8f7106" />
+        <FontAwesome name="star" size={35} color="#c7c218" />
       ) : (
         <FontAwesome name="star-o" size={35} color="black" />
       )}

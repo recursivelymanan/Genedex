@@ -9,10 +9,10 @@ import {
 import { Checkbox } from "react-native-paper";
 
 import {
+  allTrueFields,
   defaultFields,
   useResultsConfiguration,
 } from "../context/ResultsConfigurationContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ConfigureResults = () => {
   const { configChoices, setConfigChoices } = useResultsConfiguration();
@@ -26,6 +26,20 @@ const ConfigureResults = () => {
 
   return (
     <ScrollView contentContainerStyle={{ paddingBottom: 200 }}>
+      <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
+        <Button
+          onPress={() => {
+            setConfigChoices(allTrueFields);
+          }}
+          title="Select All"
+        />
+        <Button
+          onPress={() => {
+            setConfigChoices(defaultFields);
+          }}
+          title="Reset to default"
+        />
+      </View>
       {Object.entries(configChoices).map(([key, value]) => (
         <View
           key={`${key}-view`}
@@ -44,14 +58,6 @@ const ConfigureResults = () => {
           </TouchableOpacity>
         </View>
       ))}
-      <View>
-        <Button
-          onPress={() => {
-            setConfigChoices(defaultFields);
-          }}
-          title="Reset to default"
-        />
-      </View>
     </ScrollView>
   );
 };
@@ -69,7 +75,7 @@ const prettyNames: { [key: string]: string } = {
   refseqRNA: "NCBI RNA RefSeq ID",
   goBP: "Gene Ontology (BP)",
   goMF: "Gene Ontology (MF)",
-  goCC: "Gene Ontology (CC",
+  goCC: "Gene Ontology (CC)",
 };
 
 const styles = StyleSheet.create({

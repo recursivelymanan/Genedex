@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   ScrollView,
   TouchableOpacity,
   Linking,
+  Button,
 } from "react-native";
 
-import { QueryResult } from "../types/types";
+import { ConfigResults, QueryResult } from "../types/types";
 import { styles } from "../styles/styles";
 import { useResultsConfiguration } from "../context/ResultsConfigurationContext";
 import { useNavigation } from "@react-navigation/native";
@@ -21,6 +22,11 @@ interface SearchResultsProps {
 const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
   const { configChoices } = useResultsConfiguration();
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const [choices, setChoices] = useState<ConfigResults>(configChoices);
+
+  useEffect(() => {
+    setChoices(configChoices);
+  }, [configChoices]);
 
   const onPressSymbol = () => {
     const url = `https://www.genecards.org/cgi-bin/carddisp.pl?gene=${results.symbol}`;
@@ -44,12 +50,35 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
     nav.navigate("MoreData", { data: "rsP", refseqIDs: results.refseqProtein });
   };
 
+  const onPressGOBP = () => {
+    nav.navigate("MoreData", { data: "goBP", goResults: results.goBP });
+  };
+
+  const onPressGOCC = () => {
+    nav.navigate("MoreData", { data: "goCC", goResults: results.goCC });
+  };
+
+  const onPressGOMF = () => {
+    nav.navigate("MoreData", { data: "goMF", goResults: results.goMF });
+  };
+
   return (
-    <ScrollView>
-      <View style={{ justifyContent: "center", alignSelf: "center" }}>
+    <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
+      <View>
         <TouchableOpacity onPress={() => onPressSymbol()}>
-          <View style={{ justifyContent: "center", alignSelf: "center" }}>
-            <View style={styles.hhContainer}>
+          <View
+            style={{
+              justifyContent: "center",
+              alignSelf: "center",
+            }}
+          >
+            <View
+              style={{
+                ...styles.hhContainer,
+                backgroundColor: "#b1c9f0",
+                marginBottom: 20,
+              }}
+            >
               <Text style={styles.hhText} selectable>
                 {results.symbol}
               </Text>
@@ -59,10 +88,13 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* NAME FIELD */}
 
-        {results.name ? (
-          <View style={{ justifyContent: "center", alignSelf: "center" }}>
-            <View style={{ ...styles.bContainer, padding: 11 }}>
-              <Text style={styles.bText} selectable>
+        {choices.name && results.name ? (
+          <View style={styles.resultsEntryContainer}>
+            <View style={styles.resultsEntryLabelContainer}>
+              <Text style={styles.resultsEntryLabelText}>Full gene name</Text>
+            </View>
+            <View style={styles.resultsEntryDataContainer}>
+              <Text style={styles.resultsEntryDataText} selectable>
                 {results.name}
               </Text>
             </View>
@@ -71,10 +103,13 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* ENSEMBL FIELD */}
 
-        {results.ensemblID ? (
-          <View style={{ justifyContent: "center", alignSelf: "center" }}>
-            <View style={{ ...styles.bContainer, padding: 11 }}>
-              <Text style={styles.bText} selectable>
+        {choices.ensemblID && results.ensemblID ? (
+          <View style={styles.resultsEntryContainer}>
+            <View style={styles.resultsEntryLabelContainer}>
+              <Text style={styles.resultsEntryLabelText}>Ensembl ID</Text>
+            </View>
+            <View style={styles.resultsEntryDataContainer}>
+              <Text style={styles.resultsEntryDataText} selectable>
                 {results.ensemblID}
               </Text>
             </View>
@@ -83,10 +118,13 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* TYPE FIELD */}
 
-        {results.type ? (
-          <View style={{ justifyContent: "center", alignSelf: "center" }}>
-            <View style={{ ...styles.bContainer, padding: 11 }}>
-              <Text style={styles.bText} selectable>
+        {choices.type && results.type ? (
+          <View style={styles.resultsEntryContainer}>
+            <View style={styles.resultsEntryLabelContainer}>
+              <Text style={styles.resultsEntryLabelText}>Gene type</Text>
+            </View>
+            <View style={styles.resultsEntryDataContainer}>
+              <Text style={styles.resultsEntryDataText} selectable>
                 {results.type}
               </Text>
             </View>
@@ -95,13 +133,13 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* ALIASES FIELD */}
 
-        {results.alternateNames ? (
-          <View style={{ justifyContent: "center", alignSelf: "center" }}>
-            <View style={{ ...styles.hContainer, marginTop: 20 }}>
-              <Text style={styles.hText}>Aliases</Text>
+        {choices.alternateNames && results.alternateNames ? (
+          <View style={styles.resultsEntryContainer}>
+            <View style={styles.resultsEntryLabelContainer}>
+              <Text style={styles.resultsEntryLabelText}>Aliases</Text>
             </View>
-            <View style={styles.bContainer}>
-              <Text style={styles.bText} selectable>
+            <View style={styles.resultsEntryDataContainer}>
+              <Text style={styles.resultsEntryDataText} selectable>
                 {results.alternateNames.join(", ")}
               </Text>
             </View>
@@ -110,16 +148,29 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* SUMMARY */}
 
-        {results.summary ? (
-          <View style={{ justifyContent: "center", alignSelf: "center" }}>
+        {choices.summary && results.summary ? (
+          <View
+            style={{
+              ...styles.resultsEntryContainer,
+              marginTop: 15,
+              marginBottom: 23,
+            }}
+          >
+            {/* <View style={{ ...styles.resultsEntryLabelContainer, width: 90 }}>
+              <Text style={styles.resultsEntryLabelText}>Summary</Text>
+            </View> */}
             <View
               style={{
-                ...styles.bContainer,
-                marginTop: 25,
-                backgroundColor: "#b1c9f0",
+                ...styles.resultsEntryDataContainer,
+                paddingRight: 0,
+                paddingTop: 5,
+                paddingBottom: 5,
               }}
             >
-              <Text style={styles.bText} selectable>
+              <Text
+                style={{ ...styles.resultsEntryDataText, textAlign: "auto" }}
+                selectable
+              >
                 {results.summary}
               </Text>
             </View>
@@ -128,13 +179,24 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* REFSEQ GENOMIC */}
 
-        {results.refseqGenomic ? (
+        {choices.refseqGenomic && results.refseqGenomic ? (
           <TouchableOpacity onPress={onPressRSG}>
-            <View style={{ justifyContent: "center", alignSelf: "center" }}>
-              <View style={{ ...styles.hContainer, marginTop: 25 }}>
-                <Text
-                  style={styles.hText}
-                >{`Tap to see ${results.refseqGenomic.length} Refseq genomic IDs`}</Text>
+            <View style={styles.resultsEntryContainer}>
+              <View
+                style={{ ...styles.resultsEntryLabelContainer, width: 200 }}
+              >
+                <Text style={styles.resultsEntryLabelText}>
+                  {`Refseq Genomic ID${
+                    results.refseqGenomic.length > 1 ? "s" : ""
+                  }`}
+                </Text>
+              </View>
+              <View style={styles.resultsEntryDataContainer}>
+                <Text style={styles.resultsEntryDataText}>{`Tap to see ${
+                  results.refseqGenomic.length
+                } Refseq genomic ID${
+                  results.refseqGenomic.length > 1 ? "s" : ""
+                }`}</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -142,18 +204,22 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* REFSEQ RNA */}
 
-        {results.refseqRNA ? (
+        {choices.refseqRNA && results.refseqRNA ? (
           <TouchableOpacity onPress={onPressRSR}>
-            <View style={{ justifyContent: "center", alignSelf: "center" }}>
+            <View style={styles.resultsEntryContainer}>
               <View
-                style={{
-                  ...styles.hContainer,
-                  marginTop: 25,
-                }}
+                style={{ ...styles.resultsEntryLabelContainer, width: 200 }}
               >
-                <Text
-                  style={styles.hText}
-                >{`Tap to see ${results.refseqRNA.length} Refseq\u2002\u2002 RNA IDs`}</Text>
+                <Text style={styles.resultsEntryLabelText}>{`Refseq RNA ID${
+                  results.refseqRNA.length > 1 ? "s" : ""
+                }`}</Text>
+              </View>
+              <View style={styles.resultsEntryDataContainer}>
+                <Text style={styles.resultsEntryDataText}>{`Tap to see ${
+                  results.refseqRNA.length
+                } Refseq RNA ID${
+                  results.refseqRNA.length > 1 ? "s" : ""
+                }`}</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -161,13 +227,24 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* REFSEQ PROT */}
 
-        {results.refseqProtein ? (
+        {results.refseqProtein && results.refseqProtein ? (
           <TouchableOpacity onPress={onPressRSP}>
-            <View style={{ justifyContent: "center", alignSelf: "center" }}>
-              <View style={{ ...styles.hContainer, marginTop: 25 }}>
-                <Text
-                  style={styles.hText}
-                >{`Tap to see ${results.refseqProtein.length} Refseq protein IDs`}</Text>
+            <View style={styles.resultsEntryContainer}>
+              <View
+                style={{ ...styles.resultsEntryLabelContainer, width: 200 }}
+              >
+                <Text style={styles.resultsEntryLabelText}>
+                  {`Refseq Protein ID${
+                    results.refseqProtein.length > 1 ? "s" : ""
+                  }`}
+                </Text>
+              </View>
+              <View style={styles.resultsEntryDataContainer}>
+                <Text style={styles.resultsEntryDataText}>{`Tap to see ${
+                  results.refseqProtein.length
+                } Refseq protein ID${
+                  results.refseqProtein.length > 1 ? "s" : ""
+                }`}</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -175,39 +252,66 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* GO BP  */}
 
-        {configChoices.goBP && results.goBP ? (
-          <View style={{ justifyContent: "center", alignSelf: "center" }}>
-            <View style={{ ...styles.hContainer, marginTop: 25 }}>
-              <Text
-                style={styles.hText}
-              >{`Tap to see ${results.goBP.length} GO BPs`}</Text>
+        {choices.goBP && results.goBP ? (
+          <TouchableOpacity onPress={onPressGOBP}>
+            <View style={styles.resultsEntryContainer}>
+              <View style={styles.resultsEntryLabelContainer}>
+                <Text style={styles.resultsEntryLabelText}>
+                  GO Biological Processes
+                </Text>
+              </View>
+              <View style={styles.resultsEntryDataContainer}>
+                <Text
+                  style={styles.resultsEntryDataText}
+                >{`Tap to see ${results.goBP.length} GO BPs`}</Text>
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
         ) : null}
 
         {/* GO CC */}
 
-        {configChoices.goCC && results.goCC ? (
-          <View style={{ justifyContent: "center", alignSelf: "center" }}>
-            <View style={{ ...styles.hContainer, marginTop: 25 }}>
-              <Text
-                style={styles.hText}
-              >{`Tap to see ${results.goCC.length} GO CCs`}</Text>
+        {choices.goCC && results.goCC ? (
+          <TouchableOpacity onPress={onPressGOCC}>
+            <View style={styles.resultsEntryContainer}>
+              <View style={styles.resultsEntryLabelContainer}>
+                <Text style={styles.resultsEntryLabelText}>
+                  GO Cellular Components
+                </Text>
+              </View>
+              <View style={styles.resultsEntryDataContainer}>
+                <Text
+                  style={styles.resultsEntryDataText}
+                >{`Tap to see ${results.goCC.length} GO CCs`}</Text>
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
         ) : null}
 
         {/* GO MF */}
 
-        {configChoices.goMF && results.goMF ? (
-          <View style={{ justifyContent: "center", alignSelf: "center" }}>
-            <View style={{ ...styles.hContainer, marginTop: 25 }}>
-              <Text
-                style={styles.hText}
-              >{`Tap to see ${results.goMF.length} GO MFs`}</Text>
+        {choices.goMF && results.goMF ? (
+          <TouchableOpacity onPress={onPressGOMF}>
+            <View style={styles.resultsEntryContainer}>
+              <View style={styles.resultsEntryLabelContainer}>
+                <Text style={styles.resultsEntryLabelText}>
+                  GO Molecular Functions
+                </Text>
+              </View>
+              <View style={styles.resultsEntryDataContainer}>
+                <Text
+                  style={styles.resultsEntryDataText}
+                >{`Tap to see ${results.goMF.length} GO MFs`}</Text>
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
         ) : null}
+        <View>
+          <Button
+            onPress={() => nav.navigate("Config")}
+            title="Configure which results you see"
+          />
+        </View>
       </View>
     </ScrollView>
   );
