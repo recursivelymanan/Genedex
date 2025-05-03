@@ -58,6 +58,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   const onPressFavorites = () => {
+    console.log("nav");
     navigation.navigate("Favorites", {
       handleSearch: handleSearch,
     });

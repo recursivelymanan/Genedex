@@ -126,7 +126,7 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
         <LoadingSpinner />
       ) : error ? (
         <>
-          <Header title="Results" />
+          <Header title="Results" github={false} />
           <View
             style={{ ...styles.resultsEntryContainer, flexDirection: "column" }}
           >
@@ -146,6 +146,7 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
             rightButton={FavoriteIndicatorButton}
             rightButtonProps={{ query }}
             title="Results"
+            github={false}
           />
           <SearchResults results={queryResult} />
         </>
