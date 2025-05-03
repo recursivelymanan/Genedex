@@ -1,5 +1,11 @@
 import React from "react";
-import { Text, View, SafeAreaView, StyleSheet } from "react-native";
+import {
+  Text,
+  View,
+  SafeAreaView,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import BackToHomeButton from "./buttons/BackToHomeButton";
 import { useNavigation } from "@react-navigation/native";
 
@@ -15,13 +21,18 @@ const Header: React.FC<HeaderProps> = ({
   title,
 }) => {
   const nav = useNavigation();
+  const { onPress, style, ...rest } = rightButtonProps;
 
   return (
     <SafeAreaView>
       <View style={styles.header}>
         <BackToHomeButton size={30} onPress={() => nav.goBack()} />
         <Text style={styles.title}>{title}</Text>
-        {RightButton ? <RightButton {...rightButtonProps} /> : null}
+        {RightButton ? (
+          <TouchableOpacity style={style} onPress={onPress}>
+            <RightButton {...rest} />
+          </TouchableOpacity>
+        ) : null}
       </View>
     </SafeAreaView>
   );

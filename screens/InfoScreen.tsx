@@ -1,17 +1,34 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Linking, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useNavigation } from "@react-navigation/native";
+
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 import Header from "../components/Header";
 import { styles } from "../styles/styles";
 
 const InfoScreen = () => {
   const nav = useNavigation();
+  const onPress = () => {
+    const url = `https://github.com`;
+    Linking.openURL(url).catch((err) =>
+      console.error("Failed to open URL:", err)
+    );
+  };
   return (
     <SafeAreaView>
-      <Header title="Info" />
+      <Header
+        title="Info"
+        rightButton={AntDesign}
+        rightButtonProps={{
+          name: "github",
+          size: 30,
+          onPress: onPress,
+          style: { position: "absolute", right: 16, top: 5 },
+        }}
+      />
       <View style={{ justifyContent: "center", alignSelf: "center" }}>
         <View style={styles.hContainer}>
           <Text style={styles.hText}>Welcome to PocketGene!</Text>

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, Text } from "react-native";
+import { SafeAreaView, Text, View } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import { RootStackParamList } from "../App";
 
@@ -11,6 +13,7 @@ import Header from "../components/Header";
 import { useRecentQueries } from "../context/RecentQueryContext";
 import { useResultsConfiguration } from "../context/ResultsConfigurationContext";
 import FavoriteIndicatorButton from "../components/buttons/FavoriteIndicatorButton";
+import { styles } from "../styles/styles";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Results">;
 
@@ -119,17 +122,33 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
   ----*/
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Header
-        rightButton={FavoriteIndicatorButton}
-        rightButtonProps={{ query }}
-        title="Results"
-      />
       {loading ? (
         <LoadingSpinner />
       ) : error ? (
-        <Text>{error as string}</Text>
+        <>
+          <Header title="Results" />
+          <View
+            style={{ ...styles.resultsEntryContainer, flexDirection: "column" }}
+          >
+            <MaterialIcons
+              name="error"
+              size={30}
+              style={{ paddingBottom: 15 }}
+            />
+            <Text style={styles.resultsEntryDataText}>
+              Invalid gene symbol, please try again.
+            </Text>
+          </View>
+        </>
       ) : queryResult ? (
-        <SearchResults results={queryResult} />
+        <>
+          <Header
+            rightButton={FavoriteIndicatorButton}
+            rightButtonProps={{ query }}
+            title="Results"
+          />
+          <SearchResults results={queryResult} />
+        </>
       ) : null}
     </SafeAreaView>
   );
