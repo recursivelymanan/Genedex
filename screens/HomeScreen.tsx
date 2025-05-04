@@ -16,7 +16,7 @@ import { useRecentQueries } from "../context/RecentQueryContext";
 import ConfigButton from "../components/buttons/ConfigButton";
 import FavoritesButton from "../components/buttons/FavoritesButton";
 import InfoButton from "../components/buttons/InfoButton";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useQuerySearchContext } from "../context/QuerySearchContext";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -25,33 +25,12 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   States & Constants
   ----------------*/
 
-  const [query, setQuery] = useState<string>("");
   const { recentQueries, setRecentQueries } = useRecentQueries();
+  const { query, setQuery, handleSearch } = useQuerySearchContext();
 
   /*------------
   Event Handlers
   ------------*/
-
-  /**
-   * Upon search, navigate to ResultsScreen and provide the query.
-   * @param searchQuery Optional parameter, when it is passed, pass this value
-   *                    to ResultsScreen instead of the query state.
-   * @returns
-   */
-  const handleSearch = (searchQuery?: string) => {
-    if (searchQuery) {
-      setQuery(searchQuery);
-      navigation.navigate("Results", {
-        query: searchQuery,
-      });
-      return;
-    }
-    if (query) {
-      navigation.navigate("Results", {
-        query,
-      });
-    }
-  };
 
   const onPressConfig = () => {
     navigation.navigate("Config");
@@ -59,9 +38,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
   const onPressFavorites = () => {
     console.log("nav");
-    navigation.navigate("Favorites", {
-      handleSearch: handleSearch,
-    });
+    navigation.navigate("Favorites");
   };
 
   const onPressInfo = () => {

@@ -14,13 +14,14 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { RecentQueriesProvider } from "./context/RecentQueryContext";
 import { ResultsConfigurationProvider } from "./context/ResultsConfigurationContext";
 import { FavoritesProvider } from "./context/FavoritesContext";
-import { goResult, QueryResult } from "./types/types";
+import { goResult } from "./types/types";
+import { QuerySearchProvider } from "./context/QuerySearchContext";
 
 export type RootStackParamList = {
   Home: undefined;
   Results: { query: string };
   Config: undefined;
-  Favorites: { handleSearch: (query: string) => void };
+  Favorites: undefined;
   Info: undefined;
   MoreData: {
     data: "rsG" | "rsR" | "rsP" | "goBP" | "goCC" | "goMF";
@@ -39,50 +40,52 @@ const App = () => {
           <ResultsConfigurationProvider>
             <FavoritesProvider>
               <NavigationContainer>
-                <Stack.Navigator initialRouteName="Home">
-                  <Stack.Screen
-                    name="Home"
-                    component={HomeScreen}
-                    options={{
-                      headerShown: false,
-                    }}
-                  />
-                  <Stack.Screen
-                    name="Results"
-                    component={ResultsScreen}
-                    options={{
-                      headerShown: false,
-                    }}
-                  />
-                  <Stack.Screen
-                    name="Config"
-                    component={ConfigureResultsScreen}
-                    options={{
-                      headerShown: false,
-                    }}
-                  />
-                  <Stack.Screen
-                    name="Favorites"
-                    component={FavoritesScreen}
-                    options={{
-                      headerShown: false,
-                    }}
-                  />
-                  <Stack.Screen
-                    name="Info"
-                    component={InfoScreen}
-                    options={{
-                      headerShown: false,
-                    }}
-                  />
-                  <Stack.Screen
-                    name="MoreData"
-                    component={DisplayMoreDataScreen}
-                    options={{
-                      headerShown: false,
-                    }}
-                  />
-                </Stack.Navigator>
+                <QuerySearchProvider>
+                  <Stack.Navigator initialRouteName="Home">
+                    <Stack.Screen
+                      name="Home"
+                      component={HomeScreen}
+                      options={{
+                        headerShown: false,
+                      }}
+                    />
+                    <Stack.Screen
+                      name="Results"
+                      component={ResultsScreen}
+                      options={{
+                        headerShown: false,
+                      }}
+                    />
+                    <Stack.Screen
+                      name="Config"
+                      component={ConfigureResultsScreen}
+                      options={{
+                        headerShown: false,
+                      }}
+                    />
+                    <Stack.Screen
+                      name="Favorites"
+                      component={FavoritesScreen}
+                      options={{
+                        headerShown: false,
+                      }}
+                    />
+                    <Stack.Screen
+                      name="Info"
+                      component={InfoScreen}
+                      options={{
+                        headerShown: false,
+                      }}
+                    />
+                    <Stack.Screen
+                      name="MoreData"
+                      component={DisplayMoreDataScreen}
+                      options={{
+                        headerShown: false,
+                      }}
+                    />
+                  </Stack.Navigator>
+                </QuerySearchProvider>
               </NavigationContainer>
             </FavoritesProvider>
           </ResultsConfigurationProvider>
