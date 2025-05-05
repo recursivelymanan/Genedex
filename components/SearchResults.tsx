@@ -35,32 +35,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
     );
   };
 
-  const onPressRSG = () => {
-    nav.navigate("MoreData", { data: "rsG", refseqIDs: results.refseqGenomic });
-  };
-
-  const onPressRSR = () => {
-    nav.navigate("MoreData", {
-      data: "rsR",
-      refseqIDs: results.refseqRNA,
-    });
-  };
-
-  const onPressRSP = () => {
-    nav.navigate("MoreData", { data: "rsP", refseqIDs: results.refseqProtein });
-  };
-
-  const onPressGOBP = () => {
-    nav.navigate("MoreData", { data: "goBP", goResults: results.goBP });
-  };
-
-  const onPressGOCC = () => {
-    nav.navigate("MoreData", { data: "goCC", goResults: results.goCC });
-  };
-
-  const onPressGOMF = () => {
-    nav.navigate("MoreData", { data: "goMF", goResults: results.goMF });
-  };
+  const onPressGOMF = () => {};
 
   return (
     <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
@@ -180,7 +155,14 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
         {/* REFSEQ GENOMIC */}
 
         {choices.refseqGenomic && results.refseqGenomic ? (
-          <TouchableOpacity onPress={onPressRSG}>
+          <TouchableOpacity
+            onPress={() =>
+              nav.navigate("MoreData", {
+                data: "rsG",
+                refseqIDs: results.refseqGenomic,
+              })
+            }
+          >
             <View style={styles.resultsEntryContainer}>
               <View
                 style={{ ...styles.resultsEntryLabelContainer, width: 200 }}
@@ -205,7 +187,14 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
         {/* REFSEQ RNA */}
 
         {choices.refseqRNA && results.refseqRNA ? (
-          <TouchableOpacity onPress={onPressRSR}>
+          <TouchableOpacity
+            onPress={() =>
+              nav.navigate("MoreData", {
+                data: "rsR",
+                refseqIDs: results.refseqRNA,
+              })
+            }
+          >
             <View style={styles.resultsEntryContainer}>
               <View
                 style={{ ...styles.resultsEntryLabelContainer, width: 200 }}
@@ -228,7 +217,14 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
         {/* REFSEQ PROT */}
 
         {results.refseqProtein && results.refseqProtein ? (
-          <TouchableOpacity onPress={onPressRSP}>
+          <TouchableOpacity
+            onPress={() =>
+              nav.navigate("MoreData", {
+                data: "rsP",
+                refseqIDs: results.refseqProtein,
+              })
+            }
+          >
             <View style={styles.resultsEntryContainer}>
               <View
                 style={{ ...styles.resultsEntryLabelContainer, width: 200 }}
@@ -253,7 +249,14 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
         {/* GO BP  */}
 
         {choices.goBP && results.goBP ? (
-          <TouchableOpacity onPress={onPressGOBP}>
+          <TouchableOpacity
+            onPress={() =>
+              nav.navigate("MoreData", {
+                data: "goBP",
+                goResults: results.goBP,
+              })
+            }
+          >
             <View style={styles.resultsEntryContainer}>
               <View style={styles.resultsEntryLabelContainer}>
                 <Text style={styles.resultsEntryLabelText}>
@@ -274,7 +277,14 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
         {/* GO CC */}
 
         {choices.goCC && results.goCC ? (
-          <TouchableOpacity onPress={onPressGOCC}>
+          <TouchableOpacity
+            onPress={() =>
+              nav.navigate("MoreData", {
+                data: "goCC",
+                goResults: results.goCC,
+              })
+            }
+          >
             <View style={styles.resultsEntryContainer}>
               <View style={styles.resultsEntryLabelContainer}>
                 <Text style={styles.resultsEntryLabelText}>
@@ -293,7 +303,14 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
         {/* GO MF */}
 
         {choices.goMF && results.goMF ? (
-          <TouchableOpacity onPress={onPressGOMF}>
+          <TouchableOpacity
+            onPress={() =>
+              nav.navigate("MoreData", {
+                data: "goMF",
+                goResults: results.goMF,
+              })
+            }
+          >
             <View style={styles.resultsEntryContainer}>
               <View style={styles.resultsEntryLabelContainer}>
                 <Text style={styles.resultsEntryLabelText}>

@@ -23,7 +23,7 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
   ----------------*/
   const { query } = route.params;
   const [queryResult, setQueryResult] = useState<QueryResult | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [isError, setIsError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   const { addRecentQuery } = useRecentQueries();
@@ -54,6 +54,18 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
           `https://mygene.info/v3/query?q=${query}&fields=${fields}&species=human`
         );
         let data = await response.json();
+
+        if (!response.ok) {
+          console.log(response.status);
+          if (response.status === 404) {
+            throw new Error("GENE_NOT_FOUND");
+          } else if (response.status >= 500) {
+            throw new Error("SERVER_ERROR");
+          } else {
+            throw new Error("UNKNOWN_ERROR");
+          }
+        }
+
         data = data.hits[0];
 
         let apiResult: QueryResult = {
@@ -80,11 +92,23 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
         });
 
         addRecentQuery(query);
-        setError(null);
+        setIsError(null);
         setQueryResult(apiResult);
-      } catch (error) {
-        console.error("Error fetching gene data: ", error);
-        setError("Invalid gene symbol, please try again.");
+      } catch (error: unknown) {
+        console.log("error");
+        if (error instanceof Error) {
+          if (error.message === "GENE_NOT_FOUND") {
+            setIsError("Gene not found. Please check the name and try again.");
+          } else if (error.message === "SERVER_ERROR") {
+            setIsError(
+              "Server is currently unavailable. Please try again later."
+            );
+          } else if (error.message === "Network request failed") {
+            setIsError("Network error. Check your internet connection.");
+          } else {
+            setIsError("Something went wrong. Please try again.");
+          }
+        }
       } finally {
         setLoading(false);
       }
@@ -123,7 +147,7 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
     <SafeAreaView style={{ flex: 1 }}>
       {loading ? (
         <LoadingSpinner />
-      ) : error ? (
+      ) : isError ? (
         <>
           <Header title="Results" github={false} />
           <View
@@ -134,9 +158,7 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
               size={30}
               style={{ paddingBottom: 15 }}
             />
-            <Text style={styles.resultsEntryDataText}>
-              Invalid gene symbol, please try again.
-            </Text>
+            <Text style={styles.resultsEntryDataText}>{isError}</Text>
           </View>
         </>
       ) : queryResult ? (
