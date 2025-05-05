@@ -5,19 +5,18 @@ import {
   Text,
   TouchableWithoutFeedback,
   Keyboard,
-  Button,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "../App";
-import { useRecentQueries } from "../context/RecentQueryContext";
 import { useQuerySearchContext } from "../context/QuerySearchContext";
 
 import GeneSearch from "../components/GeneSearch";
 import ConfigButton from "../components/buttons/ConfigButton";
 import FavoritesButton from "../components/buttons/FavoritesButton";
 import InfoButton from "../components/buttons/InfoButton";
+import RecentQueries from "../components/RecentQueries";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -25,7 +24,6 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   /*----------------
   States & Constants
   ----------------*/
-  const { recentQueries, setRecentQueries } = useRecentQueries();
   const { query, setQuery, handleSearch } = useQuerySearchContext();
 
   /*----
@@ -49,26 +47,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
               onChangeQuery={setQuery}
               onSearch={() => handleSearch()}
             />
-            {recentQueries.length > 0 && (
-              <View style={styles.recentsContainer}>
-                <Text style={styles.recentsTitle}>{"Recent queries"}</Text>
-                {recentQueries.map((recentQuery, ind) => (
-                  <Text
-                    key={recentQuery}
-                    onPress={() => handleSearch(recentQuery)}
-                    style={styles.recents}
-                  >
-                    {recentQuery}
-                  </Text>
-                ))}
-                <Button
-                  onPress={() => {
-                    setRecentQueries([]);
-                  }}
-                  title="Clear recents"
-                />
-              </View>
-            )}
+            <RecentQueries />
           </View>
         </TouchableWithoutFeedback>
       </SafeAreaView>
@@ -93,31 +72,6 @@ const styles = StyleSheet.create({
     fontFamily: "AmericanTypewriter-Bold",
     fontSize: 50,
     marginTop: 10,
-  },
-  recents: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    marginVertical: 5,
-    backgroundColor: "#ffffff",
-    borderRadius: 20,
-    elevation: 2,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    fontSize: 16,
-    fontFamily: "Inter",
-    color: "#0c3b87",
-    fontWeight: "500",
-    textAlign: "center",
-  },
-  recentsContainer: {
-    padding: 20,
-  },
-  recentsTitle: {
-    paddingBottom: 20,
-    fontSize: 25,
-    fontFamily: "Inter",
   },
   buttonContainer: {
     flexDirection: "row",
