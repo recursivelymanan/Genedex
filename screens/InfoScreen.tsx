@@ -28,6 +28,7 @@ const InfoScreen = () => {
           onPress: onPress,
           style: { position: "absolute", right: 16, top: 5 },
         }}
+        github={true}
       />
       <View style={{ justifyContent: "center", alignSelf: "center" }}>
         <View style={styles.hContainer}>

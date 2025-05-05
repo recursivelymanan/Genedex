@@ -94,7 +94,6 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
   /*-------------
   Other Functions
   -------------*/
-
   /**
    * Helper function used by API search to generate the fields
    * portion of the query by reading configChoices

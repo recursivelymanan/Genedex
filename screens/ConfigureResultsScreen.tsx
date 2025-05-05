@@ -5,10 +5,13 @@ import ConfigureResults from "../components/ConfigureResults";
 import Header from "../components/Header";
 
 const ConfigureResultsScreen = () => {
+  /*----
+  Render
+  ----*/
   return (
     <SafeAreaView>
       <View style={styles.container}>
-        <Header title="Results Settings" />
+        <Header title="Results Settings" github={false} />
         <ConfigureResults />
       </View>
     </SafeAreaView>
@@ -17,6 +20,9 @@ const ConfigureResultsScreen = () => {
 
 export default ConfigureResultsScreen;
 
+/*----
+Styles
+----*/
 const styles = StyleSheet.create({
   container: { paddingTop: 15 },
   helpText: { textAlign: "center", fontSize: 20 },

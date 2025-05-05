@@ -8,7 +8,7 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 interface QuerySearchContextType {
   query: string;
   setQuery: React.Dispatch<React.SetStateAction<string>>;
-  handleSearch: (searchQuery: string) => void;
+  handleSearch: (searchQuery?: string) => void;
 }
 
 const QuerySearchContext = createContext<QuerySearchContextType | undefined>(
