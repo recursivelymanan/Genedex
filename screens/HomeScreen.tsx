@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   View,
@@ -7,16 +7,17 @@ import {
   Keyboard,
   Button,
 } from "react-native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "../App";
-import GeneSearch from "../components/GeneSearch";
 import { useRecentQueries } from "../context/RecentQueryContext";
+import { useQuerySearchContext } from "../context/QuerySearchContext";
+
+import GeneSearch from "../components/GeneSearch";
 import ConfigButton from "../components/buttons/ConfigButton";
 import FavoritesButton from "../components/buttons/FavoritesButton";
 import InfoButton from "../components/buttons/InfoButton";
-import { useQuerySearchContext } from "../context/QuerySearchContext";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -24,26 +25,8 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
   /*----------------
   States & Constants
   ----------------*/
-
   const { recentQueries, setRecentQueries } = useRecentQueries();
   const { query, setQuery, handleSearch } = useQuerySearchContext();
-
-  /*------------
-  Event Handlers
-  ------------*/
-
-  const onPressConfig = () => {
-    navigation.navigate("Config");
-  };
-
-  const onPressFavorites = () => {
-    console.log("nav");
-    navigation.navigate("Favorites");
-  };
-
-  const onPressInfo = () => {
-    navigation.navigate("Info");
-  };
 
   /*----
   Render
@@ -55,9 +38,11 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
           <View style={styles.container}>
             <Text style={styles.title}>{"PocketGene"}</Text>
             <View style={styles.buttonContainer}>
-              <ConfigButton onPress={onPressConfig} />
-              <FavoritesButton onPress={onPressFavorites} />
-              <InfoButton onPress={onPressInfo} />
+              <ConfigButton onPress={() => navigation.navigate("Config")} />
+              <FavoritesButton
+                onPress={() => navigation.navigate("Favorites")}
+              />
+              <InfoButton onPress={() => navigation.navigate("Info")} />
             </View>
             <GeneSearch
               query={query}
@@ -96,7 +81,6 @@ export default HomeScreen;
 /*----
 Styles
 ----*/
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
