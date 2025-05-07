@@ -35,7 +35,7 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
 
   useEffect(() => {
     onSearchPress();
-  }, [query]);
+  }, [query, configChoices]);
 
   /*---------------
   Handler Functions
