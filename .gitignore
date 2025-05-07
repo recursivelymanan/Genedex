@@ -34,3 +34,8 @@ yarn-error.*
 *.tsbuildinfo
 
 assets/animations/*.Identifier
+
+# files generated from expo ejection
+ios/
+android/
+eas.json
