@@ -5,8 +5,11 @@ import {
   SafeAreaView,
   StyleSheet,
   TouchableOpacity,
+  Linking,
 } from "react-native";
 import BackToHomeButton from "./buttons/BackToHomeButton";
+
+import AntDesign from "@expo/vector-icons/AntDesign";
 import { useNavigation } from "@react-navigation/native";
 
 interface HeaderProps {
@@ -23,21 +26,24 @@ const Header: React.FC<HeaderProps> = ({
   title,
 }) => {
   const nav = useNavigation();
-  let style = null;
-  let onPress = undefined;
-  let rest = [null];
-  if (github) {
-    const { style, onPress, ...rest } = rightButtonProps;
-  }
+  const onInfoPress = () => {
+    const url = `https://github.com/recursivelymanan/PocketGene`;
+    Linking.openURL(url).catch((err) =>
+      console.error("Failed to open URL:", err)
+    );
+  };
 
   return (
     <SafeAreaView>
       <View style={styles.header}>
         <BackToHomeButton size={30} onPress={() => nav.goBack()} />
         <Text style={styles.title}>{title}</Text>
-        {RightButton && github ? (
-          <TouchableOpacity style={style} onPress={onPress}>
-            <RightButton {...rest} />
+        {github ? (
+          <TouchableOpacity
+            style={{ position: "absolute", right: 16, top: 5 }}
+            onPress={onInfoPress}
+          >
+            <AntDesign name="github" size={30} />
           </TouchableOpacity>
         ) : RightButton ? (
           <RightButton {...rightButtonProps} />

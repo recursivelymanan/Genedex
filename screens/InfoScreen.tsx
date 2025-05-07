@@ -4,8 +4,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useNavigation } from "@react-navigation/native";
 
-import AntDesign from "@expo/vector-icons/AntDesign";
-
 import Header from "../components/Header";
 import { styles } from "../styles/styles";
 
@@ -19,17 +17,7 @@ const InfoScreen = () => {
   };
   return (
     <SafeAreaView>
-      <Header
-        title="Info"
-        rightButton={AntDesign}
-        rightButtonProps={{
-          name: "github",
-          size: 30,
-          onPress: onPress,
-          style: { position: "absolute", right: 16, top: 5 },
-        }}
-        github={true}
-      />
+      <Header title="Info" github={true} />
       <View style={{ justifyContent: "center", alignSelf: "center" }}>
         <View style={styles.hContainer}>
           <Text style={styles.hText}>Welcome to PocketGene!</Text>

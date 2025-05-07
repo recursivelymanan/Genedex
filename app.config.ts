@@ -1,4 +1,7 @@
-{
+import dotenv from "dotenv"
+dotenv.config()
+
+export default {
   "expo": {
     "name": "PocketGene",
     "slug": "pocketgene",
@@ -13,6 +16,11 @@
     },
     "android": {
       "package": "com.mananchopra.pocketgene"
+    },
+    "extra": {
+      "eas": {
+        "projectId": process.env.EAS_PROJECT_ID,
+      }
     }
   }
 }
