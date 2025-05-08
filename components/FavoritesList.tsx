@@ -38,14 +38,14 @@ const FavoritesList: React.FC<FavoritesListProps> = ({ handleSearch }) => {
                 {string}
               </Text>
             </View>
-            <Button
-              onPress={() => {
-                setFavorites([]);
-              }}
-              title="Clear favorites"
-            />
           </View>
         ))}
+        <Button
+          onPress={() => {
+            setFavorites([]);
+          }}
+          title="Clear favorites"
+        />
       </View>
     </ScrollView>
   );
