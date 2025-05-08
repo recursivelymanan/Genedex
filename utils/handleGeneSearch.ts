@@ -41,19 +41,30 @@ export async function onSearchPress(
       data = data.hits[0];
 
       let apiResult: QueryResult = {
+        mirna: data.symbol.startsWith("MIR"),
         symbol: data.symbol,
       };
+
       Object.entries(configChoices).forEach(([key, value]) => {
         if (value) {
+          // GO terms
           if (["goBP", "goCC", "goMF"].includes(key)) {
-            if (!Array.isArray(data.go[fieldsForURL[key]])) {
-              apiResult[key] = [data.go[fieldsForURL[key]]];
+            const goData = data.go?.[fieldsForURL[key]];
+            if (goData) {
+              apiResult[key] = Array.isArray(goData) ? goData : [goData];
             } else {
-              apiResult[key] = data.go[fieldsForURL[key]];
+              apiResult[key] = [
+                "NOTFOUND",
+                `No GO ${fieldsForURL[key]}s found.`,
+              ];
             }
-          } else if (key === "ensemblID") {
+          }
+          // ensembl ID
+          else if (key === "ensemblID") {
             apiResult[key] = data.ensembl.gene;
-          } else if (
+          }
+          // refseq IDs
+          else if (
             ["refseqGenomic", "refseqProtein", "refseqRNA"].includes(key)
           ) {
             const safeKey = key.slice(6).toLowerCase();
@@ -61,14 +72,18 @@ export async function onSearchPress(
             Array.isArray(ids)
               ? (apiResult[key] = ids)
               : (apiResult[key] = [ids]);
-          } else if (
+          }
+          // aliases
+          else if (
             key === "alternateNames" &&
             !Array.isArray(data[fieldsForURL[key]])
           ) {
             apiResult[key] = data[fieldsForURL[key]]
               ? [data[fieldsForURL[key]]]
               : ["No aliases"];
-          } else {
+          }
+          // all other fields
+          else {
             apiResult[key] = data[fieldsForURL[key]];
           }
         }
@@ -78,7 +93,7 @@ export async function onSearchPress(
       setIsError(null);
       setQueryResult(apiResult);
     } catch (error: unknown) {
-      console.log("error");
+      console.log(error);
       if (error instanceof Error) {
         if (error.message === "GENE_NOT_FOUND") {
           setIsError("Gene not found. Please check the name and try again.");

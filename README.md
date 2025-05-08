@@ -1,3 +1,3 @@
 ## PocketGene
 
---deal with handleSearch passing (maybe use context?)
+--need to handle undefined results from API

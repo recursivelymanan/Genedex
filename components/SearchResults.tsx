@@ -56,6 +56,22 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
           </View>
         </TouchableOpacity>
 
+        {results.mirna ? (
+          <View
+            style={{
+              ...styles.bContainer,
+              alignSelf: "center",
+              marginBottom: 20,
+            }}
+          >
+            <Text style={{ ...styles.bText }}>
+              The symbol you searched represents a micro-RNA, which do not have
+              individual summaries, and are likely lacking in other fields as
+              well.
+            </Text>
+          </View>
+        ) : null}
+
         {/* NAME FIELD */}
 
         {configChoices.name && results.name ? (
