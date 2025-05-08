@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, Text, View } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import { RootStackParamList } from "../App";
 
 import { QueryResult } from "../types/types";
+
 import SearchResults from "../components/SearchResults";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Header from "../components/Header";
+import FavoriteIndicatorButton from "../components/buttons/FavoriteIndicatorButton";
+
 import { useRecentQueries } from "../context/RecentQueryContext";
 import { useResultsConfiguration } from "../context/ResultsConfigurationContext";
-import FavoriteIndicatorButton from "../components/buttons/FavoriteIndicatorButton";
+
 import { styles } from "../styles/styles";
+
 import { onSearchPress } from "../utils/handleGeneSearch";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Results">;
@@ -33,7 +36,6 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
   /*-----
   Effects
   -----*/
-
   useEffect(() => {
     onSearchPress(
       query,

@@ -46,7 +46,11 @@ export async function onSearchPress(
       Object.entries(configChoices).forEach(([key, value]) => {
         if (value) {
           if (["goBP", "goCC", "goMF"].includes(key)) {
-            apiResult[key] = data.go[fieldsForURL[key]];
+            if (!Array.isArray(data.go[fieldsForURL[key]])) {
+              apiResult[key] = [data.go[fieldsForURL[key]]];
+            } else {
+              apiResult[key] = data.go[fieldsForURL[key]];
+            }
           } else if (key === "ensemblID") {
             apiResult[key] = data.ensembl.gene;
           } else if (
