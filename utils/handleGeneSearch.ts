@@ -61,14 +61,15 @@ export async function onSearchPress(
           }
           // ensembl ID
           else if (key === "ensemblID") {
-            apiResult[key] = data.ensembl.gene;
+            const ensembl = data.ensembl?.gene;
+            apiResult[key] = ensembl ? ensembl.gene : "No Ensembl ID";
           }
           // refseq IDs
           else if (
             ["refseqGenomic", "refseqProtein", "refseqRNA"].includes(key)
           ) {
             const safeKey = key.slice(6).toLowerCase();
-            let ids = data.refseq[safeKey];
+            let ids = data.refseq?.[safeKey];
             Array.isArray(ids)
               ? (apiResult[key] = ids)
               : (apiResult[key] = [ids]);
@@ -84,7 +85,8 @@ export async function onSearchPress(
           }
           // all other fields
           else {
-            apiResult[key] = data[fieldsForURL[key]];
+            const field = data?.[fieldsForURL[key]];
+            apiResult[key] = data ? data[fieldsForURL[key]] : null;
           }
         }
       });

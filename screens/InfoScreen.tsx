@@ -9,12 +9,7 @@ import { styles } from "../styles/styles";
 
 const InfoScreen = () => {
   const nav = useNavigation();
-  const onPress = () => {
-    const url = `https://github.com`;
-    Linking.openURL(url).catch((err) =>
-      console.error("Failed to open URL:", err)
-    );
-  };
+
   return (
     <SafeAreaView>
       <Header title="Info" github={true} />
