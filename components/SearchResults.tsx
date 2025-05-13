@@ -22,8 +22,11 @@ interface SearchResultsProps {
 const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
   const { configChoices } = useResultsConfiguration();
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const [choices, setChoices] = useState<ConfigResults>(configChoices);
 
-  console.log(results);
+  useEffect(() => {
+    setChoices(configChoices);
+  }, [configChoices]);
 
   const onPressSymbol = () => {
     const url = `https://www.genecards.org/cgi-bin/carddisp.pl?gene=${results.symbol}`;
@@ -56,25 +59,9 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
           </View>
         </TouchableOpacity>
 
-        {results.mirna ? (
-          <View
-            style={{
-              ...styles.bContainer,
-              alignSelf: "center",
-              marginBottom: 20,
-            }}
-          >
-            <Text style={{ ...styles.bText }}>
-              The symbol you searched represents a micro-RNA, which do not have
-              individual summaries, and are likely lacking in other fields as
-              well.
-            </Text>
-          </View>
-        ) : null}
-
         {/* NAME FIELD */}
 
-        {configChoices.name && results.name ? (
+        {choices.name && results.name ? (
           <View style={styles.resultsEntryContainer}>
             <View style={styles.resultsEntryLabelContainer}>
               <Text style={styles.resultsEntryLabelText}>Full gene name</Text>
@@ -89,7 +76,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* ENSEMBL FIELD */}
 
-        {configChoices.ensemblID && results.ensemblID ? (
+        {choices.ensemblID && results.ensemblID ? (
           <View style={styles.resultsEntryContainer}>
             <View style={styles.resultsEntryLabelContainer}>
               <Text style={styles.resultsEntryLabelText}>Ensembl ID</Text>
@@ -104,7 +91,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* TYPE FIELD */}
 
-        {configChoices.type && results.type ? (
+        {choices.type && results.type ? (
           <View style={styles.resultsEntryContainer}>
             <View style={styles.resultsEntryLabelContainer}>
               <Text style={styles.resultsEntryLabelText}>Gene type</Text>
@@ -119,7 +106,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* ALIASES FIELD */}
 
-        {configChoices.alternateNames && results.alternateNames ? (
+        {choices.alternateNames && results.alternateNames ? (
           <View style={styles.resultsEntryContainer}>
             <View style={styles.resultsEntryLabelContainer}>
               <Text style={styles.resultsEntryLabelText}>Aliases</Text>
@@ -134,7 +121,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* SUMMARY */}
 
-        {configChoices.summary && results.summary ? (
+        {choices.summary && results.summary ? (
           <View
             style={{
               ...styles.resultsEntryContainer,
@@ -165,7 +152,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* REFSEQ GENOMIC */}
 
-        {configChoices.refseqGenomic && results.refseqGenomic ? (
+        {choices.refseqGenomic && results.refseqGenomic ? (
           <TouchableOpacity
             onPress={() =>
               nav.navigate("MoreData", {
@@ -197,7 +184,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* REFSEQ RNA */}
 
-        {configChoices.refseqRNA && results.refseqRNA ? (
+        {choices.refseqRNA && results.refseqRNA ? (
           <TouchableOpacity
             onPress={() =>
               nav.navigate("MoreData", {
@@ -227,7 +214,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* REFSEQ PROT */}
 
-        {configChoices.refseqProtein && results.refseqProtein ? (
+        {results.refseqProtein && results.refseqProtein ? (
           <TouchableOpacity
             onPress={() =>
               nav.navigate("MoreData", {
@@ -259,7 +246,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* GO BP  */}
 
-        {configChoices.goBP && results.goBP ? (
+        {choices.goBP && results.goBP ? (
           <TouchableOpacity
             onPress={() =>
               nav.navigate("MoreData", {
@@ -287,7 +274,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* GO CC */}
 
-        {configChoices.goCC && results.goCC ? (
+        {choices.goCC && results.goCC ? (
           <TouchableOpacity
             onPress={() =>
               nav.navigate("MoreData", {
@@ -313,7 +300,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
 
         {/* GO MF */}
 
-        {configChoices.goMF && results.goMF ? (
+        {choices.goMF && results.goMF ? (
           <TouchableOpacity
             onPress={() =>
               nav.navigate("MoreData", {

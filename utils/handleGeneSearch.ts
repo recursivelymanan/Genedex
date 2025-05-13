@@ -1,4 +1,4 @@
-import { ConfigResults, QueryResult } from "../types/types";
+import { ConfigResults, goResult, QueryResult } from "../types/types";
 
 /**
  * Function for handling API queries. Throws error upon invalid query.
@@ -49,9 +49,16 @@ export async function onSearchPress(
         if (value) {
           // GO terms
           if (["goBP", "goCC", "goMF"].includes(key)) {
-            const goData = data.go?.[fieldsForURL[key]];
+            const goData: goResult[] = data.go?.[fieldsForURL[key]];
+            console.log(goData);
             if (goData) {
-              apiResult[key] = Array.isArray(goData) ? goData : [goData];
+              const unique = new Set();
+              const goDataUnique = goData.filter((item) => {
+                if (unique.has(item.term)) return false;
+                unique.add(item.term);
+                return true;
+              });
+              apiResult[key] = goDataUnique;
             } else {
               apiResult[key] = [
                 "NOTFOUND",
@@ -59,6 +66,7 @@ export async function onSearchPress(
               ];
             }
           }
+
           // ensembl ID
           else if (key === "ensemblID") {
             const ensembl = data.ensembl?.gene;
@@ -90,7 +98,6 @@ export async function onSearchPress(
           }
         }
       });
-
       addRecentQuery(query);
       setIsError(null);
       setQueryResult(apiResult);
