@@ -37,7 +37,7 @@ export const RecentQueriesProvider: React.FC<{ children: React.ReactNode }> = ({
   -----*/
 
   useEffect(() => {
-    const loadConfig = async () => {
+    const loadRecents = async () => {
       try {
         const stored = await AsyncStorage.getItem(STORAGE_KEY);
         if (stored) {
@@ -47,18 +47,18 @@ export const RecentQueriesProvider: React.FC<{ children: React.ReactNode }> = ({
         console.error("Failed to load stored recent queries", error);
       }
     };
-    loadConfig();
+    loadRecents();
   }, []);
 
   useEffect(() => {
-    const saveConfig = async () => {
+    const saveRecents = async () => {
       try {
         await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(recentQueries));
       } catch (error) {
         console.log("Failed to save recent queries", error);
       }
     };
-    saveConfig();
+    saveRecents();
   }, [recentQueries]);
 
   /*-------

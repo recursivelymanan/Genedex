@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, SafeAreaView } from "react-native";
+import { SafeAreaView } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
 import ConfigureResults from "../components/ConfigureResults";
@@ -29,11 +29,3 @@ const ConfigureResultsScreen = () => {
 };
 
 export default ConfigureResultsScreen;
-
-/*----
-Styles
-----*/
-const styles = StyleSheet.create({
-  container: { paddingTop: 15 },
-  helpText: { textAlign: "center", fontSize: 20 },
-});

@@ -4,6 +4,8 @@ import { Text, View, Button, StyleSheet } from "react-native";
 import { useQuerySearchContext } from "../context/QuerySearchContext";
 import { useRecentQueries } from "../context/RecentQueryContext";
 
+import { styles } from "../styles/styles";
+
 const RecentQueries = () => {
   /*----------------
   States & Constants
@@ -39,31 +41,3 @@ const RecentQueries = () => {
 };
 
 export default RecentQueries;
-
-const styles = StyleSheet.create({
-  recents: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    marginVertical: 5,
-    backgroundColor: "#ffffff",
-    borderRadius: 20,
-    elevation: 2,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    fontSize: 16,
-    fontFamily: "Inter",
-    color: "#0c3b87",
-    fontWeight: "500",
-    textAlign: "center",
-  },
-  recentsContainer: {
-    padding: 20,
-  },
-  recentsTitle: {
-    paddingBottom: 20,
-    fontSize: 25,
-    fontFamily: "Inter",
-  },
-});
