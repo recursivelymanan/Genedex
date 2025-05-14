@@ -15,7 +15,7 @@ export async function onSearchPress(
   addRecentQuery: (query: string) => void,
   setLoading: React.Dispatch<React.SetStateAction<boolean>>,
   setIsError: React.Dispatch<React.SetStateAction<string | null>>,
-  setQueryResult: React.Dispatch<React.SetStateAction<QueryResult | null>>
+  setQueryResult: React.Dispatch<React.SetStateAction<QueryResult>>
 ) {
   if (query) {
     setLoading(true);
@@ -47,54 +47,140 @@ export async function onSearchPress(
 
       Object.entries(configChoices).forEach(([key, value]) => {
         if (value) {
-          // GO terms
-          if (["goBP", "goCC", "goMF"].includes(key)) {
-            const goData: goResult[] = data.go?.[fieldsForURL[key]];
-            console.log(goData);
-            if (goData) {
-              const unique = new Set();
-              const goDataUnique = goData.filter((item) => {
-                if (unique.has(item.term)) return false;
-                unique.add(item.term);
-                return true;
-              });
-              apiResult[key] = goDataUnique;
-            } else {
-              apiResult[key] = [
-                "NOTFOUND",
-                `No GO ${fieldsForURL[key]}s found.`,
-              ];
-            }
-          }
+          // Handle result storage based on key
+          switch (key) {
+            case "symbol":
+              const symbol: string = data?.symbol;
+              apiResult.symbol = symbol ? symbol : "-";
+              console.log("SYMBOL: ", apiResult.symbol);
+              break;
 
-          // ensembl ID
-          else if (key === "ensemblID") {
-            const ensembl = data.ensembl?.gene;
-            apiResult[key] = ensembl ? ensembl.gene : "No Ensembl ID";
-          }
-          // refseq IDs
-          else if (
-            ["refseqGenomic", "refseqProtein", "refseqRNA"].includes(key)
-          ) {
-            const safeKey = key.slice(6).toLowerCase();
-            let ids = data.refseq?.[safeKey];
-            Array.isArray(ids)
-              ? (apiResult[key] = ids)
-              : (apiResult[key] = [ids]);
-          }
-          // aliases
-          else if (
-            key === "alternateNames" &&
-            !Array.isArray(data[fieldsForURL[key]])
-          ) {
-            apiResult[key] = data[fieldsForURL[key]]
-              ? [data[fieldsForURL[key]]]
-              : ["No aliases"];
-          }
-          // all other fields
-          else {
-            const field = data?.[fieldsForURL[key]];
-            apiResult[key] = data ? data[fieldsForURL[key]] : null;
+            case "name":
+              const name: string = data?.name;
+              apiResult.name = ["Full gene name", name ? name : "-"];
+              console.log("NAME: ", apiResult.name);
+              break;
+
+            case "type":
+              const type: string = data?.type_of_gene;
+              apiResult.type = ["Gene type", type ? type : "-"];
+              console.log("TYPE: ", apiResult.type);
+              break;
+
+            case "alternateNames":
+              let alternateNames = data?.alias;
+              if (alternateNames && !Array.isArray(alternateNames)) {
+                alternateNames = [alternateNames];
+              }
+              apiResult.alternateNames = [
+                "Aliases",
+                alternateNames ? alternateNames : "-",
+              ];
+              console.log("ALIAS: ", apiResult.alternateNames);
+              break;
+
+            case "ensembl":
+              const ensembl: string = data?.ensembl.gene;
+              apiResult.ensemblID = ["Ensembl ID", ensembl ? ensembl : "-"];
+              console.log("ENSEMBL: ", apiResult.ensemblID);
+              break;
+
+            case "summary":
+              const summary: string = data?.summary;
+              apiResult.summary = summary ? summary : "-";
+              console.log("SUMMARY: ");
+              break;
+
+            case "refseqGenomic":
+              let refseqGenomic = data?.refseq.genomic;
+              if (refseqGenomic && !Array.isArray(refseqGenomic)) {
+                refseqGenomic = [refseqGenomic];
+              }
+              apiResult.refseqGenomic = [
+                "Refseq Genomic IDs",
+                refseqGenomic ? refseqGenomic : null,
+              ];
+              console.log("RSG: ", apiResult.refseqGenomic);
+              break;
+
+            case "refseqRNA":
+              let refseqRNA = data?.refseq.rna;
+              if (refseqRNA && !Array.isArray(refseqRNA)) {
+                refseqRNA = [refseqRNA];
+              }
+              apiResult.refseqRNA = [
+                "Refseq RNA IDs",
+                refseqRNA ? refseqRNA : null,
+              ];
+              console.log("RSR: ", apiResult.refseqRNA);
+              break;
+
+            case "refseqProtein":
+              let refseqProtein = data?.refseq.protein;
+              if (refseqProtein && !Array.isArray(refseqProtein)) {
+                refseqProtein = [refseqProtein];
+              }
+              apiResult.refseqProtein = [
+                "Refseq Protein IDs",
+                refseqProtein ? refseqProtein : null,
+              ];
+              console.log("RSP: ", apiResult.refseqProtein);
+              break;
+
+            case "goBP":
+              let goBP: goResult[] = data.go?.BP;
+              if (goBP) {
+                const unique = new Set();
+                const goDataUnique = goBP.filter((item) => {
+                  if (unique.has(item.term)) return false;
+                  unique.add(item.term);
+                  return true;
+                });
+                apiResult.goBP = ["GO Biological Processes", goDataUnique];
+                console.log("GOBP: ", apiResult.goBP);
+              } else {
+                apiResult.goBP = ["NOTFOUND", []];
+              }
+              break;
+
+            case "goCC":
+              let goCC: goResult[] = data.go?.CC;
+              if (goCC) {
+                const unique = new Set();
+                const goDataUnique = goCC.filter((item) => {
+                  if (unique.has(item.term)) return false;
+                  unique.add(item.term);
+                  return true;
+                });
+                apiResult.goCC = ["GO Cellular Components", goDataUnique];
+                console.log("GOCC: ", apiResult.goCC);
+              } else {
+                apiResult.goCC = ["NOTFOUND", []];
+              }
+              break;
+
+            case "goMF":
+              let goMF: goResult[] = data.go?.MF;
+              if (goMF) {
+                const unique = new Set();
+                const goDataUnique = goMF.filter((item) => {
+                  if (unique.has(item.term)) return false;
+                  unique.add(item.term);
+                  return true;
+                });
+
+                // Need to rename "category" to "gocategory" to match CC and BP
+                const renamed = goDataUnique.map(({ category, ...rest }) => ({
+                  ...rest,
+                  gocategory: category,
+                }));
+
+                apiResult.goMF = ["GO Molecular Functions", renamed];
+                console.log("GOMF: ", apiResult.goMF);
+              } else {
+                apiResult.goMF = ["NOTFOUND", []];
+              }
+              break;
           }
         }
       });
