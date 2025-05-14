@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Button,
-} from "react-native";
+import { View, ScrollView, TouchableOpacity, Button } from "react-native";
 import { Checkbox } from "react-native-paper";
 
 import {
@@ -13,6 +7,8 @@ import {
   defaultFields,
   useResultsConfiguration,
 } from "../context/ResultsConfigurationContext";
+
+import { styles } from "../styles/styles";
 
 const ConfigureResults = () => {
   const { configChoices, setConfigChoices } = useResultsConfiguration();
@@ -48,6 +44,10 @@ const ConfigureResults = () => {
           <TouchableOpacity
             activeOpacity={1}
             onPress={() => onCheckboxToggle(key, value)}
+            accessibilityRole="checkbox"
+            accessibilityLabel={`${prettyNames[key]} ${
+              value ? "checked" : "not checked"
+            }`}
           >
             <Checkbox.Item
               key={key}
@@ -77,20 +77,3 @@ const prettyNames: { [key: string]: string } = {
   goMF: "Gene Ontology (MF)",
   goCC: "Gene Ontology (CC)",
 };
-
-const styles = StyleSheet.create({
-  settingOn: {
-    backgroundColor: "#b1c9f0",
-    borderRadius: 10,
-    width: "80%",
-    alignSelf: "center",
-    margin: 5,
-  },
-  settingOff: {
-    backgroundColor: "#c7d7f0",
-    borderRadius: 10,
-    width: "80%",
-    alignSelf: "center",
-    margin: 5,
-  },
-});

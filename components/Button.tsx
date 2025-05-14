@@ -9,7 +9,11 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({ children, onPress, style }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={style}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={style}
+      accessibilityRole="button"
+    >
       {children}
     </TouchableOpacity>
   );
