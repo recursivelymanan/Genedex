@@ -1,0 +1,173 @@
+ {/* REFSEQ GENOMIC */}
+
+        {choices.refseqGenomic && results.refseqGenomic ? (
+          <TouchableOpacity
+            onPress={() =>
+              nav.navigate("MoreData", {
+                data: "rsG",
+                refseqIDs: results.refseqGenomic,
+              })
+            }
+          >
+            <View style={styles.resultsEntryContainer}>
+              <View
+                style={{ ...styles.resultsEntryLabelContainer, width: 200 }}
+              >
+                <Text style={styles.resultsEntryLabelText}>
+                  {`Refseq Genomic ID${
+                    results.refseqGenomic.length > 1 ? "s" : ""
+                  }`}
+                </Text>
+              </View>
+              <View style={styles.resultsEntryDataContainer}>
+                <Text style={styles.resultsEntryDataText}>{`Tap to see ${
+                  results.refseqGenomic.length
+                } Refseq genomic ID${
+                  results.refseqGenomic.length > 1 ? "s" : ""
+                }`}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        ) : null}
+
+        {/* REFSEQ RNA */}
+
+        {choices.refseqRNA && results.refseqRNA ? (
+          <TouchableOpacity
+            onPress={() =>
+              nav.navigate("MoreData", {
+                data: "rsR",
+                refseqIDs: results.refseqRNA,
+              })
+            }
+          >
+            <View style={styles.resultsEntryContainer}>
+              <View
+                style={{ ...styles.resultsEntryLabelContainer, width: 200 }}
+              >
+                <Text style={styles.resultsEntryLabelText}>{`Refseq RNA ID${
+                  results.refseqRNA.length > 1 ? "s" : ""
+                }`}</Text>
+              </View>
+              <View style={styles.resultsEntryDataContainer}>
+                <Text style={styles.resultsEntryDataText}>{`Tap to see ${
+                  results.refseqRNA.length
+                } Refseq RNA ID${
+                  results.refseqRNA.length > 1 ? "s" : ""
+                }`}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        ) : null}
+
+        {/* REFSEQ PROT */}
+
+        {choices.refseqProtein && results.refseqProtein ? (
+          <TouchableOpacity
+            onPress={() =>
+              nav.navigate("MoreData", {
+                data: "rsP",
+                refseqIDs: results.refseqProtein,
+              })
+            }
+          >
+            <View style={styles.resultsEntryContainer}>
+              <View
+                style={{ ...styles.resultsEntryLabelContainer, width: 200 }}
+              >
+                <Text style={styles.resultsEntryLabelText}>
+                  {`Refseq Protein ID${
+                    results.refseqProtein.length > 1 ? "s" : ""
+                  }`}
+                </Text>
+              </View>
+              <View style={styles.resultsEntryDataContainer}>
+                <Text style={styles.resultsEntryDataText}>{`Tap to see ${
+                  results.refseqProtein.length
+                } Refseq protein ID${
+                  results.refseqProtein.length > 1 ? "s" : ""
+                }`}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        ) : null}
+
+        {/* GO BP  */}
+
+        {/* {choices.goBP && results.goBP ? (
+          <TouchableOpacity
+            onPress={() =>
+              nav.navigate("MoreData", {
+                data: "goBP",
+                goResults: results.goBP,
+              })
+            }
+          >
+            <View style={styles.resultsEntryContainer}>
+              <View style={styles.resultsEntryLabelContainer}>
+                <Text style={styles.resultsEntryLabelText}>
+                  {`GO Biological Process${
+                    results.goBP.length > 1 ? "es" : ""
+                  }`}
+                </Text>
+              </View>
+              <View style={styles.resultsEntryDataContainer}>
+                <Text style={styles.resultsEntryDataText}>{`Tap to see ${
+                  results.goBP.length
+                } GO BP${results.goBP.length > 1 ? "s" : ""}`}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        ) : null} */}
+
+        {/* GO CC */}
+
+        {choices.goCC && results.goCC ? (
+          <TouchableOpacity
+            onPress={() =>
+              nav.navigate("MoreData", {
+                data: "goCC",
+                goResults: results.goCC,
+              })
+            }
+          >
+            <View style={styles.resultsEntryContainer}>
+              <View style={styles.resultsEntryLabelContainer}>
+                <Text style={styles.resultsEntryLabelText}>
+                  {`GO Cellular Component${results.goCC.length > 1 ? "s" : ""}`}
+                </Text>
+              </View>
+              <View style={styles.resultsEntryDataContainer}>
+                <Text style={styles.resultsEntryDataText}>{`Tap to see ${
+                  results.goCC.length
+                } GO CC${results.goCC.length > 1 ? "s" : ""}`}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        ) : null}
+
+        {/* GO MF */}
+
+        {choices.goMF && results.goMF ? (
+          <TouchableOpacity
+            onPress={() =>
+              nav.navigate("MoreData", {
+                data: "goMF",
+                goResults: results.goMF,
+              })
+            }
+          >
+            <View style={styles.resultsEntryContainer}>
+              <View style={styles.resultsEntryLabelContainer}>
+                <Text style={styles.resultsEntryLabelText}>
+                  {`GO Molecular Function${results.goMF.length > 1 ? "s" : ""}`}
+                </Text>
+              </View>
+              <View style={styles.resultsEntryDataContainer}>
+                <Text style={styles.resultsEntryDataText}>{`Tap to see ${
+                  results.goMF.length
+                } GO MF${results.goMF.length > 1 ? "s" : ""}`}</Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+        ) : null}

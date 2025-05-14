@@ -11,10 +11,9 @@ import { styles } from "../styles/styles";
 
 interface RefseqDisplayProps {
   ids: string[];
-  dtype: "rsG" | "rsR" | "rsP" | "goBP" | "goCC" | "goMF";
 }
 
-const RefseqDisplay: React.FC<RefseqDisplayProps> = ({ ids, dtype }) => {
+const RefseqDisplay: React.FC<RefseqDisplayProps> = ({ ids }) => {
   // Genomic types
   let NC: string[] = ["Complete Genomic Molecules"];
   let NG: string[] = ["Incomplete Genomic Regions"];

@@ -39,9 +39,29 @@ export const styles = StyleSheet.create({
     maxWidth: "100%",
     marginBottom: 8,
   },
+  resultsEntryContainerSummary: {
+    justifyContent: "flex-start",
+    alignItems: "center",
+    flexDirection: "row",
+    backgroundColor: "#d1d9e3",
+    borderRadius: 5,
+    padding: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    maxWidth: "100%",
+    marginBottom: 23,
+    marginTop: 15,
+  },
   resultsEntryDataContainer: {
     paddingLeft: 10,
     flex: 1,
+  },
+  resultsEntryDataContainerSummary: {
+    paddingLeft: 10,
+    flex: 1,
+    paddingRight: 0,
+    paddingTop: 5,
+    paddingBottom: 5,
   },
   resultsEntryDataText: {
     textAlign: "right",
@@ -50,6 +70,10 @@ export const styles = StyleSheet.create({
   resultsEntryLabelContainer: {
     paddingRight: 10,
     width: 120,
+  },
+  resultsEntryDataTextSummary: {
+    textAlign: "auto",
+    fontSize: 18,
   },
   resultsEntryLabelText: {
     textAlign: "left",

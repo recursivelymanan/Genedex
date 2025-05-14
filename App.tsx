@@ -24,7 +24,6 @@ export type RootStackParamList = {
   Favorites: undefined;
   Info: undefined;
   MoreData: {
-    data: "rsG" | "rsR" | "rsP" | "goBP" | "goCC" | "goMF";
     refseqIDs?: string[];
     goResults?: goResult[];
   };

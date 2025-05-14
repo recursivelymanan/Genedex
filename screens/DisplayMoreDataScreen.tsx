@@ -14,21 +14,50 @@ const DisplayMoreDataScreen: React.FC<Props> = ({ route }) => {
   /*----------------
   States & Constants
   ----------------*/
-  const { data, refseqIDs, goResults } = route.params;
-  const title =
-    data === "rsG"
-      ? "Refseq Genomic IDs"
-      : data === "rsR"
-      ? "Refseq RNA IDs"
-      : data === "rsP"
-      ? "Refseq Protein IDs"
-      : data === "goBP"
-      ? "GO BPs"
-      : data === "goCC"
-      ? "GO CCs"
-      : data === "goMF"
-      ? "GO MFs"
-      : "";
+  const { refseqIDs, goResults } = route.params;
+  let title: string = "";
+  if (refseqIDs) {
+    const sample = refseqIDs[0].slice(0, 2);
+    switch (sample) {
+      case "NC":
+      case "NG":
+      case "NT":
+      case "NW":
+      case "NZ":
+        title = "Refseq Genomic IDs";
+        break;
+
+      case "NM":
+      case "NR":
+      case "XM":
+      case "XR":
+        title = "Refseq RNA IDs";
+        break;
+
+      case "AP":
+      case "NP":
+      case "YP":
+      case "XP":
+      case "WP":
+        title = "Refseq Protein IDs";
+        break;
+    }
+  } else if (goResults) {
+    const sample = goResults[0].gocategory;
+    switch (sample) {
+      case "BP":
+        title = "Biological Processes";
+        break;
+
+      case "CC":
+        title = "Cellular Components";
+        break;
+
+      case "MF":
+        title = "Molecular Functions";
+        break;
+    }
+  }
 
   /*----
   Render
@@ -37,7 +66,7 @@ const DisplayMoreDataScreen: React.FC<Props> = ({ route }) => {
     <SafeAreaView>
       <Header title={title} github={false} />
       {refseqIDs ? (
-        <RefseqDisplay ids={refseqIDs} dtype={data} />
+        <RefseqDisplay ids={refseqIDs} />
       ) : goResults ? (
         <GOResultDisplay goResults={goResults} />
       ) : null}
