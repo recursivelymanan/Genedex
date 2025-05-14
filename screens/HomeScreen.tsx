@@ -6,17 +6,20 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "../App";
+
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useQuerySearchContext } from "../context/QuerySearchContext";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 
 import GeneSearch from "../components/GeneSearch";
 import RecentQueries from "../components/RecentQueries";
 import Button from "../components/Button";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+
+import { styles } from "../styles/styles";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -33,9 +36,9 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: "#b1c9f0" }}>
       <SafeAreaView style={{ flex: 1 }}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.container}>
-            <Text style={styles.title}>{"PocketGene"}</Text>
-            <View style={styles.buttonContainer}>
+          <View style={styles.homeContainer}>
+            <Text style={styles.homeTitle}>{"PocketGene"}</Text>
+            <View style={styles.homeButtonContainer}>
               <Button
                 button={
                   <FontAwesome6
@@ -71,29 +74,3 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 };
 
 export default HomeScreen;
-
-/*----
-Styles
-----*/
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#b1c9f0",
-    alignItems: "center",
-  },
-  title: {
-    color: "#0c3b87",
-    fontWeight: "bold",
-    fontFamily: "AmericanTypewriter-Bold",
-    fontSize: 50,
-    marginTop: 10,
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    paddingTop: 40,
-    paddingBottom: 50,
-    alignItems: "center",
-    width: "100%",
-  },
-});

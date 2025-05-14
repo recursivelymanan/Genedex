@@ -1,7 +1,9 @@
-import { useNavigation } from "@react-navigation/native";
 import React, { createContext, useContext, useState } from "react";
-import { RootStackParamList } from "../App";
+import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+import { RootStackParamList } from "../App";
+
 import { QueryResult } from "../types/types";
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
@@ -42,7 +44,6 @@ export const QuerySearchProvider: React.FC<{ children: React.ReactNode }> = ({
    * Upon search, navigate to ResultsScreen and provide the query.
    * @param searchQuery Optional parameter, when it is passed, pass this value
    *                    to ResultsScreen instead of the query state.
-   * @returns
    */
   const handleSearch = (searchQuery?: string) => {
     if (searchQuery) setQuery(searchQuery);

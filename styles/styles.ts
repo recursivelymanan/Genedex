@@ -102,4 +102,24 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     top: -7,
   },
+  homeContainer: {
+    flex: 1,
+    backgroundColor: "#b1c9f0",
+    alignItems: "center",
+  },
+  homeTitle: {
+    color: "#0c3b87",
+    fontWeight: "bold",
+    fontFamily: "AmericanTypewriter-Bold",
+    fontSize: 50,
+    marginTop: 10,
+  },
+  homeButtonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    paddingTop: 40,
+    paddingBottom: 50,
+    alignItems: "center",
+    width: "100%",
+  },
 });
