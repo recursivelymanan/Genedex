@@ -19,7 +19,7 @@ const FavoritesScreen = () => {
         title="Favorites"
         leftButton={
           <Button
-            button={<AntDesign name="back" size={35} color="black" />}
+            children={<AntDesign name="back" size={35} color="black" />}
             onPress={() => nav.goBack()}
           />
         }

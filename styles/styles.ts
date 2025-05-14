@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const screenHeight = Dimensions.get("window").height;
 
 export const styles = StyleSheet.create({
   hhContainer: {
@@ -121,5 +123,18 @@ export const styles = StyleSheet.create({
     paddingBottom: 50,
     alignItems: "center",
     width: "100%",
+  },
+  searchBar: {
+    width: "80%",
+    height: screenHeight * 0.05,
+    borderColor: "#ddd",
+    backgroundColor: "white",
+    borderWidth: 1,
+    paddingLeft: 20,
+    paddingRight: 20,
+    marginBottom: 10,
+    fontSize: 20,
+    borderRadius: 20,
+    textAlign: "center",
   },
 });

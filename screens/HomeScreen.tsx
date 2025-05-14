@@ -40,7 +40,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
             <Text style={styles.homeTitle}>{"PocketGene"}</Text>
             <View style={styles.homeButtonContainer}>
               <Button
-                button={
+                children={
                   <FontAwesome6
                     name="screwdriver-wrench"
                     size={40}
@@ -50,11 +50,11 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                 onPress={() => navigation.navigate("Config")}
               />
               <Button
-                button={<FontAwesome name="star" size={40} color="black" />}
+                children={<FontAwesome name="star" size={40} color="black" />}
                 onPress={() => navigation.navigate("Favorites")}
               />
               <Button
-                button={
+                children={
                   <FontAwesome6 name="circle-info" size={40} color="black" />
                 }
                 onPress={() => navigation.navigate("Info")}

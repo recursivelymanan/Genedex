@@ -61,7 +61,7 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
         title="Results"
         leftButton={
           <Button
-            button={<AntDesign name="back" size={35} color="black" />}
+            children={<AntDesign name="back" size={35} color="black" />}
             onPress={() => nav.goBack()}
           />
         }
@@ -78,7 +78,7 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
       <Header
         leftButton={
           <Button
-            button={<AntDesign name="back" size={40} color="black" />}
+            children={<AntDesign name="back" size={40} color="black" />}
             onPress={() => nav.goBack()}
           />
         }

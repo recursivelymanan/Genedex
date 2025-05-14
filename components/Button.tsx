@@ -2,15 +2,15 @@ import React from "react";
 import { StyleProp, TouchableOpacity, ViewStyle } from "react-native";
 
 interface ButtonProps {
-  button: React.ReactElement;
+  children: React.ReactNode;
   onPress: () => void;
   style?: StyleProp<ViewStyle>;
 }
 
-const Button: React.FC<ButtonProps> = ({ button, onPress, style }) => {
+const Button: React.FC<ButtonProps> = ({ children, onPress, style }) => {
   return (
     <TouchableOpacity onPress={onPress} style={style}>
-      {button}
+      {children}
     </TouchableOpacity>
   );
 };

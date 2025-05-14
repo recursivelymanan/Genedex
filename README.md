@@ -26,6 +26,7 @@ The recommended way to get the app up and running is using Expo.
    ```
 
 2. Clone this repository and install dependencies
+
    ```
    git clone https://github.com/recursivelymanan/PocketGene
    cd PocketGene
@@ -38,4 +39,12 @@ The recommended way to get the app up and running is using Expo.
    npx expo start
    ```
 
-4. Install Expo Go on your phone to use the app (iOS or Android) and scan the QR code shown by the previous command.
+4. Install Expo Go on your phone to use the app (iOS or Android) and scan the QR code shown by the previous command. If you are having trouble connecting, try using `npx expo start -- --tunnel` instead.
+
+## Data Disclaimer
+
+Gene annotations provided by MyGene.info, maintained by The Scripps Research Institute. Data is provided as-is.
+
+## Contact
+
+Please feel free to report bugs and other issues with the app in this repository's issues.

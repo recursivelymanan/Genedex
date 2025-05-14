@@ -1,5 +1,6 @@
 import React from "react";
-import { TextInput, StyleSheet, Dimensions } from "react-native";
+import { TextInput } from "react-native";
+import { styles } from "../styles/styles";
 
 interface GeneSearchProps {
   query: string;
@@ -21,27 +22,10 @@ const GeneSearch: React.FC<GeneSearchProps> = ({
       returnKeyType="search"
       onSubmitEditing={onSearch}
       autoCapitalize="characters"
+      accessibilityLabel="HGNC gene symbol search input"
       autoFocus
     />
   );
 };
-
-const screenHeight = Dimensions.get("window").height;
-
-const styles = StyleSheet.create({
-  searchBar: {
-    width: "80%",
-    height: screenHeight * 0.05,
-    borderColor: "#ddd",
-    backgroundColor: "white",
-    borderWidth: 1,
-    paddingLeft: 20,
-    paddingRight: 20,
-    marginBottom: 10,
-    fontSize: 20,
-    borderRadius: 20,
-    textAlign: "center",
-  },
-});
 
 export default GeneSearch;

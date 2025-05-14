@@ -18,7 +18,7 @@ const ConfigureResultsScreen = () => {
         title="Results Settings"
         leftButton={
           <Button
-            button={<AntDesign name="back" size={35} color="black" />}
+            children={<AntDesign name="back" size={35} color="black" />}
             onPress={() => nav.goBack()}
           />
         }

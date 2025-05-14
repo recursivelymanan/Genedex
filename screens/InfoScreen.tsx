@@ -25,13 +25,13 @@ const InfoScreen = () => {
         title="Info"
         leftButton={
           <Button
-            button={<AntDesign name="back" size={35} color="black" />}
+            children={<AntDesign name="back" size={35} color="black" />}
             onPress={() => nav.goBack()}
           />
         }
         rightButton={
           <Button
-            button={<AntDesign name="github" size={35} />}
+            children={<AntDesign name="github" size={35} />}
             onPress={onInfoPress}
           />
         }
