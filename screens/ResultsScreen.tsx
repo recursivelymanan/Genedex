@@ -5,8 +5,6 @@ import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 import { RootStackParamList } from "../App";
 
-import { QueryResult } from "../types/types";
-
 import SearchResults from "../components/SearchResults";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Header from "../components/Header";
@@ -18,6 +16,7 @@ import { useResultsConfiguration } from "../context/ResultsConfigurationContext"
 import { styles } from "../styles/styles";
 
 import { onSearchPress } from "../utils/handleGeneSearch";
+import { useQuerySearchContext } from "../context/QuerySearchContext";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Results">;
 
@@ -26,10 +25,10 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
   States & Constants
   ----------------*/
   const { query } = route.params;
-  const [queryResult, setQueryResult] = useState<QueryResult | null>(null);
   const [isError, setIsError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const { queryResult, setQueryResult } = useQuerySearchContext();
   const { addRecentQuery } = useRecentQueries();
   const { configChoices } = useResultsConfiguration();
 
@@ -76,7 +75,7 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
             title="Results"
             github={false}
           />
-          <SearchResults results={queryResult} />
+          <SearchResults />
         </>
       ) : null}
     </SafeAreaView>
