@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, ScrollView, Button } from "react-native";
+import { Text, View, ScrollView, Button, TouchableOpacity } from "react-native";
 
 import { useFavoritesContext } from "../context/FavoritesContext";
 import { styles } from "../styles/styles";
@@ -29,15 +29,16 @@ const FavoritesList: React.FC<FavoritesListProps> = ({ handleSearch }) => {
             key={`${string}-view0`}
             style={{ justifyContent: "center", alignSelf: "center" }}
           >
-            <View key={`${string}-view1`} style={styles.bContainer}>
-              <Text
-                key={string}
-                style={{ ...styles.bText, fontSize: 25 }}
-                onPress={() => handleSearch(string)}
-              >
-                {string}
-              </Text>
-            </View>
+            <TouchableOpacity
+              onPress={() => handleSearch(string)}
+              style={styles.bContainer}
+            >
+              <View key={`${string}-view1`}>
+                <Text key={string} style={{ ...styles.bText, fontSize: 25 }}>
+                  {string}
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         ))}
         <Button
