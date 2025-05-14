@@ -25,21 +25,17 @@ The recommended way to get the app up and running is using Expo.
    npm install -g expo-cli
    ```
 
-   <br>
-
 2. Clone this repository and install dependencies
    ```
    git clone https://github.com/recursivelymanan/PocketGene
    cd PocketGene
    npm install
    ```
-   <br>
+
 3. Run the project
 
    ```
    npx expo start
    ```
-
-   <br>
 
 4. Install Expo Go on your phone to use the app (iOS or Android) and scan the QR code shown by the previous command.
