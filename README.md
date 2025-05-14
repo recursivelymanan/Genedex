@@ -1,3 +1,5 @@
+<img src="./assets/images/icon.png" width="200" alt="PocketGene Logo" />
+
 # PocketGene
 
 Mobile app that enables users to quickly retrieve common info on human genes. Written in Typescript with react-native and managed with Expo.
@@ -12,18 +14,32 @@ I also developed this app to further my experience in React, specifically with r
 
 The app is currently in development and will be available on the App store and Google Play store soon. For now, if you want to try it out you can follow the steps below to run the app locally.
 
-### Running with Expo Go
+### Setting up the Expo Project
 
 The recommended way to get the app up and running is using Expo.
 
-1. Install Expo using npm
-   `npm install expo`  
+1. Install Expo CLI
+
+   ```
+   # Install globally with -g flag
+   npm install -g expo-cli
+   ```
+
    <br>
-2. Clone this repo onto your machine and install dependencies.
+
+2. Clone this repository and install dependencies
    ```
    git clone https://github.com/recursivelymanan/PocketGene
    cd PocketGene
    npm install
    ```
    <br>
-3.
+3. Run the project
+
+   ```
+   npx expo start
+   ```
+
+   <br>
+
+4. Install Expo Go on your phone to use the app (iOS or Android) and scan the QR code shown by the previous command.
