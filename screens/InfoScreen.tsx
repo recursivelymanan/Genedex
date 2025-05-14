@@ -3,16 +3,39 @@ import { Linking, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useNavigation } from "@react-navigation/native";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 import Header from "../components/Header";
 import { styles } from "../styles/styles";
+import Button from "../components/Button";
 
 const InfoScreen = () => {
   const nav = useNavigation();
 
+  const onInfoPress = () => {
+    const url = `https://github.com/recursivelymanan/PocketGene`;
+    Linking.openURL(url).catch((err) =>
+      console.error("Failed to open URL:", err)
+    );
+  };
+
   return (
     <SafeAreaView>
-      <Header title="Info" github={true} />
+      <Header
+        title="Info"
+        leftButton={
+          <Button
+            button={<AntDesign name="back" size={35} color="black" />}
+            onPress={() => nav.goBack()}
+          />
+        }
+        rightButton={
+          <Button
+            button={<AntDesign name="github" size={35} />}
+            onPress={onInfoPress}
+          />
+        }
+      />
       <View style={{ justifyContent: "center", alignSelf: "center" }}>
         <View style={styles.hContainer}>
           <Text style={styles.hText}>Welcome to PocketGene!</Text>

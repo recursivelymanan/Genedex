@@ -11,12 +11,12 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import { RootStackParamList } from "../App";
 import { useQuerySearchContext } from "../context/QuerySearchContext";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 
 import GeneSearch from "../components/GeneSearch";
-import ConfigButton from "../components/buttons/ConfigButton";
-import FavoritesButton from "../components/buttons/FavoritesButton";
-import InfoButton from "../components/buttons/InfoButton";
 import RecentQueries from "../components/RecentQueries";
+import Button from "../components/Button";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
@@ -36,11 +36,26 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
           <View style={styles.container}>
             <Text style={styles.title}>{"PocketGene"}</Text>
             <View style={styles.buttonContainer}>
-              <ConfigButton onPress={() => navigation.navigate("Config")} />
-              <FavoritesButton
+              <Button
+                button={
+                  <FontAwesome6
+                    name="screwdriver-wrench"
+                    size={40}
+                    color="black"
+                  />
+                }
+                onPress={() => navigation.navigate("Config")}
+              />
+              <Button
+                button={<FontAwesome name="star" size={40} color="black" />}
                 onPress={() => navigation.navigate("Favorites")}
               />
-              <InfoButton onPress={() => navigation.navigate("Info")} />
+              <Button
+                button={
+                  <FontAwesome6 name="circle-info" size={40} color="black" />
+                }
+                onPress={() => navigation.navigate("Info")}
+              />
             </View>
             <GeneSearch
               query={query}

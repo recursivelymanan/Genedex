@@ -80,4 +80,26 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 700,
   },
+  rightButton: {
+    position: "absolute",
+    right: 16,
+    top: 5,
+  },
+  leftButton: {
+    position: "absolute",
+    left: 16,
+    top: 5,
+  },
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+    height: 60,
+  },
+  headerTitle: {
+    fontSize: 32,
+    fontWeight: "bold",
+    top: -7,
+  },
 });

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { useFavoritesContext } from "../../context/FavoritesContext";
+import { useFavoritesContext } from "../context/FavoritesContext";
 
 interface FavoriteIndicatorButtonProps {
   query: string;
@@ -49,7 +49,7 @@ const FavoriteIndicatorButton: React.FC<FavoriteIndicatorButtonProps> = ({
   }
 
   return (
-    <TouchableOpacity onPress={onPress} style={styles.button}>
+    <TouchableOpacity onPress={onPress}>
       {fill ? (
         <FontAwesome name="star" size={35} color="#c7c218" />
       ) : (
@@ -60,11 +60,3 @@ const FavoriteIndicatorButton: React.FC<FavoriteIndicatorButtonProps> = ({
 };
 
 export default FavoriteIndicatorButton;
-
-const styles = StyleSheet.create({
-  button: {
-    position: "absolute",
-    right: 16,
-    top: 5,
-  },
-});

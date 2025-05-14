@@ -1,71 +1,37 @@
 import React from "react";
-import {
-  Text,
-  View,
-  SafeAreaView,
-  StyleSheet,
-  TouchableOpacity,
-  Linking,
-} from "react-native";
-import BackToHomeButton from "./buttons/BackToHomeButton";
-
-import AntDesign from "@expo/vector-icons/AntDesign";
-import { useNavigation } from "@react-navigation/native";
+import { Text, View, SafeAreaView } from "react-native";
+import { styles } from "../styles/styles";
 
 interface HeaderProps {
-  rightButton?: React.ComponentType<any>;
-  rightButtonProps?: any;
-  github: boolean;
+  leftButton?: React.ReactElement;
+  rightButton?: React.ReactElement;
   title: string;
+  titleSize?: number;
 }
 
 const Header: React.FC<HeaderProps> = ({
-  rightButton: RightButton,
-  rightButtonProps,
-  github,
+  leftButton,
+  rightButton,
   title,
+  titleSize,
 }) => {
-  const nav = useNavigation();
-  const onInfoPress = () => {
-    const url = `https://github.com/recursivelymanan/PocketGene`;
-    Linking.openURL(url).catch((err) =>
-      console.error("Failed to open URL:", err)
-    );
-  };
-
   return (
     <SafeAreaView>
-      <View style={styles.header}>
-        <BackToHomeButton size={30} onPress={() => nav.goBack()} />
-        <Text style={styles.title}>{title}</Text>
-        {github ? (
-          <TouchableOpacity
-            style={{ position: "absolute", right: 16, top: 5 }}
-            onPress={onInfoPress}
-          >
-            <AntDesign name="github" size={30} />
-          </TouchableOpacity>
-        ) : RightButton ? (
-          <RightButton {...rightButtonProps} />
-        ) : null}
+      <View style={styles.headerContainer}>
+        <View style={styles.leftButton}>{leftButton}</View>
+        <Text
+          style={
+            titleSize
+              ? { ...styles.headerTitle, fontSize: titleSize }
+              : styles.headerTitle
+          }
+        >
+          {title}
+        </Text>
+        <View style={styles.rightButton}>{rightButton}</View>
       </View>
     </SafeAreaView>
   );
 };
 
 export default Header;
-
-const styles = StyleSheet.create({
-  header: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "relative",
-    height: 60,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: "bold",
-    top: -10,
-  },
-});
