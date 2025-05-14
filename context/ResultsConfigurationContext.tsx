@@ -73,6 +73,7 @@ export const ResultsConfigurationProvider: React.FC<{
         }
       } catch (error) {
         console.error("Failed to load stored config choices", error);
+        setConfigChoices(defaultFields);
       }
     };
     loadConfig();
