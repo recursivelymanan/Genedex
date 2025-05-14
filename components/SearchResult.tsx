@@ -34,11 +34,14 @@ const SearchResult: React.FC<SearchResultProps> = ({
               nav.navigate("MoreData", {
                 goResults: go,
               })
-          : () =>
+          : refseq
+          ? () =>
               nav.navigate("MoreData", {
                 refseqIDs: refseq,
               })
+          : () => null
       }
+      disabled={go ? false : refseq ? false : true}
     >
       <View style={styles.resultsEntryContainer}>
         <View style={styles.resultsEntryLabelContainer}>
@@ -52,7 +55,7 @@ const SearchResult: React.FC<SearchResultProps> = ({
               ? `Tap to see ${refseq.length} result${
                   refseq.length > 1 ? "s" : ""
                 }`
-              : ""}
+              : "No IDs found"}
           </Text>
         </View>
       </View>
