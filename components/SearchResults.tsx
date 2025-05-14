@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Linking,
   Button,
+  SafeAreaView,
 } from "react-native";
 
 import { ConfigResults, QueryResult } from "../types/types";

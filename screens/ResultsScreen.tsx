@@ -49,37 +49,29 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
   /*----
   Render
   ----*/
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
-      {loading ? (
-        <LoadingSpinner />
-      ) : isError ? (
-        <>
-          <Header title="Results" github={false} />
-          <View
-            style={{ ...styles.resultsEntryContainer, flexDirection: "column" }}
-          >
-            <MaterialIcons
-              name="error"
-              size={30}
-              style={{ paddingBottom: 15 }}
-            />
-            <Text style={styles.resultsEntryDataText}>{isError}</Text>
-          </View>
-        </>
-      ) : queryResult ? (
-        <>
-          <Header
-            rightButton={FavoriteIndicatorButton}
-            rightButtonProps={{ query }}
-            title="Results"
-            github={false}
-          />
-          <SearchResults />
-        </>
-      ) : null}
-    </SafeAreaView>
-  );
+  return loading ? (
+    <LoadingSpinner />
+  ) : isError ? (
+    <>
+      <Header title="Results" github={false} />
+      <View
+        style={{ ...styles.resultsEntryContainer, flexDirection: "column" }}
+      >
+        <MaterialIcons name="error" size={30} style={{ paddingBottom: 15 }} />
+        <Text style={styles.resultsEntryDataText}>{isError}</Text>
+      </View>
+    </>
+  ) : queryResult ? (
+    <>
+      <Header
+        rightButton={FavoriteIndicatorButton}
+        rightButtonProps={{ query }}
+        title="Results"
+        github={false}
+      />
+      <SearchResults />
+    </>
+  ) : null;
 };
 
 export default ResultsScreen;
