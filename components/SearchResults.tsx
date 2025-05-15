@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -8,7 +8,6 @@ import {
   Button,
 } from "react-native";
 
-import { ConfigResults } from "../types/types";
 import { searchResultsStyles as styles } from "../styles/styles";
 import { useResultsConfiguration } from "../context/ResultsConfigurationContext";
 import { useNavigation } from "@react-navigation/native";

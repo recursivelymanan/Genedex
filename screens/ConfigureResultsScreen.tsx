@@ -2,7 +2,7 @@ import React from "react";
 import { SafeAreaView } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
-import ConfigureResults from "../components/ConfigureResults";
+import ResultsConfiguration from "../components/ResultsConfiguration";
 import Header from "../components/Header";
 import { useNavigation } from "@react-navigation/native";
 import Button from "../components/Button";
@@ -23,7 +23,7 @@ const ConfigureResultsScreen = () => {
           />
         }
       />
-      <ConfigureResults />
+      <ResultsConfiguration />
     </SafeAreaView>
   );
 };

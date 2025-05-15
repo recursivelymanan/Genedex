@@ -192,14 +192,14 @@ export const loadingSpinnerStyles = StyleSheet.create({
 
 export const configStyles = StyleSheet.create({
   settingOn: {
-    backgroundColor: "#b1c9f0",
     borderRadius: 10,
+    backgroundColor: "#cfdee8",
     width: "80%",
     alignSelf: "center",
     margin: 5,
   },
   settingOff: {
-    backgroundColor: "#c7d7f0",
+    backgroundColor: "#cfdee8",
     borderRadius: 10,
     width: "80%",
     alignSelf: "center",
