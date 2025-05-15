@@ -1,6 +1,12 @@
 import React from "react";
 import { Text, View, ScrollView, TouchableOpacity, Alert } from "react-native";
 
+import Animated, {
+  LinearTransition,
+  FadeIn,
+  FadeOut,
+} from "react-native-reanimated";
+
 import { useFavoritesContext } from "../context/FavoritesContext";
 import Button from "./Button";
 import {
@@ -64,7 +70,12 @@ const FavoritesList: React.FC<FavoritesListProps> = ({ handleSearch }) => {
       <ScrollView contentContainerStyle={{ height: "100%" }}>
         <View>
           {favorites.sort().map((string) => (
-            <View key={`${string}-view0`}>
+            <Animated.View
+              key={`${string}-view0`}
+              entering={FadeIn}
+              exiting={FadeOut}
+              layout={LinearTransition}
+            >
               <View
                 style={{
                   flexDirection: "row",
@@ -103,7 +114,7 @@ const FavoritesList: React.FC<FavoritesListProps> = ({ handleSearch }) => {
                   />
                 </View>
               </View>
-            </View>
+            </Animated.View>
           ))}
         </View>
       </ScrollView>
