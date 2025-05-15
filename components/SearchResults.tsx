@@ -27,15 +27,6 @@ const SearchResults = () => {
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { symbol, mirna, ...otherResults } = queryResult;
 
-  const [choices, setChoices] = useState<ConfigResults>(configChoices);
-
-  /*-----
-  Effects
-  -----*/
-  useEffect(() => {
-    setChoices(configChoices);
-  }, [configChoices]);
-
   /*------------
   Event Handlers
   ------------*/
@@ -47,49 +38,49 @@ const SearchResults = () => {
   };
 
   return (
-    <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
-      <View>
-        <TouchableOpacity onPress={() => onPressSymbol()}>
+    <View>
+      <TouchableOpacity onPress={() => onPressSymbol()}>
+        <View
+          style={{
+            justifyContent: "center",
+            alignSelf: "center",
+          }}
+        >
           <View
             style={{
-              justifyContent: "center",
-              alignSelf: "center",
+              ...styles.hhContainer,
+              backgroundColor: "#b1c9f0",
+              marginBottom: 5,
             }}
           >
-            <View
-              style={{
-                ...styles.hhContainer,
-                backgroundColor: "#b1c9f0",
-                marginBottom: 20,
-              }}
-            >
-              <Text style={styles.hhText} selectable>
-                {symbol}
-              </Text>
-            </View>
+            <Text style={styles.hhText} selectable>
+              {symbol}
+            </Text>
           </View>
-        </TouchableOpacity>
-
-        {Object.entries(otherResults).map(([key, value]) => {
-          return (
-            <SearchResult
-              title={key !== "summary" ? value[0] : false}
-              result={key !== "summary" ? value[1] : value}
-              go={key.startsWith("go") ? value[1] : null}
-              refseq={key.startsWith("refseq") ? value[1] : null}
-              key={key}
-            />
-          );
-        })}
-
-        <View>
-          <Button
-            onPress={() => nav.navigate("Config")}
-            title="Configure which results you see"
-          />
         </View>
+      </TouchableOpacity>
+      <View style={{ marginBottom: 10 }}>
+        <Button
+          onPress={() => nav.navigate("Config")}
+          title="Configure which results you see"
+        />
       </View>
-    </ScrollView>
+      <ScrollView contentContainerStyle={{ paddingBottom: 400 }}>
+        <View>
+          {Object.entries(otherResults).map(([key, value]) => {
+            return (
+              <SearchResult
+                title={key !== "summary" ? value[0] : false}
+                result={key !== "summary" ? value[1] : value}
+                go={key.startsWith("go") ? value[1] : null}
+                refseq={key.startsWith("refseq") ? value[1] : null}
+                key={key}
+              />
+            );
+          })}
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 

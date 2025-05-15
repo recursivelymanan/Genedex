@@ -88,7 +88,7 @@ export async function onSearchPress(
               // console.log("ALIAS: ", apiResult.alternateNames);
               break;
 
-            case "ensembl":
+            case "ensemblID":
               const ensembl: string = data?.ensembl.gene;
               apiResult.ensemblID = ["Ensembl ID", ensembl ? ensembl : "-"];
               // console.log("ENSEMBL: ", apiResult.ensemblID);
