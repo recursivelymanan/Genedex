@@ -18,12 +18,21 @@ export async function onSearchPress(
   setQueryResult: React.Dispatch<React.SetStateAction<QueryResult>>
 ) {
   if (query) {
+    console.log(`Searching for ${query}`);
     setLoading(true);
     try {
       const fields = createQueryFields(configChoices);
       console.log(fields);
-      const response = await fetch(
+      console.log(
         `https://mygene.info/v3/query?q=${query}&fields=${fields}&species=human`
+      );
+      const response = await fetch(
+        `https://mygene.info/v3/query?q=${query}&fields=${fields}&species=human`,
+        {
+          headers: {
+            "Cache-Control": "no-cache",
+          },
+        }
       );
       let data = await response.json();
 
@@ -37,7 +46,7 @@ export async function onSearchPress(
           throw new Error("UNKNOWN_ERROR");
         }
       }
-
+      console.log(data);
       data = data.hits[0];
 
       let apiResult: QueryResult = {
@@ -52,19 +61,19 @@ export async function onSearchPress(
             case "symbol":
               const symbol: string = data?.symbol;
               apiResult.symbol = symbol ? symbol : "-";
-              console.log("SYMBOL: ", apiResult.symbol);
+              // console.log("SYMBOL: ", apiResult.symbol);
               break;
 
             case "name":
               const name: string = data?.name;
               apiResult.name = ["Full gene name", name ? name : "-"];
-              console.log("NAME: ", apiResult.name);
+              // console.log("NAME: ", apiResult.name);
               break;
 
             case "type":
               const type: string = data?.type_of_gene;
               apiResult.type = ["Gene type", type ? type : "-"];
-              console.log("TYPE: ", apiResult.type);
+              // console.log("TYPE: ", apiResult.type);
               break;
 
             case "alternateNames":
@@ -74,25 +83,26 @@ export async function onSearchPress(
               }
               apiResult.alternateNames = [
                 "Aliases",
-                alternateNames ? alternateNames : "-",
+                alternateNames ? alternateNames.join(", ") : "-",
               ];
-              console.log("ALIAS: ", apiResult.alternateNames);
+              // console.log("ALIAS: ", apiResult.alternateNames);
               break;
 
             case "ensembl":
               const ensembl: string = data?.ensembl.gene;
               apiResult.ensemblID = ["Ensembl ID", ensembl ? ensembl : "-"];
-              console.log("ENSEMBL: ", apiResult.ensemblID);
+              // console.log("ENSEMBL: ", apiResult.ensemblID);
               break;
 
             case "summary":
               const summary: string = data?.summary;
               apiResult.summary = summary ? summary : "-";
-              console.log("SUMMARY: ");
+              // console.log("SUMMARY: ");
               break;
 
             case "refseqGenomic":
-              let refseqGenomic = data?.refseq.genomic;
+              console.log("HERE");
+              let refseqGenomic = data?.refseq?.genomic;
               if (refseqGenomic && !Array.isArray(refseqGenomic)) {
                 refseqGenomic = [refseqGenomic];
               }
@@ -100,7 +110,7 @@ export async function onSearchPress(
                 "Refseq Genomic IDs",
                 refseqGenomic ? refseqGenomic : null,
               ];
-              console.log("RSG: ", apiResult.refseqGenomic);
+              // console.log("RSG: ", apiResult.refseqGenomic);
               break;
 
             case "refseqRNA":
@@ -112,7 +122,7 @@ export async function onSearchPress(
                 "Refseq RNA IDs",
                 refseqRNA ? refseqRNA : null,
               ];
-              console.log("RSR: ", apiResult.refseqRNA);
+              // console.log("RSR: ", apiResult.refseqRNA);
               break;
 
             case "refseqProtein":
@@ -124,7 +134,7 @@ export async function onSearchPress(
                 "Refseq Protein IDs",
                 refseqProtein ? refseqProtein : null,
               ];
-              console.log("RSP: ", apiResult.refseqProtein);
+              // console.log("RSP: ", apiResult.refseqProtein);
               break;
 
             case "goBP":
@@ -137,7 +147,7 @@ export async function onSearchPress(
                   return true;
                 });
                 apiResult.goBP = ["GO Biological Processes", goDataUnique];
-                console.log("GOBP: ", apiResult.goBP);
+                // console.log("GOBP: ", apiResult.goBP);
               } else {
                 apiResult.goBP = ["NOTFOUND", []];
               }
@@ -153,7 +163,7 @@ export async function onSearchPress(
                   return true;
                 });
                 apiResult.goCC = ["GO Cellular Components", goDataUnique];
-                console.log("GOCC: ", apiResult.goCC);
+                // console.log("GOCC: ", apiResult.goCC);
               } else {
                 apiResult.goCC = ["NOTFOUND", []];
               }
@@ -176,7 +186,7 @@ export async function onSearchPress(
                 }));
 
                 apiResult.goMF = ["GO Molecular Functions", renamed];
-                console.log("GOMF: ", apiResult.goMF);
+                // console.log("GOMF: ", apiResult.goMF);
               } else {
                 apiResult.goMF = ["NOTFOUND", []];
               }

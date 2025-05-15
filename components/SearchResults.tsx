@@ -71,7 +71,6 @@ const SearchResults = () => {
         </TouchableOpacity>
 
         {Object.entries(otherResults).map(([key, value]) => {
-          console.log("KEY", key, "VALUE", value);
           return (
             <SearchResult
               title={key !== "summary" ? value[0] : false}
