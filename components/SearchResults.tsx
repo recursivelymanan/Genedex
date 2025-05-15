@@ -6,11 +6,10 @@ import {
   TouchableOpacity,
   Linking,
   Button,
-  SafeAreaView,
 } from "react-native";
 
-import { ConfigResults, QueryResult } from "../types/types";
-import { styles } from "../styles/styles";
+import { ConfigResults } from "../types/types";
+import { searchResultsStyles as styles } from "../styles/styles";
 import { useResultsConfiguration } from "../context/ResultsConfigurationContext";
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../App";

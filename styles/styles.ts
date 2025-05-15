@@ -2,17 +2,31 @@ import { StyleSheet, Dimensions } from "react-native";
 
 const screenHeight = Dimensions.get("window").height;
 
-export const styles = StyleSheet.create({
-  hhContainer: {
-    backgroundColor: "#7ba7ed",
-    borderRadius: 15,
-    padding: 15,
-    marginBottom: 10,
-    width: "70%",
-    alignSelf: "center",
+export const homeScreenStyles = StyleSheet.create({
+  homeContainer: {
+    flex: 1,
+    backgroundColor: "#b1c9f0",
+    alignItems: "center",
   },
-  hhText: { textAlign: "center", fontSize: 27, fontWeight: "bold" },
-  hContainer: {
+  homeTitle: {
+    color: "#0c3b87",
+    fontWeight: "bold",
+    fontFamily: "AmericanTypewriter-Bold",
+    fontSize: 50,
+    marginTop: 10,
+  },
+  homeButtonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    paddingTop: 40,
+    paddingBottom: 50,
+    alignItems: "center",
+    width: "100%",
+  },
+});
+
+export const infoScreenStyles = StyleSheet.create({
+  infoHeaderContainer: {
     backgroundColor: "#b1c9f0",
     borderRadius: 15,
     padding: 15,
@@ -20,15 +34,18 @@ export const styles = StyleSheet.create({
     maxWidth: "70%",
     alignSelf: "center",
   },
-  hText: { textAlign: "center", fontSize: 20, fontWeight: "bold" },
-  bContainer: {
+  infoHeaderText: { textAlign: "center", fontSize: 20, fontWeight: "bold" },
+  infoBodyContainer: {
     backgroundColor: "#c7d7f0",
     maxWidth: "85%",
     borderRadius: 15,
     padding: 15,
     marginBottom: 10,
   },
-  bText: { textAlign: "center", fontSize: 18 },
+  infoBodyText: { textAlign: "center", fontSize: 18 },
+});
+
+export const resultScreenStyles = StyleSheet.create({
   resultsEntryContainer: {
     justifyContent: "flex-start",
     alignItems: "center",
@@ -82,6 +99,9 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 700,
   },
+});
+
+export const headerStyles = StyleSheet.create({
   rightButton: {
     position: "absolute",
     right: 16,
@@ -104,26 +124,9 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
     top: -7,
   },
-  homeContainer: {
-    flex: 1,
-    backgroundColor: "#b1c9f0",
-    alignItems: "center",
-  },
-  homeTitle: {
-    color: "#0c3b87",
-    fontWeight: "bold",
-    fontFamily: "AmericanTypewriter-Bold",
-    fontSize: 50,
-    marginTop: 10,
-  },
-  homeButtonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    paddingTop: 40,
-    paddingBottom: 50,
-    alignItems: "center",
-    width: "100%",
-  },
+});
+
+export const geneSearchStyles = StyleSheet.create({
   searchBar: {
     width: "80%",
     height: screenHeight * 0.05,
@@ -137,6 +140,21 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
     textAlign: "center",
   },
+});
+
+export const searchResultsStyles = StyleSheet.create({
+  hhContainer: {
+    backgroundColor: "#7ba7ed",
+    borderRadius: 15,
+    padding: 15,
+    marginBottom: 10,
+    width: "70%",
+    alignSelf: "center",
+  },
+  hhText: { textAlign: "center", fontSize: 27, fontWeight: "bold" },
+});
+
+export const recentQueriesStyles = StyleSheet.create({
   recents: {
     paddingVertical: 8,
     paddingHorizontal: 16,
@@ -162,6 +180,17 @@ export const styles = StyleSheet.create({
     fontSize: 25,
     fontFamily: "Inter",
   },
+});
+
+export const loadingSpinnerStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
+
+export const configStyles = StyleSheet.create({
   settingOn: {
     backgroundColor: "#b1c9f0",
     borderRadius: 10,

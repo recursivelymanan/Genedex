@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View, SafeAreaView } from "react-native";
-import { styles } from "../styles/styles";
+import { headerStyles as styles } from "../styles/styles";
 
 interface HeaderProps {
   leftButton?: React.ReactElement;

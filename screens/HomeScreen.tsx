@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  StyleSheet,
   View,
   Text,
   TouchableWithoutFeedback,
@@ -19,7 +18,7 @@ import GeneSearch from "../components/GeneSearch";
 import RecentQueries from "../components/RecentQueries";
 import Button from "../components/Button";
 
-import { styles } from "../styles/styles";
+import { homeScreenStyles as styles } from "../styles/styles";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 

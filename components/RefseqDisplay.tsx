@@ -7,7 +7,12 @@ import {
   ScrollView,
 } from "react-native";
 
-import { styles } from "../styles/styles";
+import { resultScreenStyles, infoScreenStyles } from "../styles/styles";
+
+const styles = {
+  ...infoScreenStyles,
+  ...resultScreenStyles,
+};
 
 interface RefseqDisplayProps {
   ids: string[];
@@ -84,7 +89,7 @@ const RefseqDisplay: React.FC<RefseqDisplayProps> = ({ ids }) => {
   };
   return (
     <ScrollView contentContainerStyle={{ paddingBottom: 200 }}>
-      <Text style={{ ...styles.bText, paddingBottom: 10 }}>
+      <Text style={{ ...styles.infoBodyText, paddingBottom: 10 }}>
         Tap on an accession to open its NCBI page.
       </Text>
       {types.map((type) => (

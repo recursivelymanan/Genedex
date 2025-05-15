@@ -7,9 +7,13 @@ import {
   ScrollView,
 } from "react-native";
 
-import { styles } from "../styles/styles";
 import { goResult } from "../types/types";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { infoScreenStyles, resultScreenStyles } from "../styles/styles";
+
+const styles = {
+  ...infoScreenStyles,
+  ...resultScreenStyles,
+};
 
 interface GOResultDisplayProps {
   goResults: goResult[];
@@ -30,7 +34,7 @@ const GOResultDisplay: React.FC<GOResultDisplayProps> = ({ goResults }) => {
 
   return (
     <ScrollView contentContainerStyle={{ paddingBottom: 200 }}>
-      <Text style={{ ...styles.bText, paddingBottom: 10 }}>
+      <Text style={{ ...styles.infoBodyText, paddingBottom: 10 }}>
         Tap on a row to open its Gene Ontology page.
       </Text>
       {Array.from(uniqueGoResults).map(([term, result]) => (
@@ -57,28 +61,6 @@ const GOResultDisplay: React.FC<GOResultDisplayProps> = ({ goResults }) => {
       ))}
     </ScrollView>
   );
-  // <ScrollView contentContainerStyle={{ paddingBottom: 200 }}>
-  //   {goResults.map((result) => (
-  //     <TouchableOpacity
-  //       key={`${result.id}-to`}
-  //       onPress={() => onPressRSID(result.id)}
-  //     >
-  //       <View
-  //         key={`${result}-v0`}
-  //         style={{ justifyContent: "center", alignItems: "center" }}
-  //       >
-  //         <View
-  //           key={`${result}-v1`}
-  //           style={{ ...styles.bContainer, marginBottom: 10 }}
-  //         >
-  //           <Text key={`${result}`} style={styles.bText}>
-  //             {result.term}
-  //           </Text>
-  //         </View>
-  //       </View>
-  //     </TouchableOpacity>
-  //   ))}
-  // </ScrollView>
 };
 
 export default GOResultDisplay;

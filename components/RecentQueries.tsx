@@ -4,7 +4,7 @@ import { Text, View, Button, StyleSheet } from "react-native";
 import { useQuerySearchContext } from "../context/QuerySearchContext";
 import { useRecentQueries } from "../context/RecentQueryContext";
 
-import { styles } from "../styles/styles";
+import { recentQueriesStyles as styles } from "../styles/styles";
 
 const RecentQueries = () => {
   /*----------------

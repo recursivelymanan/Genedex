@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity } from "react-native";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFavoritesContext } from "../context/FavoritesContext";

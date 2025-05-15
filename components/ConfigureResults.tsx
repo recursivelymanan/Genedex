@@ -8,7 +8,7 @@ import {
   useResultsConfiguration,
 } from "../context/ResultsConfigurationContext";
 
-import { styles } from "../styles/styles";
+import { configStyles as styles } from "../styles/styles";
 
 const ConfigureResults = () => {
   const { configChoices, setConfigChoices } = useResultsConfiguration();

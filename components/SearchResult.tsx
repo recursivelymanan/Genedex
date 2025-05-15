@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../App";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { View, Text, TouchableOpacity } from "react-native";
-import { styles } from "../styles/styles";
+import { resultScreenStyles as styles } from "../styles/styles";
 
 interface SearchResultProps {
   title: string | false;

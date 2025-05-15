@@ -1,6 +1,7 @@
 import React from "react";
 import LottieView from "lottie-react-native";
-import { View, StyleSheet } from "react-native";
+import { View } from "react-native";
+import { loadingSpinnerStyles as styles } from "../styles/styles";
 
 const LoadingSpinner = () => {
   return (
@@ -17,11 +18,3 @@ const LoadingSpinner = () => {
 };
 
 export default LoadingSpinner;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});

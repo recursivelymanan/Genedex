@@ -2,7 +2,12 @@ import React from "react";
 import { Text, View, ScrollView, Button, TouchableOpacity } from "react-native";
 
 import { useFavoritesContext } from "../context/FavoritesContext";
-import { styles } from "../styles/styles";
+import { infoScreenStyles, resultScreenStyles } from "../styles/styles";
+
+const styles = {
+  ...infoScreenStyles,
+  ...resultScreenStyles,
+};
 
 interface FavoritesListProps {
   handleSearch: (query: string) => void;
@@ -14,12 +19,12 @@ const FavoritesList: React.FC<FavoritesListProps> = ({ handleSearch }) => {
   return favorites.length === 0 ? (
     <View
       style={{
-        ...styles.bContainer,
+        ...styles.infoBodyContainer,
         justifyContent: "center",
         alignSelf: "center",
       }}
     >
-      <Text style={{ ...styles.bText, fontSize: 25 }}>No favorites</Text>
+      <Text style={{ ...styles.infoBodyText, fontSize: 25 }}>No favorites</Text>
     </View>
   ) : (
     <ScrollView contentContainerStyle={{ height: "100%" }}>
@@ -31,10 +36,10 @@ const FavoritesList: React.FC<FavoritesListProps> = ({ handleSearch }) => {
           >
             <TouchableOpacity
               onPress={() => handleSearch(string)}
-              style={styles.bContainer}
+              style={styles.infoBodyContainer}
             >
               <View key={`${string}-view1`}>
-                <Text key={string} style={{ ...styles.bText, fontSize: 25 }}>
+                <Text key={string} style={{ ...styles.infoBodyText, fontSize: 25 }}>
                   {string}
                 </Text>
               </View>

@@ -13,7 +13,7 @@ import FavoriteIndicatorButton from "../components/FavoriteIndicatorButton";
 import { useRecentQueries } from "../context/RecentQueryContext";
 import { useResultsConfiguration } from "../context/ResultsConfigurationContext";
 
-import { styles } from "../styles/styles";
+import { resultScreenStyles as styles } from "../styles/styles";
 
 import { onSearchPress } from "../utils/handleGeneSearch";
 import { useQuerySearchContext } from "../context/QuerySearchContext";
