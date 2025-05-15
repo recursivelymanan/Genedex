@@ -206,3 +206,14 @@ export const configStyles = StyleSheet.create({
     margin: 5,
   },
 });
+
+export const buttonStyles = StyleSheet.create({
+  button: {
+    paddingBottom: 15,
+    alignSelf: "center",
+  },
+  buttonText: {
+    fontSize: 22,
+    color: "#007AFF",
+  },
+});

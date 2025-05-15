@@ -1,12 +1,20 @@
 import React from "react";
-import { Text, View, ScrollView, Button, TouchableOpacity } from "react-native";
+import { Text, View, ScrollView, TouchableOpacity } from "react-native";
 
 import { useFavoritesContext } from "../context/FavoritesContext";
-import { infoScreenStyles, resultScreenStyles } from "../styles/styles";
+import Button from "./Button";
+import {
+  infoScreenStyles,
+  resultScreenStyles,
+  buttonStyles,
+} from "../styles/styles";
+
+import Octicons from "@expo/vector-icons/Octicons";
 
 const styles = {
   ...infoScreenStyles,
   ...resultScreenStyles,
+  ...buttonStyles,
 };
 
 interface FavoritesListProps {
@@ -16,6 +24,10 @@ interface FavoritesListProps {
 const FavoritesList: React.FC<FavoritesListProps> = ({ handleSearch }) => {
   const { favorites, setFavorites } = useFavoritesContext();
 
+  const removeFavorite = (favorite: string) => {
+    setFavorites(favorites.filter((item) => item !== favorite));
+  };
+
   return favorites.length === 0 ? (
     <View
       style={{
@@ -24,36 +36,67 @@ const FavoritesList: React.FC<FavoritesListProps> = ({ handleSearch }) => {
         alignSelf: "center",
       }}
     >
-      <Text style={{ ...styles.infoBodyText, fontSize: 25 }}>No favorites</Text>
+      <Text style={{ ...styles.infoBodyText, fontSize: 25 }}>
+        No favorites! Add genes to your favorites by tapping the star icon after
+        searching for a gene.
+      </Text>
     </View>
   ) : (
-    <ScrollView contentContainerStyle={{ height: "100%" }}>
-      <View style={{ justifyContent: "center", alignSelf: "center" }}>
-        {favorites.map((string) => (
-          <View
-            key={`${string}-view0`}
-            style={{ justifyContent: "center", alignSelf: "center" }}
-          >
-            <TouchableOpacity
-              onPress={() => handleSearch(string)}
-              style={styles.infoBodyContainer}
-            >
-              <View key={`${string}-view1`}>
-                <Text key={string} style={{ ...styles.infoBodyText, fontSize: 25 }}>
-                  {string}
-                </Text>
+    <View>
+      <Button
+        children={<Text style={styles.buttonText}>Clear favorites</Text>}
+        onPress={() => {
+          setFavorites([]);
+        }}
+        style={styles.button}
+      />
+      <ScrollView contentContainerStyle={{ height: "100%" }}>
+        <View>
+          {favorites.sort().map((string) => (
+            <View key={`${string}-view0`}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                }}
+              >
+                <TouchableOpacity
+                  onPress={() => handleSearch(string)}
+                  style={{
+                    ...styles.resultsEntryContainer,
+                    width: "80%",
+                    marginRight: 5,
+                  }}
+                >
+                  <View key={`${string}-view1`}>
+                    <Text
+                      key={string}
+                      style={{ ...styles.resultsEntryDataText, fontSize: 25 }}
+                    >
+                      {string}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+                <View
+                  style={{
+                    ...styles.resultsEntryContainer,
+                    marginLeft: 5,
+                    backgroundColor: "#d16f6f",
+                  }}
+                >
+                  <Button
+                    children={<Octicons name="trash" size={25} />}
+                    onPress={() => removeFavorite(string)}
+                  />
+                </View>
               </View>
-            </TouchableOpacity>
-          </View>
-        ))}
-        <Button
-          onPress={() => {
-            setFavorites([]);
-          }}
-          title="Clear favorites"
-        />
-      </View>
-    </ScrollView>
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 

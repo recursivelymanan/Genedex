@@ -21,7 +21,10 @@ const RecentQueries = () => {
       <View style={styles.recentsContainer}>
         <Text style={styles.recentsTitle}>{"Recent queries"}</Text>
         {recentQueries.map((recentQuery) => (
-          <TouchableOpacity onPress={() => handleSearch(recentQuery)}>
+          <TouchableOpacity
+            key={`to-${recentQuery}`}
+            onPress={() => handleSearch(recentQuery)}
+          >
             <Text key={recentQuery} style={styles.recents}>
               {recentQuery}
             </Text>
