@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, Button, StyleSheet } from "react-native";
+import { Text, View, Button, StyleSheet, TouchableOpacity } from "react-native";
 
 import { useQuerySearchContext } from "../context/QuerySearchContext";
 import { useRecentQueries } from "../context/RecentQueryContext";
@@ -21,13 +21,11 @@ const RecentQueries = () => {
       <View style={styles.recentsContainer}>
         <Text style={styles.recentsTitle}>{"Recent queries"}</Text>
         {recentQueries.map((recentQuery) => (
-          <Text
-            key={recentQuery}
-            onPress={() => handleSearch(recentQuery)}
-            style={styles.recents}
-          >
-            {recentQuery}
-          </Text>
+          <TouchableOpacity onPress={() => handleSearch(recentQuery)}>
+            <Text key={recentQuery} style={styles.recents}>
+              {recentQuery}
+            </Text>
+          </TouchableOpacity>
         ))}
         <Button
           onPress={() => {
