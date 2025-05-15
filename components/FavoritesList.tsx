@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, ScrollView, TouchableOpacity } from "react-native";
+import { Text, View, ScrollView, TouchableOpacity, Alert } from "react-native";
 
 import { useFavoritesContext } from "../context/FavoritesContext";
 import Button from "./Button";
@@ -9,7 +9,7 @@ import {
   buttonStyles,
 } from "../styles/styles";
 
-import Octicons from "@expo/vector-icons/Octicons";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const styles = {
   ...infoScreenStyles,
@@ -46,7 +46,18 @@ const FavoritesList: React.FC<FavoritesListProps> = ({ handleSearch }) => {
       <Button
         children={<Text style={styles.buttonText}>Clear favorites</Text>}
         onPress={() => {
-          setFavorites([]);
+          Alert.alert(
+            "Clear All Favorites",
+            "Are you sure you want to remove all favorited genes?",
+            [
+              { text: "Cancel", style: "cancel" },
+              {
+                text: "Delete All",
+                onPress: () => setFavorites([]),
+                style: "destructive",
+              },
+            ]
+          );
         }}
         style={styles.button}
       />
@@ -87,7 +98,7 @@ const FavoritesList: React.FC<FavoritesListProps> = ({ handleSearch }) => {
                   }}
                 >
                   <Button
-                    children={<Octicons name="trash" size={25} />}
+                    children={<Ionicons name="trash-outline" size={25} />}
                     onPress={() => removeFavorite(string)}
                   />
                 </View>
