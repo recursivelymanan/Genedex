@@ -1,13 +1,16 @@
 import React from "react";
-import { Linking, Text, View } from "react-native";
+import { Linking, ScrollView, View, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Constants from "expo-constants";
 
 import { useNavigation } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
 import Header from "../components/Header";
-import { infoScreenStyles as styles } from "../styles/styles";
 import Button from "../components/Button";
+import InfoSection from "../components/InfoSection";
+
+const version = Constants.expoConfig?.extra?.appVersion || "unknown";
 
 const InfoScreen = () => {
   const nav = useNavigation();
@@ -20,7 +23,7 @@ const InfoScreen = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <Header
         title="Info"
         leftButton={
@@ -36,39 +39,44 @@ const InfoScreen = () => {
           />
         }
       />
-      <View style={{ justifyContent: "center", alignSelf: "center" }}>
-        <View style={styles.infoHeaderContainer}>
-          <Text style={styles.infoHeaderText}>Welcome to PocketGene!</Text>
+      <ScrollView contentContainerStyle={{ paddingBottom: 200 }}>
+        <View style={{ justifyContent: "center" }}>
+          <InfoSection
+            title={"Welcome to PocketGene!"}
+            body={
+              "To get started, head back to the home screen and type in a valid HGNC gene symbol. When you hit search, you'll see the results for that gene. If you want to configure what you see on the results page, tap on the wrench symbol above the search bar to customize your results.\n\nTo learn more about the app, tap on the headers below. "
+            }
+            startExpand={true}
+          />
+          <InfoSection
+            title={"Managing favorites"}
+            body={
+              "To get started, head back to the home screen and type in a valid HGNC gene symbol. When you hit search, you'll see the results for that gene. If you want to configure what you see on the results page, tap on the wrench symbol above the search bar to customize your results."
+            }
+          />
+          <InfoSection
+            title={"Support"}
+            body={
+              "If you encounter any bugs or issues with the app, please report them by opening a new issue on this app's GitHub repo (link on the top right of this page) or by sending an email to pocketgene@gmail.com"
+            }
+          />
+          <InfoSection
+            title={"Data Sources"}
+            body={
+              "Gene annotations provided by MyGene.info, maintained by The Scripps Research Institute. Data is provided as-is. MyGene.info also pulls data from other third party sources. \n\nFor some genes, certain data points may be unavailable. You can always check the GeneCards page for a gene by tapping on the gene symbol."
+            }
+          />
         </View>
-        <View style={{ ...styles.infoBodyContainer, marginBottom: 30 }}>
-          <Text style={styles.infoBodyText}>
-            To get started, head back to the home screen and type in a valid
-            HGNC gene symbol. When you hit search, you'll see the results for
-            that gene. If you want to configure what you see on the results
-            page, tap on the wrench symbol above the search bar to customize
-            your results.
-          </Text>
-        </View>
-        <View style={styles.infoHeaderContainer}>
-          <Text style={styles.infoHeaderText}>Managing favorites</Text>
-        </View>
-        <View style={{ ...styles.infoBodyContainer, marginBottom: 30 }}>
-          <Text style={styles.infoBodyText}>
-            Save your favorite genes by tapping the star above the search
-            results. Favorited genes can be accessed from the home page to make
-            searches quicker!
-          </Text>
-        </View>
-        <View style={styles.infoHeaderContainer}>
-          <Text style={styles.infoHeaderText}>About PocketGene</Text>
-        </View>
-        <View style={{ ...styles.infoBodyContainer, marginBottom: 30 }}>
-          <Text style={styles.infoBodyText}>
-            PocketGene was developed to make gene searches easier! Gene
-            annotations provided by MyGene.info, maintained by The Scripps
-            Research Institute. Data is provided as-is.
-          </Text>
-        </View>
+      </ScrollView>
+      <View
+        style={{
+          position: "absolute",
+          bottom: 20,
+          left: "50%",
+          transform: [{ translateX: -50 }],
+        }}
+      >
+        <Text style={{}}>{`App version ${version}`}</Text>
       </View>
     </SafeAreaView>
   );

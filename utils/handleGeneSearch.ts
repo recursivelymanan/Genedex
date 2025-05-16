@@ -60,19 +60,19 @@ export async function onSearchPress(
           switch (key) {
             case "symbol":
               const symbol: string = data?.symbol;
-              apiResult.symbol = symbol ? symbol : "-";
+              apiResult.symbol = symbol ? symbol : "NOTFOUND";
               // console.log("SYMBOL: ", apiResult.symbol);
               break;
 
             case "name":
               const name: string = data?.name;
-              apiResult.name = ["Full gene name", name ? name : "-"];
+              apiResult.name = ["Full gene name", name ? name : "NOTFOUND"];
               // console.log("NAME: ", apiResult.name);
               break;
 
             case "type":
               const type: string = data?.type_of_gene;
-              apiResult.type = ["Gene type", type ? type : "-"];
+              apiResult.type = ["Gene type", type ? type : "NOTFOUND"];
               // console.log("TYPE: ", apiResult.type);
               break;
 
@@ -83,20 +83,23 @@ export async function onSearchPress(
               }
               apiResult.alternateNames = [
                 "Aliases",
-                alternateNames ? alternateNames.join(", ") : "-",
+                alternateNames ? alternateNames.join(", ") : "NOTFOUND",
               ];
               // console.log("ALIAS: ", apiResult.alternateNames);
               break;
 
             case "ensemblID":
               const ensembl: string = data?.ensembl.gene;
-              apiResult.ensemblID = ["Ensembl ID", ensembl ? ensembl : "-"];
+              apiResult.ensemblID = [
+                "Ensembl ID",
+                ensembl ? ensembl : "NOTFOUND",
+              ];
               // console.log("ENSEMBL: ", apiResult.ensemblID);
               break;
 
             case "summary":
               const summary: string = data?.summary;
-              apiResult.summary = summary ? summary : "-";
+              apiResult.summary = summary ? summary : "NOTFOUND";
               // console.log("SUMMARY: ");
               break;
 
@@ -114,7 +117,7 @@ export async function onSearchPress(
               break;
 
             case "refseqRNA":
-              let refseqRNA = data?.refseq.rna;
+              let refseqRNA = data?.refseq?.rna;
               if (refseqRNA && !Array.isArray(refseqRNA)) {
                 refseqRNA = [refseqRNA];
               }
@@ -126,7 +129,7 @@ export async function onSearchPress(
               break;
 
             case "refseqProtein":
-              let refseqProtein = data?.refseq.protein;
+              let refseqProtein = data?.refseq?.protein;
               if (refseqProtein && !Array.isArray(refseqProtein)) {
                 refseqProtein = [refseqProtein];
               }
@@ -140,6 +143,7 @@ export async function onSearchPress(
             case "goBP":
               let goBP: goResult[] = data.go?.BP;
               if (goBP) {
+                if (!Array.isArray(goBP)) goBP = [goBP];
                 const unique = new Set();
                 const goDataUnique = goBP.filter((item) => {
                   if (unique.has(item.term)) return false;
@@ -149,13 +153,14 @@ export async function onSearchPress(
                 apiResult.goBP = ["GO Biological Processes", goDataUnique];
                 // console.log("GOBP: ", apiResult.goBP);
               } else {
-                apiResult.goBP = ["NOTFOUND", []];
+                apiResult.goBP = ["GO Biological Processes", []];
               }
               break;
 
             case "goCC":
               let goCC: goResult[] = data.go?.CC;
               if (goCC) {
+                if (!Array.isArray(goCC)) goCC = [goCC];
                 const unique = new Set();
                 const goDataUnique = goCC.filter((item) => {
                   if (unique.has(item.term)) return false;
@@ -165,13 +170,14 @@ export async function onSearchPress(
                 apiResult.goCC = ["GO Cellular Components", goDataUnique];
                 // console.log("GOCC: ", apiResult.goCC);
               } else {
-                apiResult.goCC = ["NOTFOUND", []];
+                apiResult.goCC = ["GO Cellular Components", []];
               }
               break;
 
             case "goMF":
               let goMF: goResult[] = data.go?.MF;
               if (goMF) {
+                if (!Array.isArray(goMF)) goMF = [goMF];
                 const unique = new Set();
                 const goDataUnique = goMF.filter((item) => {
                   if (unique.has(item.term)) return false;
@@ -188,7 +194,7 @@ export async function onSearchPress(
                 apiResult.goMF = ["GO Molecular Functions", renamed];
                 // console.log("GOMF: ", apiResult.goMF);
               } else {
-                apiResult.goMF = ["NOTFOUND", []];
+                apiResult.goMF = ["GO Molecular Functions", []];
               }
               break;
           }

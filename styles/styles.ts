@@ -41,6 +41,7 @@ export const infoScreenStyles = StyleSheet.create({
     borderRadius: 15,
     padding: 15,
     marginBottom: 10,
+    alignSelf: "center",
   },
   infoBodyText: { textAlign: "center", fontSize: 18 },
 });

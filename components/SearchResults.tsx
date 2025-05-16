@@ -20,7 +20,6 @@ const SearchResults = () => {
   /*----------------
   States & Constants
   ----------------*/
-  const { configChoices } = useResultsConfiguration();
   const { queryResult } = useQuerySearchContext();
 
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
