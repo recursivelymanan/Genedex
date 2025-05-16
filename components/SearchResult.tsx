@@ -60,14 +60,14 @@ const SearchResult: React.FC<SearchResultProps> = ({
         <View style={styles.resultsEntryDataContainer}>
           <Text style={styles.resultsEntryDataText}>
             {disabled
-              ? "No results found."
+              ? "No results found"
               : go
               ? `Tap to see ${go.length} result${go.length > 1 ? "s" : ""}`
               : refseq
               ? `Tap to see ${refseq.length} result${
                   refseq.length > 1 ? "s" : ""
                 }`
-              : "No IDs found"}
+              : "No results found"}
           </Text>
         </View>
       </View>
