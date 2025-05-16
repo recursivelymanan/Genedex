@@ -23,7 +23,7 @@ const InfoScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
       <Header
         title="Info"
         leftButton={
@@ -39,7 +39,12 @@ const InfoScreen = () => {
           />
         }
       />
-      <ScrollView contentContainerStyle={{ paddingBottom: 200 }}>
+      <Text
+        style={{ alignSelf: "center", marginBottom: 10 }}
+      >{`App version ${version}`}</Text>
+      <ScrollView
+        contentContainerStyle={{ paddingBottom: 200, marginBottom: 20 }}
+      >
         <View style={{ justifyContent: "center" }}>
           <InfoSection
             title={"Welcome to PocketGene!"}
@@ -68,17 +73,7 @@ const InfoScreen = () => {
           />
         </View>
       </ScrollView>
-      <View
-        style={{
-          position: "absolute",
-          bottom: 20,
-          left: "50%",
-          transform: [{ translateX: -50 }],
-        }}
-      >
-        <Text style={{}}>{`App version ${version}`}</Text>
-      </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
