@@ -44,3 +44,9 @@ export type goResult = {
   qualifier: string;
   term: string;
 };
+
+export type infoText = {
+  title: string;
+  body: string;
+  startExpand?: boolean;
+};

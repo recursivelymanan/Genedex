@@ -13,6 +13,7 @@ import {
   infoScreenStyles,
   resultScreenStyles,
   buttonStyles,
+  containerStyles,
 } from "../styles/styles";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -21,6 +22,7 @@ const styles = {
   ...infoScreenStyles,
   ...resultScreenStyles,
   ...buttonStyles,
+  ...containerStyles,
 };
 
 interface FavoritesListProps {
@@ -68,7 +70,7 @@ const FavoritesList: React.FC<FavoritesListProps> = ({ handleSearch }) => {
         style={styles.button}
       />
       <ScrollView contentContainerStyle={{ height: "100%" }}>
-        <View>
+        <View style={{ flex: 1 }}>
           {favorites.sort().map((string) => (
             <Animated.View
               key={`${string}-view0`}
@@ -80,14 +82,15 @@ const FavoritesList: React.FC<FavoritesListProps> = ({ handleSearch }) => {
                 style={{
                   flexDirection: "row",
                   justifyContent: "center",
+                  alignSelf: "center",
                   alignItems: "center",
-                  width: "100%",
+                  width: "85%",
                 }}
               >
                 <TouchableOpacity
                   onPress={() => handleSearch(string)}
                   style={{
-                    ...styles.resultsEntryContainer,
+                    ...styles.entryContainer,
                     width: "80%",
                     marginRight: 5,
                   }}
@@ -103,13 +106,13 @@ const FavoritesList: React.FC<FavoritesListProps> = ({ handleSearch }) => {
                 </TouchableOpacity>
                 <View
                   style={{
-                    ...styles.resultsEntryContainer,
+                    ...styles.entryContainer,
                     marginLeft: 5,
                     backgroundColor: "#d16f6f",
                   }}
                 >
                   <Button
-                    children={<Ionicons name="trash-outline" size={25} />}
+                    children={<Ionicons name="trash-outline" size={26} />}
                     onPress={() => removeFavorite(string)}
                   />
                 </View>

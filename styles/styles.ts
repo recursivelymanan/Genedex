@@ -46,6 +46,21 @@ export const infoScreenStyles = StyleSheet.create({
   infoBodyText: { textAlign: "center", fontSize: 18 },
 });
 
+export const containerStyles = StyleSheet.create({
+  entryContainer: {
+    justifyContent: "flex-start",
+    alignItems: "center",
+    flexDirection: "row",
+    backgroundColor: "#b1c9f0",
+    borderRadius: 5,
+    padding: 10,
+    marginLeft: 10,
+    marginRight: 10,
+    maxWidth: "100%",
+    marginBottom: 8,
+  },
+});
+
 export const resultScreenStyles = StyleSheet.create({
   resultsEntryContainer: {
     justifyContent: "flex-start",
