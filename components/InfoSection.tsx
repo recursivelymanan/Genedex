@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import Animated, {
   LinearTransition,
   FadeIn,
-  FadeInLeft,
   FadeOut,
   useAnimatedStyle,
   withTiming,

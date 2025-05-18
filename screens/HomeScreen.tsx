@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from "react-native";
+import { View, Text, TouchableWithoutFeedback, Keyboard } from "react-native";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";

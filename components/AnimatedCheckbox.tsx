@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { TouchableOpacity, View } from "react-native";
+import { Checkbox } from "react-native-paper";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
   Easing,
 } from "react-native-reanimated";
-import { Checkbox } from "react-native-paper";
+
 import { configStyles as styles } from "../styles/styles";
 
 interface AnimatedCheckboxProps {
@@ -19,10 +20,6 @@ const AnimatedCheckbox: React.FC<AnimatedCheckboxProps> = ({
   keyName,
   value,
   onToggle,
-}: {
-  keyName: string;
-  value: boolean;
-  onToggle: (key: string, value: boolean) => void;
 }) => {
   const progress = useSharedValue(value ? 1 : 0);
 
@@ -82,9 +79,9 @@ const prettyNames: { [key: string]: string } = {
   alternateNames: "Gene aliases",
   ensemblID: "Ensembl ID",
   summary: "Gene summary",
-  refseqGenomic: "NCBI Genomic RefSeq ID",
-  refseqProtein: "NCBI Protein RefSeq ID",
-  refseqRNA: "NCBI RNA RefSeq ID",
+  refseqGenomic: "NCBI Genomic Refseq ID",
+  refseqProtein: "NCBI Protein Refseq ID",
+  refseqRNA: "NCBI RNA Refseq ID",
   goBP: "Gene Ontology (BP)",
   goMF: "Gene Ontology (MF)",
   goCC: "Gene Ontology (CC)",

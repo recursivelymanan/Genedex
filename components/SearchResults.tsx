@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 import { searchResultsStyles as styles } from "../styles/styles";
-import { useResultsConfiguration } from "../context/ResultsConfigurationContext";
+
 import { useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../App";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
