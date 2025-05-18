@@ -53,7 +53,6 @@ const InfoScreen = () => {
                 key={`is-${section.title}`}
                 title={section.title}
                 body={section.body}
-                startExpand={section.startExpand ? true : false}
               />
             ))}
           </View>

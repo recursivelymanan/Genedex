@@ -25,24 +25,19 @@ const styles = {
 interface InfoSectionProp {
   title: string;
   body: string;
-  startExpand?: boolean;
 }
 
-const InfoSection: React.FC<InfoSectionProp> = ({
-  title,
-  body,
-  startExpand,
-}) => {
-  const [expand, setExpand] = useState<boolean>(startExpand || false);
-  const rotation = useSharedValue(startExpand ? 90 : 0);
+const InfoSection: React.FC<InfoSectionProp> = ({ title, body }) => {
+  const [expand, setExpand] = useState<boolean>(false);
+  const rotation = useSharedValue(expand ? 90 : 0);
 
-  const toggleExpand = () => {
-    setExpand((prev) => !prev);
-    rotation.value = withTiming(expand ? 0 : 90, {
+  useEffect(() => {
+    console.log("hello", title, expand);
+    rotation.value = withTiming(expand ? 90 : 0, {
       duration: 300,
       easing: Easing.out(Easing.cubic),
     });
-  };
+  }, [expand]);
 
   const chevronStyle = useAnimatedStyle(() => ({
     transform: [{ rotateZ: `${rotation.value}deg` }],
@@ -52,7 +47,7 @@ const InfoSection: React.FC<InfoSectionProp> = ({
   return (
     <View>
       <Animated.View key={`av-${title}`} layout={LinearTransition}>
-        <TouchableOpacity onPress={toggleExpand}>
+        <TouchableOpacity onPress={() => setExpand((prev) => !prev)}>
           <View
             style={{
               ...styles.entryContainer,
@@ -80,7 +75,14 @@ const InfoSection: React.FC<InfoSectionProp> = ({
                 marginBottom: 25,
               }}
             >
-              <Text style={styles.resultsEntryDataTextSummary}>{body}</Text>
+              <Text
+                style={{
+                  ...styles.resultsEntryDataTextSummary,
+                  lineHeight: 23,
+                }}
+              >
+                {body}
+              </Text>
             </View>
           </Animated.View>
         ) : null}
