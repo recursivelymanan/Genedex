@@ -53,6 +53,7 @@ const InfoScreen = () => {
                 key={`is-${section.title}`}
                 title={section.title}
                 body={section.body}
+                link={section.link}
               />
             ))}
           </View>

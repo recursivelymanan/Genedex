@@ -49,4 +49,5 @@ export type infoText = {
   title: string;
   body: string;
   startExpand?: boolean;
+  link: [string, string] | false;
 };

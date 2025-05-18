@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Linking } from "react-native";
 import Animated, {
   LinearTransition,
   FadeIn,
@@ -25,14 +25,14 @@ const styles = {
 interface InfoSectionProp {
   title: string;
   body: string;
+  link: [string, string] | false; // [text, url]
 }
 
-const InfoSection: React.FC<InfoSectionProp> = ({ title, body }) => {
+const InfoSection: React.FC<InfoSectionProp> = ({ title, body, link }) => {
   const [expand, setExpand] = useState<boolean>(false);
   const rotation = useSharedValue(expand ? 90 : 0);
 
   useEffect(() => {
-    console.log("hello", title, expand);
     rotation.value = withTiming(expand ? 90 : 0, {
       duration: 300,
       easing: Easing.out(Easing.cubic),
@@ -43,6 +43,15 @@ const InfoSection: React.FC<InfoSectionProp> = ({ title, body }) => {
     transform: [{ rotateZ: `${rotation.value}deg` }],
     marginLeft: 8,
   }));
+
+  let bodyLeft = "";
+  let bodyRight = "";
+  let text = "";
+  let url = "";
+  if (link) {
+    [text, url] = link;
+    [bodyLeft, bodyRight] = body.split(text);
+  }
 
   return (
     <View>
@@ -81,7 +90,24 @@ const InfoSection: React.FC<InfoSectionProp> = ({ title, body }) => {
                   lineHeight: 23,
                 }}
               >
-                {body}
+                {link ? (
+                  <>
+                    {bodyLeft}
+                    <Text
+                      style={{
+                        ...styles.resultsEntryDataTextSummary,
+                        lineHeight: 23,
+                        color: "#007AFF",
+                      }}
+                      onPress={() => Linking.openURL(url)}
+                    >
+                      {text}
+                    </Text>
+                    {bodyRight}
+                  </>
+                ) : (
+                  body
+                )}
               </Text>
             </View>
           </Animated.View>
