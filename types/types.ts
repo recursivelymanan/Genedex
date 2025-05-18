@@ -2,8 +2,8 @@
 Type for storing results from API calls
 */
 export type QueryResult = {
-  mirna: boolean;
   symbol: string;
+  mirna: boolean;
   name?: [string, string];
   type?: [string, string];
   alternateNames?: [string, string];

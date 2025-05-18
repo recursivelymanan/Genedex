@@ -203,6 +203,9 @@ export async function onSearchPress(
       });
       addRecentQuery(query);
       setIsError(null);
+
+      if (isBadResult(query, apiResult)) throw new Error("GENE_NOT_FOUND");
+
       setQueryResult(apiResult);
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -261,3 +264,20 @@ const fieldsForURL: { [key: string]: string } = {
   goMF: "MF",
   goCC: "CC",
 };
+
+/**
+ * Checks if the data returned for a query is actually the entry for query, or
+ * was just returned by the API because it found the query somewhere in the
+ * returned data. This happens when the searched query isn't a valid gene
+ * symbol.
+ * @param query
+ * @param result
+ * @returns
+ */
+function isBadResult(query: string, result: QueryResult): boolean {
+  if (result.alternateNames) {
+    return result.symbol !== query && !result.alternateNames[1].includes(query);
+  } else {
+    return result.symbol !== query;
+  }
+}

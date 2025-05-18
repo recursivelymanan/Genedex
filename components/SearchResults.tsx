@@ -23,7 +23,7 @@ const SearchResults = () => {
   const { queryResult } = useQuerySearchContext();
 
   const nav = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const { symbol, mirna, ...otherResults } = queryResult;
+  const { symbol, mirna, badResult, ...otherResults } = queryResult;
 
   /*------------
   Event Handlers
@@ -63,6 +63,7 @@ const SearchResults = () => {
           title="Configure which results you see"
         />
       </View>
+
       <ScrollView contentContainerStyle={{ paddingBottom: 400 }}>
         <View>
           {Object.entries(otherResults).map(([key, value]) => {
