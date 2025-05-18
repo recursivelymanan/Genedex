@@ -67,10 +67,14 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
         }
       />
       <View
-        style={{ ...styles.resultsEntryContainer, flexDirection: "column" }}
+        style={{
+          ...styles.resultsEntryContainer,
+          flexDirection: "column",
+          backgroundColor: "#d1d9e3",
+        }}
       >
         <MaterialIcons name="error" size={30} style={{ paddingBottom: 15 }} />
-        <Text style={styles.resultsEntryDataText}>{isError}</Text>
+        <Text style={{ textAlign: "center", fontSize: 20 }}>{isError}</Text>
       </View>
     </>
   ) : queryResult ? (

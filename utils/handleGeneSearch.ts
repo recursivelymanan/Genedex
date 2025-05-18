@@ -1,5 +1,7 @@
 import { ConfigResults, goResult, QueryResult } from "../types/types";
 
+const ABORT_TIME: number = 5000;
+
 /**
  * Function for handling API queries. Throws error upon invalid query.
  * @param query Gene to be searched as HGNC symbol
@@ -18,35 +20,34 @@ export async function onSearchPress(
   setQueryResult: React.Dispatch<React.SetStateAction<QueryResult>>
 ) {
   if (query) {
-    console.log(`Searching for ${query}`);
     setLoading(true);
     try {
       const fields = createQueryFields(configChoices);
-      console.log(fields);
-      console.log(
-        `https://mygene.info/v3/query?q=${query}&fields=${fields}&species=human`
-      );
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), ABORT_TIME);
+
       const response = await fetch(
         `https://mygene.info/v3/query?q=${query}&fields=${fields}&species=human`,
         {
           headers: {
             "Cache-Control": "no-cache",
           },
+          signal: controller.signal,
         }
       );
+      clearTimeout(timeoutId);
       let data = await response.json();
 
+      if (data.hits.length === 0) throw new Error("GENE_NOT_FOUND");
+
       if (!response.ok) {
-        console.log(response.status);
-        if (response.status === 404) {
-          throw new Error("GENE_NOT_FOUND");
-        } else if (response.status >= 500) {
+        if (response.status >= 500) {
           throw new Error("SERVER_ERROR");
         } else {
           throw new Error("UNKNOWN_ERROR");
         }
       }
-      console.log(data);
+
       data = data.hits[0];
 
       let apiResult: QueryResult = {
@@ -204,16 +205,17 @@ export async function onSearchPress(
       setIsError(null);
       setQueryResult(apiResult);
     } catch (error: unknown) {
-      console.log(error);
       if (error instanceof Error) {
-        if (error.message === "GENE_NOT_FOUND") {
-          setIsError("Gene not found. Please check the name and try again.");
-        } else if (error.message === "SERVER_ERROR") {
+        if (error.name === "AbortError") {
           setIsError(
-            "Server is currently unavailable. Please try again later."
+            "Server is taking too long to respond. Please check your connection and try again. "
           );
-        } else if (error.message === "Network request failed") {
-          setIsError("Network error. Check your internet connection.");
+        } else if (error.message === "GENE_NOT_FOUND") {
+          setIsError(
+            `Gene symbol ${query} was not found. Searches must be valid HGNC human gene symbols.`
+          );
+        } else if (error.message === "SERVER_ERROR") {
+          setIsError("Server error. Please try again later.");
         } else {
           setIsError("Something went wrong. Please try again.");
         }
