@@ -55,7 +55,10 @@ const InfoSection: React.FC<InfoSectionProp> = ({ title, body, link }) => {
 
   return (
     <View>
-      <Animated.View key={`av-${title}`} layout={LinearTransition}>
+      <Animated.View
+        key={`av-${title}`}
+        layout={LinearTransition.duration(200)}
+      >
         <TouchableOpacity onPress={() => setExpand((prev) => !prev)}>
           <View
             style={{
@@ -76,7 +79,10 @@ const InfoSection: React.FC<InfoSectionProp> = ({ title, body, link }) => {
           </View>
         </TouchableOpacity>
         {expand ? (
-          <Animated.View entering={FadeIn} exiting={FadeOut}>
+          <Animated.View
+            entering={FadeIn.duration(500)}
+            exiting={FadeOut.duration(100)}
+          >
             <View
               style={{
                 ...styles.entryContainer,

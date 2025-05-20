@@ -31,7 +31,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
       <SafeAreaView style={{ flex: 1 }}>
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View style={styles.homeContainer}>
-            <Text style={styles.homeTitle}>{"PocketGene"}</Text>
+            <Text style={styles.homeTitle}>{"Genedex"}</Text>
             <View style={styles.homeButtonContainer}>
               <Button
                 children={

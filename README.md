@@ -1,6 +1,6 @@
-<img src="./assets/images/icon.png" width="200" alt="PocketGene Logo" />
+<img src="./assets/images/icon.png" width="200" alt="Genedex Logo" />
 
-# PocketGene
+# Gendex
 
 Mobile app that enables users to quickly retrieve common info on human genes. Written in Typescript with react-native and managed with Expo.
 
@@ -28,8 +28,8 @@ The recommended way to get the app up and running is using Expo.
 2. Clone this repository and install dependencies
 
    ```
-   git clone https://github.com/recursivelymanan/PocketGene
-   cd PocketGene
+   git clone https://github.com/recursivelymanan/Genedex
+   cd Genedex
    npm install
    ```
 

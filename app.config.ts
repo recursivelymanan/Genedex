@@ -4,8 +4,8 @@ dotenv.config();
 
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
-  name: "PocketGene",
-  slug: "pocketgene",
+  name: "Genedex",
+  slug: "genedex",
   version: "1.0.0",
   icon: "./assets/images/icon.png",
   orientation: "portrait",
@@ -13,10 +13,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   newArchEnabled: true,
   ios: {
     supportsTablet: true,
-    bundleIdentifier: "com.mananchopra.pocketgene",
+    bundleIdentifier: "com.mananchopra.genedex",
   },
   android: {
-    package: "com.mananchopra.pocketgene",
+    package: "com.mananchopra.genedex",
   },
   extra: {
     eas: {
