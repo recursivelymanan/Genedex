@@ -50,7 +50,7 @@ const InfoSection: React.FC<InfoSectionProp> = ({ title, body, link }) => {
   let url = "";
   if (link) {
     [text, url] = link;
-    [bodyLeft, bodyRight] = body.split(text);
+    [bodyLeft, bodyRight] = body.split(text, 2);
   }
 
   return (

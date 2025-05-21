@@ -3,8 +3,8 @@ import { infoText } from "../types/types";
 export const infoTextList: infoText[] = [
   {
     title: "Welcome to Genedex!",
-    body: "Thanks for using Genedex! Get started by heading back to the home screen and searching for any valid human HGNC gene symbol.\n\n You can also check out the sections below for more helpful information. Happy searching!",
-    link: false,
+    body: "Thanks for using Genedex! Get started by heading back to the home screen and searching for any official human gene symbol (HGNC).\n\nYou can also check out the sections below for more helpful information. Happy searching!",
+    link: ["HGNC", "https://genenames.org/"],
   },
   {
     title: "Managing favorites",
@@ -13,13 +13,13 @@ export const infoTextList: infoText[] = [
   },
   {
     title: "Support",
-    body: "If you encounter any bugs or issues with the app, please report them by opening a new issue on this app's GitHub repo (link on the top right of this page) or by sending an email to genedex@gmail.com .\n\nIf you would like to run the app locally with Expo or an emulator, refer to the GitHub repository for instructions.",
-    link: false,
+    body: "If you encounter any bugs or issues with the app, please report them by opening a new issue on this app's GitHub repo (link on the top right of this page) or by sending an email to genedex@gmail.com .\n\nIf you are a developer, or just interested in running locally, you can do so with Expo or an emulator. Refer to the GitHub repository for instructions.",
+    link: ["GitHub repository", "https://github.com/recursivelymanan/Genedex"],
   },
   {
     title: "Data Sources",
-    body: "Gene annotations provided by MyGene.info, maintained by The Scripps Research Institute. Data is provided as-is. MyGene.info also pulls data from other third party sources. \n\nFor some genes, certain data points may be unavailable. You can always check the GeneCards page for a gene by tapping on the gene symbol.",
-    link: false,
+    body: "Gene annotations provided by MyGene.info, a widely used biomedical data service maintained by The Scripps Research Institute. Data is provided as-is. MyGene.info also pulls data from other third party sources. \n\nFor some genes, certain data points may be unavailable. You can always check the GeneCards page for a gene by tapping on the gene symbol.",
+    link: ["MyGene.info", "https://mygene.info"],
   },
   {
     title: "Data and Privacy",
