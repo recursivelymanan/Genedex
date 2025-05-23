@@ -1,6 +1,6 @@
 <img src="./assets/images/icon.png" width="200" alt="Genedex Logo" />
 
-# Gendex
+# Genedex
 
 Mobile app that enables users to quickly retrieve common info on human genes. Written in Typescript with react-native and managed with Expo.
 
