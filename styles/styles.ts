@@ -12,7 +12,7 @@ export const homeScreenStyles = StyleSheet.create({
     color: "#0c3b87",
     fontWeight: "bold",
     fontFamily: "EncodeSans_800ExtraBold",
-    fontSize: 70,
+    fontSize: 50,
     marginTop: 10,
   },
   homeButtonContainer: {
@@ -104,7 +104,7 @@ export const resultScreenStyles = StyleSheet.create({
   },
   resultsEntryLabelContainer: {
     paddingRight: 10,
-    width: 120,
+    width: 130,
   },
   resultsEntryDataTextSummary: {
     textAlign: "auto",
