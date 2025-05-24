@@ -8,19 +8,18 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   slug: "genedex",
   splash: {
     backgroundColor: "#b1c9f0",
-    image: "./assets/images/splash_icon.png"
+    image: "./assets/images/splash_icon.png",
   },
   version: "1.0.0",
   icon: "./assets/images/icon.png",
   orientation: "portrait",
   userInterfaceStyle: "light",
   newArchEnabled: true,
-  plugins:  [
-    "expo-font"
-  ],
+  plugins: ["expo-font"],
   ios: {
     supportsTablet: true,
     bundleIdentifier: "com.mananchopra.genedex",
+    buildNumber: "1",
   },
   android: {
     package: "com.mananchopra.genedex",
