@@ -19,7 +19,6 @@ const RecentQueries = () => {
   return (
     recentQueries.length > 0 && (
       <View style={styles.recentsContainer}>
-        <Text style={styles.recentsTitle}>{"Recent queries"}</Text>
         {recentQueries.map((recentQuery) => (
           <TouchableOpacity
             key={`to-${recentQuery}`}
