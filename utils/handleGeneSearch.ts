@@ -38,6 +38,10 @@ export async function onSearchPress(
       clearTimeout(timeoutId);
       let data = await response.json();
 
+      if (data.code && data.code === 400) {
+        throw new Error("BAD_QUERY");
+      }
+
       if (data.hits.length === 0) throw new Error("GENE_NOT_FOUND");
 
       if (!response.ok) {
@@ -62,19 +66,16 @@ export async function onSearchPress(
             case "symbol":
               const symbol: string = data?.symbol;
               apiResult.symbol = symbol ? symbol : "NOTFOUND";
-              // console.log("SYMBOL: ", apiResult.symbol);
               break;
 
             case "name":
               const name: string = data?.name;
               apiResult.name = ["Full gene name", name ? name : "NOTFOUND"];
-              // console.log("NAME: ", apiResult.name);
               break;
 
             case "type":
               const type: string = data?.type_of_gene;
               apiResult.type = ["Gene type", type ? type : "NOTFOUND"];
-              // console.log("TYPE: ", apiResult.type);
               break;
 
             case "alternateNames":
@@ -86,7 +87,6 @@ export async function onSearchPress(
                 "Aliases",
                 alternateNames ? alternateNames.join(", ") : "NOTFOUND",
               ];
-              // console.log("ALIAS: ", apiResult.alternateNames);
               break;
 
             case "ensemblID":
@@ -95,17 +95,14 @@ export async function onSearchPress(
                 "Ensembl ID",
                 ensembl ? ensembl : "NOTFOUND",
               ];
-              // console.log("ENSEMBL: ", apiResult.ensemblID);
               break;
 
             case "summary":
               const summary: string = data?.summary;
               apiResult.summary = summary ? summary : "NOTFOUND";
-              // console.log("SUMMARY: ");
               break;
 
             case "refseqGenomic":
-              console.log("HERE");
               let refseqGenomic = data?.refseq?.genomic;
               if (refseqGenomic && !Array.isArray(refseqGenomic)) {
                 refseqGenomic = [refseqGenomic];
@@ -114,7 +111,6 @@ export async function onSearchPress(
                 "Refseq Genomic IDs",
                 refseqGenomic ? refseqGenomic : null,
               ];
-              // console.log("RSG: ", apiResult.refseqGenomic);
               break;
 
             case "refseqRNA":
@@ -126,7 +122,6 @@ export async function onSearchPress(
                 "Refseq RNA IDs",
                 refseqRNA ? refseqRNA : null,
               ];
-              // console.log("RSR: ", apiResult.refseqRNA);
               break;
 
             case "refseqProtein":
@@ -138,7 +133,6 @@ export async function onSearchPress(
                 "Refseq Protein IDs",
                 refseqProtein ? refseqProtein : null,
               ];
-              // console.log("RSP: ", apiResult.refseqProtein);
               break;
 
             case "goBP":
@@ -152,7 +146,6 @@ export async function onSearchPress(
                   return true;
                 });
                 apiResult.goBP = ["GO Biological Processes", goDataUnique];
-                // console.log("GOBP: ", apiResult.goBP);
               } else {
                 apiResult.goBP = ["GO Biological Processes", []];
               }
@@ -169,7 +162,6 @@ export async function onSearchPress(
                   return true;
                 });
                 apiResult.goCC = ["GO Cellular Components", goDataUnique];
-                // console.log("GOCC: ", apiResult.goCC);
               } else {
                 apiResult.goCC = ["GO Cellular Components", []];
               }
@@ -193,7 +185,6 @@ export async function onSearchPress(
                 }));
 
                 apiResult.goMF = ["GO Molecular Functions", renamed];
-                // console.log("GOMF: ", apiResult.goMF);
               } else {
                 apiResult.goMF = ["GO Molecular Functions", []];
               }
@@ -201,11 +192,10 @@ export async function onSearchPress(
           }
         }
       });
-      addRecentQuery(query);
-      setIsError(null);
 
       if (isBadResult(query, apiResult)) throw new Error("GENE_NOT_FOUND");
-
+      addRecentQuery(query);
+      setIsError(null);
       setQueryResult(apiResult);
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -219,6 +209,8 @@ export async function onSearchPress(
           );
         } else if (error.message === "SERVER_ERROR") {
           setIsError("Server error. Please try again later.");
+        } else if (error.message === "BAD_QUERY") {
+          setIsError("Invalid query. Query cannot contain symbols.");
         } else {
           setIsError("Something went wrong. Please try again.");
         }
@@ -276,7 +268,10 @@ const fieldsForURL: { [key: string]: string } = {
  */
 function isBadResult(query: string, result: QueryResult): boolean {
   if (result.alternateNames) {
-    return result.symbol !== query && !result.alternateNames[1].includes(query);
+    return (
+      result.symbol !== query.toUpperCase() &&
+      !` ${result.alternateNames[1]},`.includes(` ${query.toUpperCase()},`)
+    );
   } else {
     return result.symbol !== query;
   }
