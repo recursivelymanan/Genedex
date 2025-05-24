@@ -7,14 +7,14 @@ import {
   Linking,
   Button,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { searchResultsStyles as styles } from "../styles/styles";
 
-import { useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../App";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import SearchResult from "./SearchResult";
 import { useQuerySearchContext } from "../context/QuerySearchContext";
+import { RootStackParamList } from "../App";
+import SearchResult from "./SearchResult";
 
 const SearchResults = () => {
   /*----------------
