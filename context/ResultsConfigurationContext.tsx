@@ -63,7 +63,6 @@ export const ResultsConfigurationProvider: React.FC<{
   /*-----
   Effects
   -----*/
-
   useEffect(() => {
     const loadConfig = async () => {
       try {
@@ -90,6 +89,9 @@ export const ResultsConfigurationProvider: React.FC<{
     saveConfig();
   }, [configChoices]);
 
+  /*----
+  Render
+  ----*/
   return (
     <ResultsConfigurationContext.Provider
       value={{ configChoices, setConfigChoices }}

@@ -27,13 +27,14 @@ const ResultsScreen: React.FC<Props> = ({ route }) => {
   /*----------------
   States & Constants
   ----------------*/
-  const { query } = route.params;
   const [isError, setIsError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   const { queryResult, setQueryResult } = useQuerySearchContext();
   const { addRecentQuery } = useRecentQueries();
   const { configChoices } = useResultsConfiguration();
+
+  const { query } = route.params;
   const nav = useNavigation();
 
   /*-----

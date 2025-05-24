@@ -29,13 +29,11 @@ export const RecentQueriesProvider: React.FC<{ children: React.ReactNode }> = ({
   /*----
   States
   ----*/
-
   const [recentQueries, setRecentQueries] = useState<string[]>([]);
 
   /*-----
   Effects
   -----*/
-
   useEffect(() => {
     const loadRecents = async () => {
       try {
@@ -64,7 +62,6 @@ export const RecentQueriesProvider: React.FC<{ children: React.ReactNode }> = ({
   /*-------
   Functions
   -------*/
-
   const addRecentQuery = (query: string) => {
     const safeQuery = query.toUpperCase();
     let arr = [...recentQueries];
@@ -75,6 +72,9 @@ export const RecentQueriesProvider: React.FC<{ children: React.ReactNode }> = ({
     setRecentQueries(arr);
   };
 
+  /*----
+  Render
+  ----*/
   return (
     <RecentQueriesContext.Provider
       value={{ recentQueries, addRecentQuery, setRecentQueries }}

@@ -27,13 +27,11 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
   /*----
   States
   ----*/
-
   const [favorites, setFavorites] = useState<string[]>([]);
 
   /*-----
   Effects
   -----*/
-
   useEffect(() => {
     const loadConfig = async () => {
       try {
@@ -59,6 +57,9 @@ export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
     saveConfig();
   }, [favorites]);
 
+  /*----
+  Render
+  ----*/
   return (
     <FavoritesContext.Provider value={{ favorites, setFavorites }}>
       {children}

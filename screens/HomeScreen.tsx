@@ -18,14 +18,8 @@ import { homeScreenStyles as styles } from "../styles/styles";
 type Props = NativeStackScreenProps<RootStackParamList, "Home">;
 
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
-  /*----------------
-  States & Constants
-  ----------------*/
   const { query, setQuery, handleSearch } = useQuerySearchContext();
 
-  /*----
-  Render
-  ----*/
   return (
     <View style={{ flex: 1, backgroundColor: "#b1c9f0" }}>
       <SafeAreaView style={{ flex: 1 }}>

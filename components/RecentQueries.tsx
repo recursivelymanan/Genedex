@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, Button, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View, Button, TouchableOpacity } from "react-native";
 
 import { useQuerySearchContext } from "../context/QuerySearchContext";
 import { useRecentQueries } from "../context/RecentQueryContext";
