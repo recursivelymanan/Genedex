@@ -6,6 +6,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: "Genedex",
   slug: "genedex",
+  splash: {
+    backgroundColor: "#b1c9f0",
+    image: "./assets/images/icon.png"
+  },
   version: "1.0.0",
   icon: "./assets/images/icon.png",
   orientation: "portrait",
