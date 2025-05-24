@@ -20,13 +20,16 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     supportsTablet: true,
     bundleIdentifier: "com.mananchopra.genedex",
     buildNumber: "2",
+    infoPlist: {
+      ITSAppUsesNonExemptEncryption: false,
+    },
   },
   android: {
     package: "com.mananchopra.genedex",
   },
   extra: {
     eas: {
-      projectId: process.env.EAS_PROJECT_ID,
+      projectId: "7c279187-2d74-4c20-bcad-1133ef2b00b6",
     },
     appVersion: "1.0.0",
   },
