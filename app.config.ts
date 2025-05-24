@@ -8,7 +8,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   slug: "genedex",
   splash: {
     backgroundColor: "#b1c9f0",
-    image: "./assets/images/icon.png"
+    image: "./assets/images/splash_icon.png"
   },
   version: "1.0.0",
   icon: "./assets/images/icon.png",
