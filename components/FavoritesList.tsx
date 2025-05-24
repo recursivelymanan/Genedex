@@ -19,7 +19,6 @@ import {
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 const styles = {
-  ...infoScreenStyles,
   ...resultScreenStyles,
   ...buttonStyles,
   ...containerStyles,
@@ -37,18 +36,29 @@ const FavoritesList: React.FC<FavoritesListProps> = ({ handleSearch }) => {
   };
 
   return favorites.length === 0 ? (
-    <View
+    <Animated.View
       style={{
-        ...styles.infoBodyContainer,
+        ...styles.resultsEntryContainer,
         justifyContent: "center",
         alignSelf: "center",
+        padding: 15,
+        width: "80%",
       }}
+      entering={FadeIn.delay(250)}
+      exiting={FadeOut}
+      layout={LinearTransition}
     >
-      <Text style={{ ...styles.infoBodyText, fontSize: 25 }}>
+      <Text
+        style={{
+          ...styles.resultsEntryDataText,
+          fontSize: 22,
+          textAlign: "left",
+        }}
+      >
         No favorites! Add genes to your favorites by tapping the star icon after
         searching for a gene.
       </Text>
-    </View>
+    </Animated.View>
   ) : (
     <View>
       <Button
