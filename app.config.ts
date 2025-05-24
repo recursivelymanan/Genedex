@@ -19,7 +19,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     supportsTablet: true,
     bundleIdentifier: "com.mananchopra.genedex",
-    buildNumber: "1",
+    buildNumber: "2",
   },
   android: {
     package: "com.mananchopra.genedex",
