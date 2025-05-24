@@ -9,12 +9,6 @@ import {
   useFonts,
   EncodeSans_800ExtraBold,
 } from "@expo-google-fonts/encode-sans";
-import {
-  FontAwesome6,
-  FontAwesome,
-  MaterialIcons,
-  AntDesign,
-} from "@expo/vector-icons";
 
 import HomeScreen from "./screens/HomeScreen";
 import ResultsScreen from "./screens/ResultsScreen";
@@ -46,10 +40,6 @@ enableScreens();
 const App = () => {
   const [fontsLoaded] = useFonts({
     EncodeSans_800ExtraBold,
-    ...FontAwesome6.font,
-    ...FontAwesome.font,
-    ...MaterialIcons.font,
-    ...AntDesign.font,
   });
 
   const onLayoutRootView = useCallback(async () => {
