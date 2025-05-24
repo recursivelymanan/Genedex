@@ -11,8 +11,8 @@ export const homeScreenStyles = StyleSheet.create({
   homeTitle: {
     color: "#0c3b87",
     fontWeight: "bold",
-    fontFamily: "AmericanTypewriter-Bold",
-    fontSize: 50,
+    fontFamily: "EncodeSans_800ExtraBold",
+    fontSize: 70,
     marginTop: 10,
   },
   homeButtonContainer: {
@@ -194,7 +194,6 @@ export const recentQueriesStyles = StyleSheet.create({
   recentsTitle: {
     paddingBottom: 20,
     fontSize: 25,
-    fontFamily: "Inter",
   },
 });
 

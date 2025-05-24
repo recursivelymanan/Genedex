@@ -15,6 +15,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   orientation: "portrait",
   userInterfaceStyle: "light",
   newArchEnabled: true,
+  plugins:  [
+    "expo-font"
+  ],
   ios: {
     supportsTablet: true,
     bundleIdentifier: "com.mananchopra.genedex",
