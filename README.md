@@ -10,13 +10,17 @@ During my three years of research at UCSD, we were frequently dealing with a mes
 
 I also developed this app to further my experience in React, specifically with react-native and mobile development as well as Typescript.
 
-## Using the App
+## Download now on the Apple App Store
 
-The app is currently in development and will be available on the App store and Google Play store soon. For now, if you want to try it out you can follow the steps below to run the app locally.
+You can download the app now on the Apple app store in most countries. Android coming soon! 
 
-### Setting up the Expo Project
+<a href="https://apps.apple.com/us/app/genedex/id6746354391?itscg=30200&itsct=apps_box_badge&mttnsubad=6746354391" style="display: inline-block;">
+<img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us?releaseDate=1748304000" alt="Download on the App Store" style="width: 123px; height: 41px; vertical-align: middle; object-fit: contain;" />
+</a>
 
-The recommended way to get the app up and running is using Expo.
+## Run Genedex Locally with Expo
+
+If you are interested in running the app locally, the recommended way to get the app up and running is using Expo. You will need either an iOS device (iPhone or iPad) or an iOS simulator using Xcode.
 
 1. Install Expo CLI
 
@@ -39,7 +43,7 @@ The recommended way to get the app up and running is using Expo.
    npx expo start
    ```
 
-4. Install Expo Go on your phone to use the app (iOS or Android) and scan the QR code shown by the previous command. If you are having trouble connecting, try using `npx expo start -- --tunnel` instead.
+4. Install Expo Go on your phone to use the app and scan the QR code shown by the previous command. If you are having trouble connecting, try using `npx expo start -- --tunnel` instead.
 
 ## Data Disclaimer
 
